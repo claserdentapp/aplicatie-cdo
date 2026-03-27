@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Dental Lab App - Ghid de Instalare & Administrare
 
-## Getting Started
+Acesta este ghidul oficial pentru instalarea aplicației de management B2B pentru laboratoare de tehnică dentară, folosind stiva tehnologică modernă (Next.js 14 + Supabase).
 
-First, run the development server:
+## 1. Setup Bază de Date (Supabase)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+1. Creați un proiect nou în [Supabase](https://supabase.com).
+2. Intrați în panoul **SQL Editor** din Supabase.
+3. Copiați întregul cod din fișierul `supabase/schema.sql` (inclus în repository) și rulați-l (Run). Acesta va crea toate tabelele necesare (`profiles`, `orders`, `notifications` etc) alături de cele mai sigure reguli de tip RLS (Row Level Security).
+
+## 2. Crearea Sistemului de Fișiere (Storage)
+
+Pentru a permite medicilor și laboratorului să încarce fotografii sau scanări 3D (STL, OBJ):
+1. Navigați la sectiunea **Storage** din Supabase.
+2. Creați un nou Bucket denumit **EXACT** așa: `order-files`.
+3. Bifați opțiunea ca Bucket-ul să fie **Privat** (debifați `Public`).
+*(Politicile de acces au fost deja create prin `schema.sql` astfel încât medicul X să nu poată descărca fișierele atașate la pacientul medicului Y).*
+
+## 3. Deployment & Variabile de Mediu (Vercel)
+
+1. Faceți un cont nou pe [Vercel](https://vercel.com/) și importați acest Repository (din contul dvs. GitHub).
+2. La pasul de configurare environment vă recomandăm să creați un fișier de tip "Environment Variables". Introduceți câmpurile:
+   - `NEXT_PUBLIC_SUPABASE_URL` -> *(luat din Supabase -> Project Settings -> API)*
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY` -> *(luat din Supabase -> Project Settings -> API)*
+   - `NEXT_PUBLIC_LAB_NAME` -> *(opțional - doar dacă aplicația a fost convertită să-ți reflecte propriul brand dinamic)*
+3. Apăsați **Deploy**.
+
+## 4. Bootstrapping (Cum devin Primul Administrator)
+
+Inițial, baza de date tratează toți utilizatorii care își fac cont la fel (Medic). Pentru a deveni Stăpân pe Laborator (rol de `admin`):
+1. Caută link-ul proaspăt generat de Vercel.
+2. Intră pe pagina de Register (`[url-ul-tau]/register`) și creează-ți propriul cont cu adresa ta de email și o parolă.
+3. Întoarce-te în Supabase, în secțiunea **SQL Editor** și generează un Query cu următorul text, înlocuind cu adresa ta de email cu care tocmai te-ai înregistrat:
+
+```sql
+UPDATE public.profiles 
+SET rol = 'admin' 
+WHERE id = (SELECT id FROM auth.users WHERE email = 'adresa.ta@laboratortau.ro');
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Apasă **Run**. 
+5. Dă Refresh paginii web! Acum vei avea acces direct în portalul de _Admin_ cu putere absolută peste setarea prețurilor, vizualizarea pacienților din tot sistemul și emiterea avizelor!
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+*Pentru orice ajustare suplimentară sau integrare cu alte servicii cloud, se pot configura API routes în `src/app/api/`.*
