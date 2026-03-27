@@ -34,9 +34,11 @@ export default async function Nav() {
   // Find out role to determine dashboard link
   const { data: profile } = await supabase
     .from("profiles")
-    .select("rol")
+    .select("rol, nume_doctor, nume_clinica")
     .eq("id", user.id)
     .maybeSingle();
+
+  const displayName = profile?.nume_clinica || profile?.nume_doctor || user.email;
 
   const role = profile?.rol ?? "medic";
   const dashLink = role === "admin" ? "/admin" : "/medic";
@@ -67,8 +69,8 @@ export default async function Nav() {
         </div>
 
         <div className="flex items-center gap-4">
-          <span className="text-sm text-muted-foreground hidden lg:inline-block">
-            {user.email}
+          <span className="text-sm font-semibold text-foreground hidden lg:inline-block">
+            {displayName}
           </span>
           <Link href={profilLink} className="text-muted-foreground hover:text-primary transition-colors">
             <UserCircle className="w-5 h-5" />
