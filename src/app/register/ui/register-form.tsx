@@ -19,6 +19,7 @@ export default function RegisterForm() {
   const [numeDoctor, setNumeDoctor] = useState("");
   const [numeClinica, setNumeClinica] = useState("");
   const [telefon, setTelefon] = useState("");
+  const [rol, setRol] = useState<"medic" | "laborator_partener">("medic");
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -35,7 +36,7 @@ export default function RegisterForm() {
           nume_doctor: numeDoctor,
           nume_clinica: numeClinica,
           telefon,
-          rol: "medic",
+          rol,
         },
       },
     });
@@ -53,7 +54,22 @@ export default function RegisterForm() {
   return (
     <form className="space-y-4" onSubmit={onSubmit}>
       <div className="space-y-2">
-        <Label htmlFor="numeDoctor">Nume doctor</Label>
+        <Label htmlFor="rol">Tip Cont</Label>
+        <select
+          id="rol"
+          value={rol}
+          onChange={(e) => setRol(e.target.value as any)}
+          className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          <option value="medic">Medic Dentar</option>
+          <option value="laborator_partener">Laborator Partener</option>
+        </select>
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="numeDoctor">
+          {rol === "medic" ? "Nume doctor" : "Nume reprezentant / tehnician"}
+        </Label>
         <Input
           id="numeDoctor"
           value={numeDoctor}
@@ -62,7 +78,9 @@ export default function RegisterForm() {
         />
       </div>
       <div className="space-y-2">
-        <Label htmlFor="numeClinica">Nume clinică</Label>
+        <Label htmlFor="numeClinica">
+          {rol === "medic" ? "Nume clinică" : "Nume Laborator"}
+        </Label>
         <Input
           id="numeClinica"
           value={numeClinica}

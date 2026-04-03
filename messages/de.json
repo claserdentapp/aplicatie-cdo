@@ -1,0 +1,10 @@
+{
+  "Nav": {
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "dashboard": "Dashboard",
+    "partners": "Partner",
+    "newOrder": "Neue Bestellung",
+    "logout": "Abmelden"
+  }
+}

@@ -110,7 +110,14 @@ export default function AdminOrdersTable({ initial }: { initial: AdminOrderRow[]
       .channel("admin-orders")
       .on("postgres_changes", { event: "INSERT", schema: "public", table: "orders" }, (payload) => {
         const id = (payload.new as any)?.id as string | undefined;
-        if (id) refetchOne(id).catch(() => {});
+        if (id) {
+          refetchOne(id).catch(() => {});
+          try {
+            const audio = new Audio("/notification.mp3");
+            audio.play().catch(e => console.warn("Audio auto-play prevented by browser: ", e));
+            toast.info("Comandă nouă primită!", { duration: 8000, position: "top-center" });
+          } catch (err) {}
+        }
       })
       .on("postgres_changes", { event: "UPDATE", schema: "public", table: "orders" }, (payload) => {
         const id = (payload.new as any)?.id as string | undefined;

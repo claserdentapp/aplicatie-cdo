@@ -1,9 +1,14 @@
 import Link from "next/link";
 import { UserCircle } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
+import { getLocale, getTranslations } from "next-intl/server";
+import LanguageSwitcher from "./language-switcher";
 
 export default async function Nav() {
   const supabase = await createClient();
+  const locale = await getLocale();
+  const t = await getTranslations("Nav");
+
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -16,8 +21,9 @@ export default async function Nav() {
             {process.env.NEXT_PUBLIC_LAB_NAME || "Dental Lab"}
           </Link>
           <div className="flex items-center gap-4">
+            <LanguageSwitcher currentLoc={locale} />
             <Link href="/login" className="text-sm font-medium hover:underline underline-offset-4">
-              Autentificare
+              {t("login")}
             </Link>
             <Link
               href="/register"
@@ -41,8 +47,8 @@ export default async function Nav() {
   const displayName = profile?.nume_clinica || profile?.nume_doctor || user.email;
 
   const role = profile?.rol ?? "medic";
-  const dashLink = role === "admin" ? "/admin" : "/medic";
-  const profilLink = role === "admin" ? "/admin/profil" : "/medic/profil";
+  const dashLink = role === "admin" ? "/admin" : role === "laborator_partener" ? "/laborator" : "/medic";
+  const profilLink = role === "admin" ? "/admin/profil" : role === "laborator_partener" ? "/laborator/profil" : "/medic/profil";
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -65,10 +71,16 @@ export default async function Nav() {
                 Comandă Nouă
               </Link>
             ) : null}
+            {role === "laborator_partener" ? (
+              <Link href="/laborator/comanda-noua" className="hover:text-foreground transition-colors">
+                Comandă Nouă (Către CDO)
+              </Link>
+            ) : null}
           </nav>
         </div>
 
         <div className="flex items-center gap-4">
+          <LanguageSwitcher currentLoc={locale} />
           <span className="text-sm font-semibold text-foreground hidden lg:inline-block">
             {displayName}
           </span>
@@ -79,7 +91,7 @@ export default async function Nav() {
             <button
               className="text-sm font-medium text-muted-foreground hover:text-destructive hover:underline underline-offset-4 transition-colors ml-2"
             >
-              Deconectare
+              {t("logout")}
             </button>
           </form>
         </div>

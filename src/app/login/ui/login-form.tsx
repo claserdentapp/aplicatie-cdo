@@ -3,6 +3,8 @@
 import { useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
+import Cookies from "js-cookie";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -17,6 +19,7 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [rememberMe, setRememberMe] = useState(true);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -30,6 +33,12 @@ export default function LoginForm() {
     if (signInError) {
       setError(signInError.message);
       return;
+    }
+
+    if (rememberMe) {
+      Cookies.set("auto_continue", "true", { expires: 365, path: "/" });
+    } else {
+      Cookies.remove("auto_continue");
     }
 
     router.replace(next);
@@ -59,6 +68,19 @@ export default function LoginForm() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
+      </div>
+      <div className="flex items-center space-x-2 pb-2">
+        <Checkbox
+          id="remember"
+          checked={rememberMe}
+          onCheckedChange={(checked) => setRememberMe(checked as boolean)}
+        />
+        <Label
+          htmlFor="remember"
+          className="text-sm font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        >
+          Păstrează-mă conectat direct în platformă
+        </Label>
       </div>
       {error ? <p className="text-sm text-destructive">{error}</p> : null}
       <Button className="w-full" type="submit" disabled={loading}>

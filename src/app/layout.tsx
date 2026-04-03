@@ -4,6 +4,8 @@ import "./globals.css";
 
 import { Toaster } from "@/components/ui/sonner";
 import Nav from "@/components/layout/nav";
+import { NextIntlClientProvider } from 'next-intl';
+import { getLocale, getMessages } from 'next-intl/server';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,19 +22,27 @@ export const metadata: Metadata = {
   description: "Aplicație B2B dedicată laboratoarelor de tehnică dentară",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  let messages = {};
+  try {
+    messages = await getMessages();
+  } catch (err) {}
+
   return (
-    <html lang="ro">
+    <html lang={locale}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
-        <Nav />
-        <main className="flex-1 w-full">{children}</main>
-        <Toaster richColors closeButton />
+        <NextIntlClientProvider messages={messages}>
+          <Nav />
+          <main className="flex-1 w-full">{children}</main>
+          <Toaster richColors closeButton />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

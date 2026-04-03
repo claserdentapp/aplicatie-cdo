@@ -11,6 +11,7 @@ const PUBLIC_PATHS = [
 
 const ADMIN_PREFIX = "/admin";
 const MEDIC_PREFIX = "/medic";
+const LAB_PREFIX = "/laborator";
 
 function isPublicPath(pathname: string) {
   if (PUBLIC_PATHS.includes(pathname)) return true;
@@ -72,17 +73,31 @@ export async function middleware(req: NextRequest) {
     .eq("id", user.id)
     .maybeSingle();
 
-  const role = !error && profile?.rol ? (profile.rol as "admin" | "medic") : "medic";
+  const role = !error && profile?.rol ? profile.rol : "medic";
 
   if (pathname.startsWith(ADMIN_PREFIX) && role !== "admin") {
     const url = req.nextUrl.clone();
-    url.pathname = MEDIC_PREFIX;
+    url.pathname = role === "laborator_partener" ? LAB_PREFIX : MEDIC_PREFIX;
     return NextResponse.redirect(url);
   }
 
   if (pathname.startsWith(MEDIC_PREFIX) && role !== "medic" && role !== "admin") {
     const url = req.nextUrl.clone();
-    url.pathname = "/login";
+    if (role === "laborator_partener") {
+      url.pathname = LAB_PREFIX;
+    } else {
+      url.pathname = "/login";
+    }
+    return NextResponse.redirect(url);
+  }
+
+  if (pathname.startsWith(LAB_PREFIX) && role !== "laborator_partener" && role !== "admin") {
+    const url = req.nextUrl.clone();
+    if (role === "medic") {
+      url.pathname = MEDIC_PREFIX;
+    } else {
+      url.pathname = "/login";
+    }
     return NextResponse.redirect(url);
   }
 

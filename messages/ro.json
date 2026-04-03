@@ -1,0 +1,10 @@
+{
+  "Nav": {
+    "login": "Autentificare",
+    "register": "Creează cont",
+    "dashboard": "Dashboard",
+    "partners": "Parteneri",
+    "newOrder": "Comandă Nouă",
+    "logout": "Deconectare"
+  }
+}
