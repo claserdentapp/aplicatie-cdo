@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,6 +11,7 @@ import { createClient } from "@/lib/supabase/client";
 
 export default function RegisterForm() {
   const router = useRouter();
+  const t = useTranslations("Auth");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -47,28 +49,28 @@ export default function RegisterForm() {
       return;
     }
 
-    setSuccess("Cont creat. Verifică email-ul pentru confirmare, apoi autentifică-te.");
+    setSuccess(t("successReg"));
     router.refresh();
   }
 
   return (
     <form className="space-y-4" onSubmit={onSubmit}>
       <div className="space-y-2">
-        <Label htmlFor="rol">Tip Cont</Label>
+        <Label htmlFor="rol">{t("accountType")}</Label>
         <select
           id="rol"
           value={rol}
           onChange={(e) => setRol(e.target.value as any)}
           className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          <option value="medic">Medic Dentar</option>
-          <option value="laborator_partener">Laborator Partener</option>
+          <option value="medic">{t("medic")}</option>
+          <option value="laborator_partener">{t("lab")}</option>
         </select>
       </div>
 
       <div className="space-y-2">
         <Label htmlFor="numeDoctor">
-          {rol === "medic" ? "Nume doctor" : "Nume reprezentant / tehnician"}
+          {rol === "medic" ? t("doctorName") : t("repName")}
         </Label>
         <Input
           id="numeDoctor"
@@ -79,7 +81,7 @@ export default function RegisterForm() {
       </div>
       <div className="space-y-2">
         <Label htmlFor="numeClinica">
-          {rol === "medic" ? "Nume clinică" : "Nume Laborator"}
+          {rol === "medic" ? t("clinicName") : t("labName")}
         </Label>
         <Input
           id="numeClinica"
@@ -88,11 +90,11 @@ export default function RegisterForm() {
         />
       </div>
       <div className="space-y-2">
-        <Label htmlFor="telefon">Telefon</Label>
+        <Label htmlFor="telefon">{t("phone")}</Label>
         <Input id="telefon" value={telefon} onChange={(e) => setTelefon(e.target.value)} />
       </div>
       <div className="space-y-2">
-        <Label htmlFor="email">Email</Label>
+        <Label htmlFor="email">{t("email")}</Label>
         <Input
           id="email"
           type="email"
@@ -103,7 +105,7 @@ export default function RegisterForm() {
         />
       </div>
       <div className="space-y-2">
-        <Label htmlFor="password">Parolă</Label>
+        <Label htmlFor="password">{t("password")}</Label>
         <Input
           id="password"
           type="password"
@@ -116,7 +118,7 @@ export default function RegisterForm() {
       {error ? <p className="text-sm text-destructive">{error}</p> : null}
       {success ? <p className="text-sm text-emerald-600 dark:text-emerald-400">{success}</p> : null}
       <Button className="w-full" type="submit" disabled={loading}>
-        {loading ? "Se creează..." : "Creează cont"}
+        {loading ? t("creating") : t("createBtn")}
       </Button>
     </form>
   );

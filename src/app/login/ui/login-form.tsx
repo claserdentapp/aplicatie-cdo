@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import Cookies from "js-cookie";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -13,6 +14,7 @@ import { createClient } from "@/lib/supabase/client";
 export default function LoginForm() {
   const router = useRouter();
   const search = useSearchParams();
+  const t = useTranslations("Auth");
   const next = useMemo(() => search.get("next") ?? "/medic", [search]);
 
   const [email, setEmail] = useState("");
@@ -48,7 +50,7 @@ export default function LoginForm() {
   return (
     <form className="space-y-4" onSubmit={onSubmit}>
       <div className="space-y-2">
-        <Label htmlFor="email">Email</Label>
+        <Label htmlFor="email">{t("email")}</Label>
         <Input
           id="email"
           type="email"
@@ -59,7 +61,7 @@ export default function LoginForm() {
         />
       </div>
       <div className="space-y-2">
-        <Label htmlFor="password">Parolă</Label>
+        <Label htmlFor="password">{t("password")}</Label>
         <Input
           id="password"
           type="password"
@@ -79,12 +81,12 @@ export default function LoginForm() {
           htmlFor="remember"
           className="text-sm font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
         >
-          Păstrează-mă conectat direct în platformă
+          {t("rememberMe")}
         </Label>
       </div>
       {error ? <p className="text-sm text-destructive">{error}</p> : null}
       <Button className="w-full" type="submit" disabled={loading}>
-        {loading ? "Se autentifică..." : "Autentificare"}
+        {loading ? t("loggingIn") : t("loginBtn")}
       </Button>
     </form>
   );

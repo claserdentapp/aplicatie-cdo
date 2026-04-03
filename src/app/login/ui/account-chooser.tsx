@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import { useTranslations } from "next-intl";
+import { UserCircle } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -19,6 +21,7 @@ export default function AccountChooser({
 }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const t = useTranslations("Auth");
 
   async function handleContinue() {
     setLoading(true);
@@ -39,10 +42,10 @@ export default function AccountChooser({
     <div className="mx-auto flex min-h-[calc(100vh-2rem)] max-w-md items-center px-4 py-8">
       <Card className="w-full text-center">
         <CardHeader>
-          <div className="bg-primary/10 text-primary mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full text-2xl font-semibold">
-            {name.charAt(0).toUpperCase()}
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+            <UserCircle className="h-12 w-12 text-primary" />
           </div>
-          <CardTitle>Bine ai revenit!</CardTitle>
+          <CardTitle>{t("welcomeBack")}</CardTitle>
           <CardDescription className="text-lg font-medium text-foreground">
             {name}
           </CardDescription>
@@ -50,10 +53,10 @@ export default function AccountChooser({
         </CardHeader>
         <CardContent className="space-y-4">
           <Button onClick={handleContinue} className="w-full" disabled={loading}>
-            {loading ? "Se accesează..." : "Continuă cu acest cont"}
+            {loading ? t("loggingIn") : `${t("continueAs")} ${name}`}
           </Button>
           <Button onClick={handleSwitch} variant="outline" className="w-full" disabled={loading}>
-            Conectează-te cu alt cont
+            {t("switchAccount")}
           </Button>
         </CardContent>
       </Card>
