@@ -44,7 +44,15 @@ export default async function LoginPage() {
   }
 
   return (
-    <div className="mx-auto flex min-h-[calc(100vh-2rem)] max-w-md items-center px-4 py-8">
+    <div className="mx-auto flex flex-col min-h-[calc(100vh-2rem)] max-w-md justify-center px-4 py-8">
+      <div className="mb-8 flex justify-center w-full">
+        {/*
+          Imaginea brandului pentru pagina de login.
+          Recomandare: format .png sau .webp cu fundal transparent.
+          Clientul trebuie sa puna imaginea cu acest nume in folderul /public.
+        */}
+        <img src="/logo.png" alt="Brand Logo" className="h-20 w-auto object-contain" />
+      </div>
       <Card className="w-full">
         <CardHeader>
           <CardTitle>{t("titleLogin")}</CardTitle>

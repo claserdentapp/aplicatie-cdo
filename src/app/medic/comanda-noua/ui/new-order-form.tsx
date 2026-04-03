@@ -162,9 +162,9 @@ export default function NewOrderForm() {
               <SelectValue placeholder={t("materialPlaceholder")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="Zirconiu">Zirconiu</SelectItem>
-              <SelectItem value="Emax">Emax</SelectItem>
-              <SelectItem value="Metal-Ceramică">Metal-Ceramică</SelectItem>
+              <SelectItem value="Zirconiu">{t("matZirconia")}</SelectItem>
+              <SelectItem value="Emax">{t("matEmax")}</SelectItem>
+              <SelectItem value="Metal-Ceramică">{t("matMetalCeramic")}</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -219,8 +219,7 @@ export default function NewOrderForm() {
         <div className="flex items-center justify-between gap-4">
           <Label>{t("files")}</Label>
           <p className="text-xs text-muted-foreground">
-            STL: {filesSummary.stl}, OBJ: {filesSummary.obj}, Poze: {filesSummary.photo}, Altele:{" "}
-            {filesSummary.other}
+            {t("filesSummary", { stl: filesSummary.stl, obj: filesSummary.obj, photo: filesSummary.photo, other: filesSummary.other })}
           </p>
         </div>
 

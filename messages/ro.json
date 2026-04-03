@@ -72,7 +72,13 @@
     "remove": "elimină",
     "sending": "Se trimite...",
     "sendBtn": "Trimite comanda",
-    "success": "Comandă trimisă cu succes."
+    "success": "Comandă trimisă cu succes.",
+    "descNewOrder": "Completează detaliile cazului și încarcă fișierele (STL/OBJ/fotografii).",
+    "matZirconia": "Zirconiu",
+    "matEmax": "Emax",
+    "matMetalCeramic": "Metal-Ceramică",
+    "filesSummary": "STL: {stl}, OBJ: {obj}, Poze: {photo}, Altele: {other}",
+    "selectTeeth": "Selectează dinții (opțional)."
   },
   "Dashboard": {
     "medicTitle": "Portal Medic",
@@ -96,6 +102,12 @@
     "thDelivery": "Livrare est.",
     "yes": "Da",
     "no": "Nu",
-    "thLab": "Laborator"
+    "thLab": "Laborator",
+    "balance": "Balanță Generată (Total)",
+    "ordersEvaluated": "Din {count} comenzi evaluate.",
+    "activeOrders": "Comenzi în Lucru",
+    "worksWaiting": "Lucrări care așteaptă livrarea / finalizarea.",
+    "urgencies": "Urgențe Nerezolvate",
+    "needsImmediateFocus": "Care necesită focus imediat."
   }
 }

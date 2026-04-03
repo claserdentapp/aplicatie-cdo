@@ -72,7 +72,13 @@
     "remove": "entfernen",
     "sending": "Wird gesendet...",
     "sendBtn": "Bestellung aufgeben",
-    "success": "Bestellung erfolgreich übermittelt."
+    "success": "Bestellung erfolgreich übermittelt.",
+    "descNewOrder": "Füllen Sie die Falldetails aus und laden Sie die Dateien hoch (STL/OBJ/Fotos).",
+    "matZirconia": "Zirkonoxid",
+    "matEmax": "Emax",
+    "matMetalCeramic": "Metallkeramik",
+    "filesSummary": "STL: {stl}, OBJ: {obj}, Fotos: {photo}, Andere: {other}",
+    "selectTeeth": "Zähne auswählen (optional)."
   },
   "Dashboard": {
     "medicTitle": "Zahnarzt-Portal",
@@ -96,6 +102,12 @@
     "thDelivery": "Est. Lieferung",
     "yes": "Ja",
     "no": "Nein",
-    "thLab": "Labor"
+    "thLab": "Labor",
+    "balance": "Erzeugter Saldo (Gesamt)",
+    "ordersEvaluated": "Von {count} ausgewerteten Bestellungen.",
+    "activeOrders": "Laufende Bestellungen",
+    "worksWaiting": "Arbeiten warten auf Lieferung / Abschluss.",
+    "urgencies": "Ungelöste Dringlichkeiten",
+    "needsImmediateFocus": "Erfordert sofortigen Fokus."
   }
 }

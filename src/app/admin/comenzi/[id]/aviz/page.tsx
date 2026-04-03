@@ -57,7 +57,7 @@ export default async function InvoicePage({
             <p className="text-sm text-gray-500">Dată emiterii: {today}</p>
           </div>
           <div className="text-right">
-            <h2 className="text-xl font-bold text-gray-800">{process.env.NEXT_PUBLIC_LAB_NAME || "Dental Lab"}</h2>
+            <h2 className="text-xl font-bold text-gray-800">{process.env.NEXT_PUBLIC_LAB_NAME || "ClaSerDent Technology Lab"}</h2>
             <p className="text-sm text-gray-600">Strada Exemplu, Nr. 10</p>
             <p className="text-sm text-gray-600">CIF: RO12345678</p>
             <p className="text-sm text-gray-600">contact@cdolab.ro</p>
@@ -115,7 +115,7 @@ export default async function InvoicePage({
 
         {/* Footer */}
         <div className="mt-16 pt-8 border-t text-sm text-gray-500 text-center">
-          <p>Acest aviz ține loc de bon de plată / livrare pentru lucrarea protetică. Document emis generat automat prin portalul digital {process.env.NEXT_PUBLIC_LAB_NAME || "Laborator Dental"}.</p>
+          <p>Acest aviz ține loc de bon de plată / livrare pentru lucrarea protetică. Document emis generat automat prin portalul digital {process.env.NEXT_PUBLIC_LAB_NAME || "ClaSerDent Technology Lab"}.</p>
         </div>
       </div>
     </div>

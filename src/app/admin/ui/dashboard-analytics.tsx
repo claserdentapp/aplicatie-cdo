@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 import { Activity, CircleDollarSign, AlertTriangle } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AdminOrderRow } from "./admin-orders-table";
 
@@ -34,43 +35,45 @@ export default function DashboardAnalytics({ orders }: { orders: AdminOrderRow[]
     return { active, revenue, urgencies };
   }, [orders]);
 
+  const t = useTranslations("Dashboard");
+
   return (
     <div className="grid gap-4 md:grid-cols-3 mb-6">
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Balanță Generată (Total)</CardTitle>
+          <CardTitle className="text-sm font-medium">{t("balance")}</CardTitle>
           <CircleDollarSign className="h-4 w-4 text-emerald-500" />
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">{analytics.revenue.toFixed(2)} RON</div>
           <p className="text-xs text-muted-foreground pt-1">
-            Din {orders.filter(o => o.pret !== null && o.status !== "anulat").length} comenzi evaluate.
+            {t("ordersEvaluated", { count: orders.filter((o) => o.pret !== null && o.status !== "anulat").length })}
           </p>
         </CardContent>
       </Card>
 
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Comenzi în Lucru</CardTitle>
+          <CardTitle className="text-sm font-medium">{t("activeOrders")}</CardTitle>
           <Activity className="h-4 w-4 text-primary" />
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">{analytics.active}</div>
           <p className="text-xs text-muted-foreground pt-1">
-            Lucrări care așteaptă livrarea / finalizarea.
+            {t("worksWaiting")}
           </p>
         </CardContent>
       </Card>
 
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Urgențe Nerezolvate</CardTitle>
+          <CardTitle className="text-sm font-medium">{t("urgencies")}</CardTitle>
           <AlertTriangle className="h-4 w-4 text-destructive" />
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">{analytics.urgencies}</div>
           <p className="text-xs text-muted-foreground pt-1">
-            Care necesită focus imediat.
+            {t("needsImmediateFocus")}
           </p>
         </CardContent>
       </Card>

@@ -72,7 +72,13 @@
     "remove": "remove",
     "sending": "Sending...",
     "sendBtn": "Submit order",
-    "success": "Order submitted successfully."
+    "success": "Order submitted successfully.",
+    "descNewOrder": "Fill in the case details and upload the files (STL/OBJ/photos).",
+    "matZirconia": "Zirconia",
+    "matEmax": "Emax",
+    "matMetalCeramic": "Metal-Ceramic",
+    "filesSummary": "STL: {stl}, OBJ: {obj}, Photos: {photo}, Other: {other}",
+    "selectTeeth": "Select teeth (optional)."
   },
   "Dashboard": {
     "medicTitle": "Dentist Portal",
@@ -96,6 +102,12 @@
     "thDelivery": "Est. Delivery",
     "yes": "Yes",
     "no": "No",
-    "thLab": "Laboratory"
+    "thLab": "Laboratory",
+    "balance": "Generated Balance (Total)",
+    "ordersEvaluated": "From {count} evaluated orders.",
+    "activeOrders": "Orders In Progress",
+    "worksWaiting": "Works waiting for delivery / completion.",
+    "urgencies": "Unresolved Urgencies",
+    "needsImmediateFocus": "Requires immediate focus."
   }
 }

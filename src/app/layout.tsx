@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: `${process.env.NEXT_PUBLIC_LAB_NAME || "Dental Lab"} | Portal`,
+  title: `${process.env.NEXT_PUBLIC_LAB_NAME || "ClaSerDent Technology Lab"} | Portal`,
   description: "Aplicație B2B dedicată laboratoarelor de tehnică dentară",
 };
 

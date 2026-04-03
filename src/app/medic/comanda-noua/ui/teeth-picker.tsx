@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 
+import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
 
 // Minimal FDI picker (adult teeth), stored as string[].
@@ -19,6 +20,7 @@ export default function TeethPicker({
   value: string[];
   onChange: (next: string[]) => void;
 }) {
+  const t = useTranslations("Order");
   const selected = useMemo(() => new Set(value), [value]);
 
   function toggle(tooth: string) {
@@ -63,7 +65,7 @@ export default function TeethPicker({
             </Badge>
           ))
         ) : (
-          <p className="text-sm text-muted-foreground">Selectează dinții (opțional).</p>
+          <p className="text-sm text-muted-foreground">{t("selectTeeth")}</p>
         )}
       </div>
     </div>
