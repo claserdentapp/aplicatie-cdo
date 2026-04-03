@@ -12,15 +12,7 @@ export default function Home() {
       {/* Hero Section */}
       <div className="mx-auto max-w-7xl px-6 pb-24 pt-32 sm:pt-40 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <div className="mb-8 flex justify-center">
-            <span className="relative rounded-full px-3 py-1 text-sm leading-6 text-muted-foreground ring-1 ring-border hover:ring-primary transition-colors">
-              {t("badge")}{" "}
-              <Link href="/register" className="font-semibold text-primary">
-                <span className="absolute inset-0" aria-hidden="true" />
-                {t("enroll")} <span aria-hidden="true">&rarr;</span>
-              </Link>
-            </span>
-          </div>
+
           <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-6xl text-balance">
             {t("title1")} <span className="text-primary">{t("title2")}</span>
           </h1>
