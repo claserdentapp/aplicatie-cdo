@@ -6,5 +6,20 @@
     "partners": "Partner",
     "newOrder": "Neue Bestellung",
     "logout": "Abmelden"
+  },
+  "Home": {
+    "badge": "Die Nr. 1 Plattform für Ihr zahntechnisches Labor.",
+    "enroll": "Jetzt anmelden",
+    "title1": "Maximale Effizienz für Ihre",
+    "title2": "prothetischen Arbeiten",
+    "desc": "Verbinden Sie die Zahnarztpraxis mit dem zahntechnischen Labor. Verwalten Sie Bestellungen, verfolgen Sie den Status in Echtzeit und übertragen Sie STL-Dateien sicher.",
+    "createAccountBtn": "Kostenloses Konto erstellen",
+    "loginBtn": "Einloggen",
+    "f1Title": "Echtzeit-Status",
+    "f1Desc": "Sehen Sie sofort, ob sich Ihre Arbeit im Design, beim Fräsen oder auf dem Weg zur Klinik befindet. Sofortige Benachrichtigungen.",
+    "f2Title": "Sichere Übertragung (GDPR)",
+    "f2Desc": "Alle medizinischen Daten, intraoralen Dateien (.stl, .obj) und Patientenbilder werden vollständig sicher gespeichert.",
+    "f3Title": "Absolute Präzision",
+    "f3Desc": "Senden Sie präzise Anweisungen an das Labor durch integrierte Zahndiagramme und direkte Nachrichtenunterstützung."
   }
 }

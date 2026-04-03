@@ -6,5 +6,20 @@
     "partners": "Partners",
     "newOrder": "New Order",
     "logout": "Log out"
+  },
+  "Home": {
+    "badge": "The #1 platform for your dental lab.",
+    "enroll": "Enroll now",
+    "title1": "Maximum efficiency for your",
+    "title2": "prosthetic works",
+    "desc": "Connect the dental clinic with the dental laboratory. Manage orders, track status in real-time, and securely transfer STL files.",
+    "createAccountBtn": "Create free account",
+    "loginBtn": "Log in",
+    "f1Title": "Real-Time Status",
+    "f1Desc": "See immediately if your work is at design, milling, or heading to the clinic. Instant notifications.",
+    "f2Title": "Secure Transfer (GDPR)",
+    "f2Desc": "All medical data, intraoral files (.stl, .obj), and patient images are stored completely securely.",
+    "f3Title": "Absolute Precision",
+    "f3Desc": "Send precise instructions to the lab through integrated dental diagrams and direct messaging support."
   }
 }

@@ -6,5 +6,20 @@
     "partners": "Parteneri",
     "newOrder": "Comandă Nouă",
     "logout": "Deconectare"
+  },
+  "Home": {
+    "badge": "Platforma nr. 1 pentru laboratorul tău.",
+    "enroll": "Înscrie-te acum",
+    "title1": "Eficiență maximă pentru lucrările tale",
+    "title2": "protetice",
+    "desc": "Conectează clinica stomatologică cu laboratorul de tehnică dentară. Gestionează comenzile, urmărește statusul în timp real și transferă fișiere STL în siguranță.",
+    "createAccountBtn": "Creează cont gratuit",
+    "loginBtn": "Intră în cont",
+    "f1Title": "Status în Timp Real",
+    "f1Desc": "Vezi imediat dacă lucrarea ta este la design, frezare sau dacă se îndreaptă spre clinică. Notificări instant.",
+    "f2Title": "Transfer Sigur (GDPR)",
+    "f2Desc": "Toate datele medicale, fișierele intraorale (.stl, .obj) și imaginile pacienților sunt stocate în mod complet securizat.",
+    "f3Title": "Precizie Absolută",
+    "f3Desc": "Trimite instrucțiuni precise laboratorului prin diagrame dentare integrate și suport direct de mesagerie pe lucrare."
   }
 }

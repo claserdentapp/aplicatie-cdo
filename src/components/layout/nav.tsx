@@ -29,7 +29,7 @@ export default async function Nav() {
               href="/register"
               className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
             >
-              Creează cont
+              {t("register")}
             </Link>
           </div>
         </div>
@@ -59,21 +59,21 @@ export default async function Nav() {
           </Link>
           <nav className="hidden md:flex items-center gap-4 text-sm font-medium text-muted-foreground">
             <Link href={dashLink} className="hover:text-foreground transition-colors">
-              Dashboard
+              {t("dashboard")}
             </Link>
             {role === "admin" ? (
               <Link href="/admin/medici" className="hover:text-foreground transition-colors">
-                Parteneri
+                {t("partners")}
               </Link>
             ) : null}
             {role === "medic" ? (
               <Link href="/medic/comanda-noua" className="hover:text-foreground transition-colors">
-                Comandă Nouă
+                {t("newOrder")}
               </Link>
             ) : null}
             {role === "laborator_partener" ? (
               <Link href="/laborator/comanda-noua" className="hover:text-foreground transition-colors">
-                Comandă Nouă (Către CDO)
+                {t("newOrder")}
               </Link>
             ) : null}
           </nav>
