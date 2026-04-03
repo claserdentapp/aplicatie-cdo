@@ -51,7 +51,7 @@ export default async function LoginPage() {
           Recomandare: format .png sau .webp cu fundal transparent.
           Clientul trebuie sa puna imaginea cu acest nume in folderul /public.
         */}
-        <img src="/logo.png" alt="Brand Logo" className="h-20 w-auto object-contain" />
+        <img src="/logo.png" alt="Brand Logo" className="max-h-40 w-auto object-contain drop-shadow-md" />
       </div>
       <Card className="w-full">
         <CardHeader>

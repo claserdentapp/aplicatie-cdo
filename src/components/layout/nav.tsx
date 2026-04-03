@@ -16,19 +16,19 @@ export default async function Nav() {
   if (!user) {
     return (
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container mx-auto flex h-14 items-center justify-between px-4 sm:px-8">
-          <Link href="/" className="font-bold tracking-tight text-primary flex items-center gap-2">
-            <img src="/logo.png" alt="Logo" className="h-6 w-auto object-contain" />
+        <div className="container mx-auto flex h-20 items-center justify-between px-4 sm:px-8">
+          <Link href="/" className="text-xl font-bold tracking-tight text-primary flex items-center gap-3">
+            <img src="/logo.png" alt="Logo" className="h-12 w-auto object-contain" />
             {process.env.NEXT_PUBLIC_LAB_NAME || "ClaSerDent Technology Lab"}
           </Link>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-6">
             <LanguageSwitcher currentLoc={locale} />
-            <Link href="/login" className="text-base font-medium hover:underline underline-offset-4 px-4 py-2">
+            <Link href="/login" className="text-lg font-medium hover:underline underline-offset-4 px-4 py-2">
               {t("login")}
             </Link>
             <Link
               href="/register"
-              className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-6 text-base font-semibold text-primary-foreground transition-all hover:bg-primary/90 shadow-sm hover:scale-105"
+              className="inline-flex h-12 items-center justify-center rounded-md bg-primary px-8 text-lg font-semibold text-primary-foreground transition-all hover:bg-primary/90 shadow-sm hover:scale-105"
             >
               {t("register")}
             </Link>
@@ -53,13 +53,13 @@ export default async function Nav() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto flex h-14 items-center justify-between px-4 sm:px-8">
-        <div className="flex items-center gap-6">
-          <Link href={dashLink} className="font-bold tracking-tight text-primary flex items-center gap-2">
-            <img src="/logo.png" alt="Logo" className="h-6 w-auto object-contain" />
+      <div className="container mx-auto flex h-20 items-center justify-between px-4 sm:px-8">
+        <div className="flex items-center gap-8">
+          <Link href={dashLink} className="text-xl font-bold tracking-tight text-primary flex items-center gap-3">
+            <img src="/logo.png" alt="Logo" className="h-12 w-auto object-contain" />
             {process.env.NEXT_PUBLIC_LAB_NAME || "ClaSerDent Technology Lab"}
           </Link>
-          <nav className="hidden md:flex items-center gap-4 text-sm font-medium text-muted-foreground">
+          <nav className="hidden md:flex items-center gap-6 text-base font-medium text-muted-foreground">
             <Link href={dashLink} className="hover:text-foreground transition-colors">
               {t("dashboard")}
             </Link>
@@ -81,17 +81,17 @@ export default async function Nav() {
           </nav>
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-6">
           <LanguageSwitcher currentLoc={locale} />
-          <span className="text-sm font-semibold text-foreground hidden lg:inline-block">
+          <span className="text-base font-semibold text-foreground hidden lg:inline-block">
             {displayName}
           </span>
           <Link href={profilLink} className="text-muted-foreground hover:text-primary transition-colors">
-            <UserCircle className="w-5 h-5" />
+            <UserCircle className="w-6 h-6" />
           </Link>
           <form action="/auth/signout" method="POST">
             <button
-              className="text-sm font-medium text-muted-foreground hover:text-destructive hover:underline underline-offset-4 transition-colors ml-2"
+              className="text-base font-medium text-muted-foreground hover:text-destructive hover:underline underline-offset-4 transition-colors ml-2"
             >
               {t("logout")}
             </button>
