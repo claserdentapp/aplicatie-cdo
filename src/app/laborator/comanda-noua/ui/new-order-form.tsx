@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 import { Input } from "@/components/ui/input";
@@ -30,6 +31,7 @@ function classifyFile(file: File): UploadItem["type"] {
 
 export default function NewOrderForm() {
   const router = useRouter();
+  const t = useTranslations("Order");
 
   const [numeLaborator, setNumeLaborator] = useState("");
   const [numePacient, setNumePacient] = useState("");
@@ -147,7 +149,7 @@ export default function NewOrderForm() {
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="numePacient">Nume pacient</Label>
+          <Label htmlFor="numePacient">{t("patientName")}</Label>
           <Input
             id="numePacient"
             value={numePacient}
@@ -156,23 +158,23 @@ export default function NewOrderForm() {
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="tipLucrare">Tip lucrare</Label>
+          <Label htmlFor="tipLucrare">{t("workType")}</Label>
           <Input
             id="tipLucrare"
-            placeholder="Ex: Coroană, fațetă, punte, inlay/onlay..."
+            placeholder={t("workTypePlaceholder")}
             value={tipLucrare}
             onChange={(e) => setTipLucrare(e.target.value)}
             required
           />
         </div>
         <div className="space-y-2">
-          <Label>Material</Label>
+          <Label>{t("material")}</Label>
           <Select
             value={material ?? null}
             onValueChange={(v) => setMaterial(v ?? undefined)}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Selectează material" />
+              <SelectValue placeholder={t("materialPlaceholder")} />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="Zirconiu">Zirconiu</SelectItem>
@@ -182,28 +184,28 @@ export default function NewOrderForm() {
           </Select>
         </div>
         <div className="space-y-2">
-          <Label htmlFor="culoareVita">Culoare VITA</Label>
+          <Label htmlFor="culoareVita">{t("color")}</Label>
           <Input
             id="culoareVita"
-            placeholder="Ex: A1, A2, B1..."
+            placeholder={t("colorPlaceholder")}
             value={culoareVita}
             onChange={(e) => setCuloareVita(e.target.value)}
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="numarElemente">Numărul de elemente din lucrare</Label>
+          <Label htmlFor="numarElemente">{t("elementsCount")}</Label>
           <Input
             id="numarElemente"
             type="number"
             min="1"
-            placeholder="Ex: 5"
+            placeholder={t("elementsPlaceholder")}
             value={numarElemente}
             onChange={(e) => setNumarElemente(e.target.value)}
             required
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="dataLivrare">Data livrare estimată</Label>
+          <Label htmlFor="dataLivrare">{t("dueDate")}</Label>
           <Input
             id="dataLivrare"
             type="date"
@@ -219,21 +221,21 @@ export default function NewOrderForm() {
               onChange={(e) => setUrgenta(e.target.checked)}
               className="h-4 w-4 accent-primary"
             />
-            Urgență
+            {t("urgent")}
           </label>
         </div>
       </div>
 
       <div className="space-y-2">
-        <Label>Diagramă dentară (FDI)</Label>
+        <Label>{t("teethDiagram")}</Label>
         <TeethPicker value={dinti} onChange={setDinti} />
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="instructiuni">Instrucțiuni specifice</Label>
+        <Label htmlFor="instructiuni">{t("instructions")}</Label>
         <Textarea
           id="instructiuni"
-          placeholder="Margini, contact proximal, ocluzie, cimentare, preferințe..."
+          placeholder={t("instructionsPlaceholder")}
           value={instructiuni}
           onChange={(e) => setInstructiuni(e.target.value)}
           rows={6}
@@ -242,7 +244,7 @@ export default function NewOrderForm() {
 
       <div className="space-y-3">
         <div className="flex items-center justify-between gap-4">
-          <Label>Fișiere (STL/OBJ/fotografii)</Label>
+          <Label>{t("files")}</Label>
           <p className="text-xs text-muted-foreground">
             STL: {filesSummary.stl}, OBJ: {filesSummary.obj}, Poze: {filesSummary.photo}, Altele:{" "}
             {filesSummary.other}
@@ -259,7 +261,7 @@ export default function NewOrderForm() {
         >
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-sm text-muted-foreground">
-              Trage fișiere aici sau selectează din calculator.
+              {t("dragFiles")}
             </p>
             <Input
               type="file"
@@ -280,7 +282,7 @@ export default function NewOrderForm() {
                     className="text-xs text-muted-foreground underline underline-offset-4 hover:text-foreground"
                     onClick={() => setFiles((prev) => prev.filter((_, i) => i !== idx))}
                   >
-                    elimină
+                    {t("remove")}
                   </button>
                 </li>
               ))}
@@ -291,7 +293,7 @@ export default function NewOrderForm() {
 
       <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
         <Button type="submit" disabled={submitting}>
-          {submitting ? "Se trimite..." : "Trimite comanda"}
+          {submitting ? t("sending") : t("sendBtn")}
         </Button>
       </div>
     </form>
