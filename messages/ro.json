@@ -73,5 +73,29 @@
     "sending": "Se trimite...",
     "sendBtn": "Trimite comanda",
     "success": "Comandă trimisă cu succes."
+  },
+  "Dashboard": {
+    "medicTitle": "Portal Medic",
+    "medicDesc": "Comenzi în lucru și finalizate.",
+    "labTitle": "Portal Laborator",
+    "labDesc": "Comenzi primite de la medici parteneri.",
+    "notifications": "Notificări",
+    "newOrderBtn": "Comandă nouă",
+    "recentOrders": "Comenzi recente",
+    "limit50": "Primele 50 comenzi (RLS: vezi doar comenzile tale).",
+    "noOrders": "Nu ai comenzi încă. Apasă „Comandă nouă”.",
+    "tabInProgress": "În lucru",
+    "tabDone": "Finalizate",
+    "tabAll": "Istoric Complet",
+    "thPatient": "Pacient",
+    "thWork": "Lucrare",
+    "thMaterial": "Material",
+    "thStatus": "Status",
+    "thCost": "Cost",
+    "thUrgent": "Urgență",
+    "thDelivery": "Livrare est.",
+    "yes": "Da",
+    "no": "Nu",
+    "thLab": "Laborator"
   }
 }

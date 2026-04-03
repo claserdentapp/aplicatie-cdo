@@ -73,5 +73,29 @@
     "sending": "Sending...",
     "sendBtn": "Submit order",
     "success": "Order submitted successfully."
+  },
+  "Dashboard": {
+    "medicTitle": "Dentist Portal",
+    "medicDesc": "Orders in progress and completed.",
+    "labTitle": "Laboratory Portal",
+    "labDesc": "Orders received from partner dentists.",
+    "notifications": "Notifications",
+    "newOrderBtn": "New Order",
+    "recentOrders": "Recent Orders",
+    "limit50": "First 50 orders (RLS: showing your orders).",
+    "noOrders": "No orders yet. Click 'New Order'.",
+    "tabInProgress": "In Progress",
+    "tabDone": "Completed",
+    "tabAll": "Full History",
+    "thPatient": "Patient",
+    "thWork": "Work Type",
+    "thMaterial": "Material",
+    "thStatus": "Status",
+    "thCost": "Cost",
+    "thUrgent": "Urgent",
+    "thDelivery": "Est. Delivery",
+    "yes": "Yes",
+    "no": "No",
+    "thLab": "Laboratory"
   }
 }

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -30,6 +31,7 @@ export default function MedicOrdersTable({
   initial: MedicOrderRow[];
 }) {
   const [rows, setRows] = useState<MedicOrderRow[]>(initial);
+  const t = useTranslations("Dashboard");
   const [activeTab, setActiveTab] = useState("in_lucru"); // "toate", "in_lucru", "gata"
 
   const sorted = useMemo(() => {
@@ -82,9 +84,9 @@ export default function MedicOrdersTable({
     <div className="space-y-6">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="grid w-full grid-cols-3 max-w-md">
-          <TabsTrigger value="in_lucru">Spre Laborator</TabsTrigger>
-          <TabsTrigger value="gata">Finalizate</TabsTrigger>
-          <TabsTrigger value="toate">Istoric Complet</TabsTrigger>
+          <TabsTrigger value="in_lucru">{t("tabInProgress")}</TabsTrigger>
+          <TabsTrigger value="gata">{t("tabDone")}</TabsTrigger>
+          <TabsTrigger value="toate">{t("tabAll")}</TabsTrigger>
         </TabsList>
       </Tabs>
 
@@ -92,13 +94,13 @@ export default function MedicOrdersTable({
         <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Pacient</TableHead>
-            <TableHead>Lucrare</TableHead>
-            <TableHead>Material</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Cost</TableHead>
-            <TableHead>Urgență</TableHead>
-            <TableHead>Livrare est.</TableHead>
+            <TableHead>{t("thPatient")}</TableHead>
+            <TableHead>{t("thWork")}</TableHead>
+            <TableHead>{t("thMaterial")}</TableHead>
+            <TableHead>{t("thStatus")}</TableHead>
+            <TableHead>{t("thCost")}</TableHead>
+            <TableHead>{t("thUrgent")}</TableHead>
+            <TableHead>{t("thDelivery")}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -121,14 +123,14 @@ export default function MedicOrdersTable({
                   <span className="text-muted-foreground italic text-xs">-</span>
                 )}
               </TableCell>
-              <TableCell>{o.urgenta ? <Badge variant="destructive">Da</Badge> : "Nu"}</TableCell>
+              <TableCell>{o.urgenta ? <Badge variant="destructive">{t("yes")}</Badge> : t("no")}</TableCell>
               <TableCell>{o.data_livrare_estimata ?? "-"}</TableCell>
             </TableRow>
           ))}
           {!sorted.length ? (
             <TableRow>
               <TableCell colSpan={7} className="py-8 text-center text-sm text-muted-foreground">
-                Nu ai comenzi încă. Apasă „Comandă nouă”.
+                {t("noOrders")}
               </TableCell>
             </TableRow>
           ) : null}

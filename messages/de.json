@@ -73,5 +73,29 @@
     "sending": "Wird gesendet...",
     "sendBtn": "Bestellung aufgeben",
     "success": "Bestellung erfolgreich übermittelt."
+  },
+  "Dashboard": {
+    "medicTitle": "Zahnarzt-Portal",
+    "medicDesc": "Laufende und abgeschlossene Bestellungen.",
+    "labTitle": "Labor-Portal",
+    "labDesc": "Bestellungen von Partner-Zahnärzten.",
+    "notifications": "Benachrichtigungen",
+    "newOrderBtn": "Neue Bestellung",
+    "recentOrders": "Aktuelle Bestellungen",
+    "limit50": "Erste 50 Bestellungen.",
+    "noOrders": "Noch keine Bestellungen. 'Neue Bestellung' klicken.",
+    "tabInProgress": "In Bearbeitung",
+    "tabDone": "Abgeschlossen",
+    "tabAll": "Gesamte Historie",
+    "thPatient": "Patient",
+    "thWork": "Arbeit",
+    "thMaterial": "Material",
+    "thStatus": "Status",
+    "thCost": "Kosten",
+    "thUrgent": "Dringend",
+    "thDelivery": "Est. Lieferung",
+    "yes": "Ja",
+    "no": "Nein",
+    "thLab": "Labor"
   }
 }
