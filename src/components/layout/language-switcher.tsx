@@ -26,7 +26,7 @@ export default function LanguageSwitcher({ currentLoc }: { currentLoc: string })
 
   return (
     <Select
-      defaultValue={currentLoc}
+      value={currentLoc}
       onValueChange={onSelectChange}
       disabled={isPending}
     >
