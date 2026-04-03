@@ -4,12 +4,14 @@ import Link from "next/link";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { createClient } from "@/lib/supabase/server";
+import { getTranslations } from "next-intl/server";
 
 import LoginForm from "./ui/login-form";
 import AccountChooser from "./ui/account-chooser";
 
 export default async function LoginPage() {
   const supabase = await createClient();
+  const t = await getTranslations("Auth");
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -45,22 +47,22 @@ export default async function LoginPage() {
     <div className="mx-auto flex min-h-[calc(100vh-2rem)] max-w-md items-center px-4 py-8">
       <Card className="w-full">
         <CardHeader>
-          <CardTitle>Autentificare</CardTitle>
-          <CardDescription>Accesează portalul laboratorului dentar.</CardDescription>
+          <CardTitle>{t("titleLogin")}</CardTitle>
+          <CardDescription>{t("descLogin")}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <LoginForm />
           <div className="flex flex-col gap-2">
             <p className="text-sm text-muted-foreground">
-              Nu ai cont?{" "}
+              {t("noAccount")}{" "}
               <Link className="text-foreground underline underline-offset-4" href="/register">
-                Creează cont
+                {t("registerLink")}
               </Link>
             </p>
             <p className="text-sm text-muted-foreground">
-              Ai uitat parola?{" "}
+              {t("forgotPasswordQ")}{" "}
               <Link className="text-foreground underline underline-offset-4" href="/forgot-password">
-                Recuperează aici
+                {t("forgotPasswordLink")}
               </Link>
             </p>
           </div>

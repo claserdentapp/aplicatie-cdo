@@ -41,7 +41,16 @@
     "rememberMe": "Păstrează-mă conectat direct în platformă",
     "welcomeBack": "Bine ai revenit",
     "continueAs": "Continuă ca",
-    "switchAccount": "Schimbă Contul"
+    "switchAccount": "Schimbă Contul",
+    "titleRegister": "Creare cont",
+    "descRegister": "Cont nou pentru medic (clinică).",
+    "alreadyHaveAccount": "Ai deja cont?",
+    "titleLogin": "Autentificare",
+    "descLogin": "Accesează portalul laboratorului dentar.",
+    "noAccount": "Nu ai cont?",
+    "forgotPasswordQ": "Ai uitat parola?",
+    "forgotPasswordLink": "Recuperează aici",
+    "registerLink": "Creează cont"
   },
   "Order": {
     "patientName": "Nume pacient",

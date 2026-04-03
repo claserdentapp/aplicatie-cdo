@@ -41,7 +41,16 @@
     "rememberMe": "Halte mich direkt auf der Plattform eingeloggt",
     "welcomeBack": "Willkommen zurück",
     "continueAs": "Fortfahren als",
-    "switchAccount": "Konto wechseln"
+    "switchAccount": "Konto wechseln",
+    "titleRegister": "Konto erstellen",
+    "descRegister": "Neues Konto für Zahnärzte.",
+    "alreadyHaveAccount": "Haben Sie bereits ein Konto?",
+    "titleLogin": "Einloggen",
+    "descLogin": "Greifen Sie auf das Dentallabor-Portal zu.",
+    "noAccount": "Kein Konto?",
+    "forgotPasswordQ": "Passwort vergessen?",
+    "forgotPasswordLink": "Hier wiederherstellen",
+    "registerLink": "Registrieren"
   },
   "Order": {
     "patientName": "Patientenname",

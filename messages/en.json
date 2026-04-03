@@ -41,7 +41,16 @@
     "rememberMe": "Keep me straight logged into the platform",
     "welcomeBack": "Welcome back",
     "continueAs": "Continue as",
-    "switchAccount": "Switch Account"
+    "switchAccount": "Switch Account",
+    "titleRegister": "Create account",
+    "descRegister": "New account for dentist.",
+    "alreadyHaveAccount": "Already have an account?",
+    "titleLogin": "Log in",
+    "descLogin": "Access the dental lab portal.",
+    "noAccount": "Don't have an account?",
+    "forgotPasswordQ": "Forgot password?",
+    "forgotPasswordLink": "Recover here",
+    "registerLink": "Sign up"
   },
   "Order": {
     "patientName": "Patient name",
