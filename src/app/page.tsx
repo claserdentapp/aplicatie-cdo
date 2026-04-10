@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, Activity, ShieldCheck, Microscope } from "lucide-react";
 import { useTranslations } from "next-intl";
 
@@ -11,25 +12,36 @@ export default function Home() {
 
       {/* Hero Section */}
       <div className="mx-auto max-w-7xl px-6 pb-24 pt-32 sm:pt-40 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-
-          <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-6xl text-balance">
-            {t("title1")} <span className="text-primary">{t("title2")}</span>
-          </h1>
-          <p className="mt-6 text-lg leading-8 text-muted-foreground text-balance">
-            {t("desc")}
-          </p>
-          <div className="mt-10 flex items-center justify-center gap-x-6">
-            <Link
-              href="/register"
-              className="group inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:bg-primary/90 hover:scale-105"
-            >
-              {t("createAccountBtn")}
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-            <Link href="/login" className="text-sm font-semibold leading-6 text-foreground hover:text-primary transition-colors">
-              {t("loginBtn")} <span aria-hidden="true">→</span>
-            </Link>
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="max-w-2xl text-left">
+            <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-6xl text-balance">
+              {t("title1")} <span className="text-primary">{t("title2")}</span>
+            </h1>
+            <p className="mt-6 text-lg leading-8 text-muted-foreground text-balance">
+              {t("desc")}
+            </p>
+            <div className="mt-10 flex items-center justify-start gap-x-6">
+              <Link
+                href="/register"
+                className="group inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:bg-primary/90 hover:scale-105"
+              >
+                {t("createAccountBtn")}
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+              <Link href="/login" className="text-sm font-semibold leading-6 text-foreground hover:text-primary transition-colors">
+                {t("loginBtn")} <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+          </div>
+          <div className="relative mx-auto w-full max-w-lg lg:max-w-none transform transition-transform hover:scale-105 duration-700">
+            <Image
+              src="/hero-image.png"
+              alt="Dental Lab Platform"
+              width={800}
+              height={600}
+              className="w-full object-contain drop-shadow-2xl"
+              priority
+            />
           </div>
         </div>
       </div>

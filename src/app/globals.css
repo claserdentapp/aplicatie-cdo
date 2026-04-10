@@ -157,14 +157,18 @@
 /* Custom Utilities for Premium Vibe */
 @layer utilities {
   .bg-hero-gradient {
-    /* A subtle, premium background gradient */
-    background: radial-gradient(ellipse at top, var(--color-primary) 0%, transparent 70%);
-    opacity: 0.1;
+    background-color: #f0f8ff;
+    background-image: 
+      radial-gradient(circle at 100% 0%, rgba(193, 226, 255, 0.6) 0%, transparent 60%),
+      radial-gradient(circle at 0% 100%, rgba(204, 234, 255, 0.8) 0%, transparent 60%),
+      linear-gradient(135deg, rgba(240, 248, 255, 0.9) 0%, rgba(222, 238, 255, 0.4) 100%);
+    opacity: 1;
   }
   .glass-card {
-    background: color-mix(in srgb, var(--color-card) 60%, transparent);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid color-mix(in srgb, var(--color-border) 50%, transparent);
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 25px 50px -12px rgba(0, 90, 180, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.3) inset;
   }
 }

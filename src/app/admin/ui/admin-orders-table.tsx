@@ -113,10 +113,30 @@ export default function AdminOrdersTable({ initial }: { initial: AdminOrderRow[]
         if (id) {
           refetchOne(id).catch(() => {});
           try {
-            const audio = new Audio("/notification.mp3");
-            audio.play().catch(e => console.warn("Audio auto-play prevented by browser: ", e));
             toast.info("Comandă nouă primită!", { duration: 8000, position: "top-center" });
-          } catch (err) {}
+            
+            // Play a synthetic beep (Web Audio API) instead of relying on an external file
+            const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
+            if (ctx.state === "suspended") {
+              ctx.resume().catch(() => {}); // Try resuming, browser might block if no interaction occurred
+            }
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            
+            osc.frequency.value = 600; // Frequency in Hz
+            osc.type = "sine";
+            // Envelope
+            gain.gain.setValueAtTime(0, ctx.currentTime);
+            gain.gain.linearRampToValueAtTime(0.5, ctx.currentTime + 0.1);
+            gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
+            
+            osc.start(ctx.currentTime);
+            osc.stop(ctx.currentTime + 0.5);
+          } catch (err) {
+            console.warn("Audio Context playback failed: ", err);
+          }
         }
       })
       .on("postgres_changes", { event: "UPDATE", schema: "public", table: "orders" }, (payload) => {
