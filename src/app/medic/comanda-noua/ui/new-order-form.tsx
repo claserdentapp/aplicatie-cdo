@@ -65,7 +65,7 @@ export default function NewOrderForm() {
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!numePacient.trim() || !tipLucrare.trim()) {
-      toast.error("Completează numele pacientului și tipul lucrării.");
+      toast.error(t("errorIncomplete"));
       return;
     }
 
@@ -102,16 +102,8 @@ export default function NewOrderForm() {
 
       const orderId = order.id as string;
 
-      const { error: notifErr } = await supabase.from("notifications").insert({
-        order_id: orderId,
-        type: "comanda_noua",
-        title: "Comandă nouă",
-        body: `Lucrare nouă: ${tipLucrare.trim()} pentru ${numePacient.trim()}`
-      });
-      if (notifErr) console.error("Could not insert notification:", notifErr);
-
       if (files.length) {
-        toast.message("Se încarcă fișierele...", { description: `${files.length} fișiere` });
+        toast.message(t("uploadingFiles"), { description: `${files.length} ${t("files")}` });
       }
 
       for (const item of files) {
@@ -132,12 +124,12 @@ export default function NewOrderForm() {
         if (fileRowErr) throw fileRowErr;
       }
 
-      toast.success("Comandă trimisă cu succes.");
+      toast.success(t("success"));
       router.replace("/medic");
       router.refresh();
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "Eroare necunoscută";
-      toast.error("Nu am putut trimite comanda.", { description: message });
+      toast.error(t("errorSend"), { description: message });
     } finally {
       setSubmitting(false);
     }

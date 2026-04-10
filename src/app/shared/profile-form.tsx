@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { toast } from "sonner";
 import { Save } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -25,6 +26,7 @@ export default function ProfileForm({
   const [telefon, setTelefon] = useState(initial.telefon || "");
 
   const [saving, setSaving] = useState(false);
+  const t = useTranslations("Profile");
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -42,27 +44,27 @@ export default function ProfileForm({
 
     setSaving(false);
     if (error) {
-      toast.error("Nu am putut actualiza profilul.", { description: error.message });
+      toast.error(t("errorUpdate"), { description: error.message });
       return;
     }
-    toast.success("Profil actualizat cu succes.");
+    toast.success(t("successUpdate"));
   }
 
   return (
     <form onSubmit={onSubmit} className="space-y-6 max-w-xl">
       <div className="space-y-2">
-        <Label htmlFor="numeDoctor">Nume complet / Titlu</Label>
+        <Label htmlFor="numeDoctor">{t("doctorName")}</Label>
         <Input
           id="numeDoctor"
           value={numeDoctor}
           onChange={(e) => setNumeDoctor(e.target.value)}
           required
         />
-        <p className="text-xs text-muted-foreground">Ex: Dr. Popescu Ion</p>
+        <p className="text-xs text-muted-foreground">{t("doctorNameHint")}</p>
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="numeClinica">Nume Clinică (Opțional pt Admin)</Label>
+        <Label htmlFor="numeClinica">{t("clinicName")}</Label>
         <Input
           id="numeClinica"
           value={numeClinica}
@@ -71,7 +73,7 @@ export default function ProfileForm({
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="telefon">Telefon de Contact</Label>
+        <Label htmlFor="telefon">{t("phone")}</Label>
         <Input
           id="telefon"
           type="tel"
@@ -80,11 +82,11 @@ export default function ProfileForm({
         />
       </div>
 
-      <Button type="submit" disabled={saving} className="gap-2">
-        {saving ? "Se salvează..." : (
+      <Button type="submit" disabled={saving} className="gap-2 w-full sm:w-auto">
+        {saving ? t("saving") : (
            <>
             <Save className="w-4 h-4" />
-            Salvează Modificările
+            {t("save")}
            </>
         )}
       </Button>

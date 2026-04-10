@@ -78,7 +78,10 @@
     "matEmax": "Emax",
     "matMetalCeramic": "Metal-Ceramică",
     "filesSummary": "STL: {stl}, OBJ: {obj}, Poze: {photo}, Altele: {other}",
-    "selectTeeth": "Selectează dinții (opțional)."
+    "selectTeeth": "Selectează dinții (opțional).",
+    "errorIncomplete": "Completează numele pacientului și tipul lucrării.",
+    "uploadingFiles": "Se încarcă fișierele...",
+    "errorSend": "Nu am putut trimite comanda."
   },
   "Dashboard": {
     "medicTitle": "Portal Medic",
@@ -109,5 +112,16 @@
     "worksWaiting": "Lucrări care așteaptă livrarea / finalizarea.",
     "urgencies": "Urgențe Nerezolvate",
     "needsImmediateFocus": "Care necesită focus imediat."
+  },
+  "Profile": {
+    "title": "Informații Profil",
+    "doctorName": "Nume complet / Titlu",
+    "doctorNameHint": "Ex: Dr. Popescu Ion",
+    "clinicName": "Nume Clinică (Opțional pt Admin)",
+    "phone": "Telefon de Contact",
+    "save": "Salvează Modificările",
+    "saving": "Se salvează...",
+    "errorUpdate": "Nu am putut actualiza profilul.",
+    "successUpdate": "Profil actualizat cu succes."
   }
 }

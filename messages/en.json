@@ -78,7 +78,10 @@
     "matEmax": "Emax",
     "matMetalCeramic": "Metal-Ceramic",
     "filesSummary": "STL: {stl}, OBJ: {obj}, Photos: {photo}, Other: {other}",
-    "selectTeeth": "Select teeth (optional)."
+    "selectTeeth": "Select teeth (optional).",
+    "errorIncomplete": "Please fill in the patient name and work type.",
+    "uploadingFiles": "Uploading files...",
+    "errorSend": "Could not submit order."
   },
   "Dashboard": {
     "medicTitle": "Dentist Portal",
@@ -109,5 +112,16 @@
     "worksWaiting": "Works waiting for delivery / completion.",
     "urgencies": "Unresolved Urgencies",
     "needsImmediateFocus": "Requires immediate focus."
+  },
+  "Profile": {
+    "title": "Profile Information",
+    "doctorName": "Full Name / Title",
+    "doctorNameHint": "Ex: Dr. John Smith",
+    "clinicName": "Clinic Name (Optional for Admin)",
+    "phone": "Contact Phone",
+    "save": "Save Changes",
+    "saving": "Saving...",
+    "errorUpdate": "Could not update profile.",
+    "successUpdate": "Profile successfully updated."
   }
 }

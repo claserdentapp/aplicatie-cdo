@@ -78,7 +78,10 @@
     "matEmax": "Emax",
     "matMetalCeramic": "Metallkeramik",
     "filesSummary": "STL: {stl}, OBJ: {obj}, Fotos: {photo}, Andere: {other}",
-    "selectTeeth": "Zähne auswählen (optional)."
+    "selectTeeth": "Zähne auswählen (optional).",
+    "errorIncomplete": "Bitte füllen Sie den Patientennamen und den Arbeitstyp aus.",
+    "uploadingFiles": "Dateien hochladen...",
+    "errorSend": "Bestellung konnte nicht übermittelt werden."
   },
   "Dashboard": {
     "medicTitle": "Zahnarzt-Portal",
@@ -109,5 +112,16 @@
     "worksWaiting": "Arbeiten warten auf Lieferung / Abschluss.",
     "urgencies": "Ungelöste Dringlichkeiten",
     "needsImmediateFocus": "Erfordert sofortigen Fokus."
+  },
+  "Profile": {
+    "title": "Profilinformationen",
+    "doctorName": "Vollständiger Name / Titel",
+    "doctorNameHint": "Z.B.: Dr. Max Mustermann",
+    "clinicName": "Klinikname (Optional für Admin)",
+    "phone": "Kontakttelefon",
+    "save": "Änderungen speichern",
+    "saving": "Speichern...",
+    "errorUpdate": "Profil konnte nicht aktualisiert werden.",
+    "successUpdate": "Profil erfolgreich aktualisiert."
   }
 }
