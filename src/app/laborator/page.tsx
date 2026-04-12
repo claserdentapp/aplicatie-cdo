@@ -29,17 +29,17 @@ export default async function MedicDashboard() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">
-      <div className="mb-6 flex items-start justify-between gap-4">
+      <div className="mb-6 flex flex-col sm:flex-row sm:items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold">{t("labTitle")}</h1>
-          <p className="text-sm text-muted-foreground">{t("labDesc")}</p>
+          <h1 className="text-2xl font-semibold md:text-3xl">{t("labTitle")}</h1>
+          <p className="text-sm text-muted-foreground mt-1">{t("labDesc")}</p>
         </div>
-        <div className="flex items-center gap-2">
-          <Link className="text-sm underline underline-offset-4" href="/laborator/notificari">
+        <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+          <Link className="text-sm font-medium hover:underline underline-offset-4 flex items-center gap-1.5" href="/laborator/notificari">
             {t("notifications")} <UnreadNotificationsBadge initialCount={unreadCount ?? 0} />
           </Link>
           <Link
-            className="inline-flex h-9 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex shrink-0 whitespace-nowrap h-9 sm:h-10 items-center justify-center rounded-lg bg-primary px-4 sm:px-6 text-sm font-medium text-primary-foreground transition-all hover:bg-primary/90 shadow-sm hover:scale-105"
             href="/laborator/comanda-noua"
           >
             {t("newOrderBtn")}
