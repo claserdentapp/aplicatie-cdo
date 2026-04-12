@@ -10,6 +10,11 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
 
 import TeethPicker from "./teeth-picker";
@@ -40,7 +45,7 @@ export default function NewOrderForm() {
   const [culoareVita, setCuloareVita] = useState("");
   const [urgenta, setUrgenta] = useState(false);
   const [instructiuni, setInstructiuni] = useState("");
-  const [dataLivrareEstimata, setDataLivrareEstimata] = useState<string>("");
+  const [dataLivrareEstimata, setDataLivrareEstimata] = useState<Date | undefined>(undefined);
   const [numarElemente, setNumarElemente] = useState("");
   const [dinti, setDinti] = useState<string[]>([]);
 
@@ -93,7 +98,7 @@ export default function NewOrderForm() {
           culoare_vita: culoareVita.trim() || null,
           urgenta,
           instructiuni: instructiuniFinale.trim() || null,
-          data_livrare_estimata: dataLivrareEstimata || null,
+          data_livrare_estimata: dataLivrareEstimata ? format(dataLivrareEstimata, "yyyy-MM-dd") : null,
           status: "nou",
         })
         .select("id")
@@ -206,12 +211,29 @@ export default function NewOrderForm() {
         </div>
         <div className="space-y-2">
           <Label htmlFor="dataLivrare">{t("dueDate")}</Label>
-          <Input
-            id="dataLivrare"
-            type="date"
-            value={dataLivrareEstimata}
-            onChange={(e) => setDataLivrareEstimata(e.target.value)}
-          />
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                id="dataLivrare"
+                variant={"outline"}
+                className={cn(
+                  "w-full justify-start text-left font-normal",
+                  !dataLivrareEstimata && "text-muted-foreground"
+                )}
+              >
+                <CalendarIcon className="mr-2 h-4 w-4" />
+                {dataLivrareEstimata ? format(dataLivrareEstimata, "dd/MM/yyyy") : <span>{t("dueDate")}</span>}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0">
+              <Calendar
+                mode="single"
+                selected={dataLivrareEstimata}
+                onSelect={setDataLivrareEstimata}
+                initialFocus
+              />
+            </PopoverContent>
+          </Popover>
         </div>
         <div className="flex items-end gap-3">
           <label className="flex cursor-pointer items-center gap-2 text-sm">

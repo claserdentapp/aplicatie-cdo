@@ -185,20 +185,18 @@ export default function NewOrderForm() {
         <div className="space-y-2">
           <Label htmlFor="dataLivrare">{t("dueDate")}</Label>
           <Popover>
-            <PopoverTrigger
-              render={
-                <Button
-                  id="dataLivrare"
-                  variant={"outline"}
-                  className={cn(
-                    "w-full justify-start text-left font-normal",
-                    !dataLivrareEstimata && "text-muted-foreground"
-                  )}
-                />
-              }
-            >
-              <CalendarIcon className="mr-2 h-4 w-4" />
-              {dataLivrareEstimata ? format(dataLivrareEstimata, "dd/MM/yyyy") : <span>{t("dueDate")}</span>}
+            <PopoverTrigger asChild>
+              <Button
+                id="dataLivrare"
+                variant={"outline"}
+                className={cn(
+                  "w-full justify-start text-left font-normal",
+                  !dataLivrareEstimata && "text-muted-foreground"
+                )}
+              >
+                <CalendarIcon className="mr-2 h-4 w-4" />
+                {dataLivrareEstimata ? format(dataLivrareEstimata, "dd/MM/yyyy") : <span>{t("dueDate")}</span>}
+              </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0">
               <Calendar

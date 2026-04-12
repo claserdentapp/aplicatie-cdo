@@ -54,7 +54,7 @@ export default async function Nav() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex flex-wrap gap-y-4 py-3 min-h-[4rem] md:h-20 items-center justify-between px-4 sm:px-8">
-        <div className="flex items-center gap-4 md:gap-8 flex-1">
+        <div className="flex items-center gap-4 md:gap-8">
           <Link href={dashLink} className="text-base sm:text-lg md:text-xl font-bold tracking-tight text-primary flex items-center gap-2 md:gap-3">
             <img src="/logo.png" alt="Logo" className="h-8 md:h-12 w-auto object-contain" />
             <span>{process.env.NEXT_PUBLIC_LAB_NAME || "ClaSerDent Technology Lab"}</span>
