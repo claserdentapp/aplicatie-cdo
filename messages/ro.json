@@ -142,6 +142,12 @@
     "bullet1": "Digitalizează modul în care lucrezi cu laboratorul sau clinica ta.",
     "bullet2": "Mai puține telefoane, mai mult control, rezultate mai bune pentru pacienții tăi.",
     "copyright": "© 2026 ClaSerDent Technology. Toate drepturile rezervate.",
-    "logoAlt": "ClaSerDent Technology Logo"
+    "logoAlt": "ClaSerDent Technology Logo",
+    "alreadyLoggedTitle": "Ești deja conectat!",
+    "alreadyLoggedDesc1": "Sesiunea ta pentru contul",
+    "alreadyLoggedDesc2": "este activă.",
+    "enterDashboard": "Intră în cont (Dashboard)",
+    "reAuthBtn": "Sau apasă aici pentru re-autentificare alt utilizator",
+    "checkingSession": "Verificăm sesiunea..."
   }
 }

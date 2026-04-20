@@ -142,6 +142,12 @@
     "bullet1": "Digitalisieren Sie die Art und Weise, wie Sie mit Ihrem Labor oder Ihrer Klinik arbeiten.",
     "bullet2": "Weniger Telefonanrufe, mehr Kontrolle, bessere Ergebnisse für Ihre Patienten.",
     "copyright": "© 2026 ClaSerDent Technology. Alle Rechte vorbehalten.",
-    "logoAlt": "ClaSerDent Technology Logo"
+    "logoAlt": "ClaSerDent Technology Logo",
+    "alreadyLoggedTitle": "Sie sind bereits eingeloggt!",
+    "alreadyLoggedDesc1": "Ihre Sitzung für das Konto",
+    "alreadyLoggedDesc2": "ist aktiv.",
+    "enterDashboard": "Zum Konto (Dashboard)",
+    "reAuthBtn": "Oder klicken Sie hier, um sich als anderer Benutzer anzumelden",
+    "checkingSession": "Sitzung wird überprüft..."
   }
 }

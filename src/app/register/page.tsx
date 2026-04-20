@@ -158,33 +158,33 @@ export default function PremiumSaaSRegisterPage() {
             {isCheckingAuth ? (
               <div className="flex flex-col items-center justify-center space-y-4 py-20">
                 <Loader2 className="h-8 w-8 animate-spin text-indigo-600" />
-                <p className="text-slate-500 font-medium">Verificăm sesiunea...</p>
+                <p className="text-slate-500 font-medium">{ts("checkingSession")}</p>
               </div>
             ) : currentUser ? (
-              <div className="text-center bg-slate-50 border border-slate-200 rounded-3xl p-8 xl:p-12 shadow-sm animate-in fade-in zoom-in duration-500">
+              <div className="text-center bg-slate-50 border border-slate-200 rounded-3xl p-6 md:p-8 xl:p-12 shadow-sm animate-in fade-in zoom-in duration-500">
                 <div className="mx-auto w-16 h-16 bg-white border-2 border-indigo-100 rounded-full flex items-center justify-center mb-6 shadow-sm">
                   <ShieldCheck className="h-8 w-8 text-indigo-600" />
                 </div>
                 <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 mb-3 tracking-tight">
-                  Ești deja conectat!
+                  {ts("alreadyLoggedTitle")}
                 </h2>
                 <p className="text-slate-500 text-[15px] font-medium leading-relaxed mb-8">
-                  Sesiunea ta pentru contul <br /> 
-                  <span className="font-bold text-slate-800">{currentUser.email}</span> <br /> 
-                  este activă.
+                  {ts("alreadyLoggedDesc1")} <br /> 
+                  <span className="font-bold text-slate-800 break-all">{currentUser.email}</span> <br /> 
+                  {ts("alreadyLoggedDesc2")}
                 </p>
                 <button
                   type="button"
                   onClick={() => window.location.href = "/dashboard"}
-                  className="w-full py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-[15px] font-bold shadow-[0_4px_14px_0_rgba(79,70,229,0.25)] hover:shadow-[0_6px_20px_rgba(79,70,229,0.3)] transition-all outline-none focus:ring-4 focus:ring-indigo-600/20 flex items-center justify-center gap-2 group hover:-translate-y-[1px]"
+                  className="w-full py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-[14px] sm:text-[15px] font-bold shadow-[0_4px_14px_0_rgba(79,70,229,0.25)] hover:shadow-[0_6px_20px_rgba(79,70,229,0.3)] transition-all outline-none focus:ring-4 focus:ring-indigo-600/20 flex items-center justify-center gap-2 group hover:-translate-y-[1px]"
                 >
-                  <span>Intră în cont (Dashboard)</span>
+                  <span>{ts("enterDashboard")}</span>
                   <ArrowRight className="h-[18px] w-[18px] group-hover:translate-x-1 transition-transform" />
                 </button>
                 <div className="mt-6 flex justify-center">
                   <form action="/auth/signout" method="POST">
                     <button className="text-sm font-bold text-slate-400 hover:text-slate-700 transition-colors underline underline-offset-4 decoration-slate-200 hover:decoration-slate-400">
-                      Sau apasă aici pentru re-autentificare alt utilizator
+                      {ts("reAuthBtn")}
                     </button>
                   </form>
                 </div>
