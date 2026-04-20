@@ -13,6 +13,7 @@ import { createClient } from "@/lib/supabase/client";
 
 import DashboardAnalytics from "./dashboard-analytics";
 
+import { useTranslations } from "next-intl";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export type AdminOrderRow = {
@@ -33,6 +34,7 @@ export type AdminOrderRow = {
 const STATUS_OPTIONS = ["nou", "design", "frezare", "sinterizare", "glazura", "finalizat", "livrat", "anulat"] as const;
 
 export default function AdminOrdersTable({ initial }: { initial: AdminOrderRow[] }) {
+  const ts = useTranslations("Admin");
   const [rows, setRows] = useState<AdminOrderRow[]>(initial);
 
   const [q, setQ] = useState("");
@@ -181,36 +183,37 @@ export default function AdminOrdersTable({ initial }: { initial: AdminOrderRow[]
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <DashboardAnalytics orders={rows} />
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-3 max-w-md">
-          <TabsTrigger value="in_lucru">În Lucru (De procesat)</TabsTrigger>
-          <TabsTrigger value="gata">Gata (Finalizate / Livrate)</TabsTrigger>
-          <TabsTrigger value="toate">Istoric Complet</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-3 max-w-[600px] h-12 items-center bg-slate-100/50 p-1 rounded-xl">
+          <TabsTrigger value="in_lucru" className="text-[14px] md:text-[15px] font-semibold data-[state=active]:shadow-sm rounded-lg">{ts("tabInProgress")}</TabsTrigger>
+          <TabsTrigger value="gata" className="text-[14px] md:text-[15px] font-semibold data-[state=active]:shadow-sm rounded-lg">{ts("tabDone")}</TabsTrigger>
+          <TabsTrigger value="toate" className="text-[14px] md:text-[15px] font-semibold data-[state=active]:shadow-sm rounded-lg">{ts("tabAll")}</TabsTrigger>
         </TabsList>
       </Tabs>
 
-      <div className="grid gap-3 md:grid-cols-4 lg:grid-cols-5">
-        <div className="md:col-span-2 lg:col-span-2">
-          <Label htmlFor="q">Căutare</Label>
+      <div className="grid gap-5 md:grid-cols-4 lg:grid-cols-5 p-6 rounded-2xl border border-slate-200/60 bg-white shadow-sm">
+        <div className="md:col-span-2 lg:col-span-2 space-y-1.5">
+          <Label htmlFor="q" className="text-slate-500 font-semibold uppercase tracking-wider text-xs">{ts("searchLabel")}</Label>
           <Input
             id="q"
-            placeholder="pacient, lucrare, material, doctor..."
+            className="h-11"
+            placeholder={ts("searchPlaceholder")}
             value={q}
             onChange={(e) => setQ(e.target.value)}
           />
         </div>
 
-        <div>
-          <Label>Doctor</Label>
+        <div className="space-y-1.5">
+          <Label className="text-slate-500 font-semibold uppercase tracking-wider text-xs">{ts("doctorLabel")}</Label>
           <Select value={doctorId} onValueChange={(v) => setDoctorId(v)}>
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Toți" />
+            <SelectTrigger className="w-full h-11">
+              <SelectValue placeholder={ts("all")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value={""}>Toți</SelectItem>
+              <SelectItem value={""}>{ts("all")}</SelectItem>
               {doctors.map((d) => (
                 <SelectItem key={d.id} value={d.id}>
                   {d.label}
@@ -220,14 +223,14 @@ export default function AdminOrdersTable({ initial }: { initial: AdminOrderRow[]
           </Select>
         </div>
 
-        <div>
-          <Label>Status</Label>
+        <div className="space-y-1.5">
+          <Label className="text-slate-500 font-semibold uppercase tracking-wider text-xs">{ts("statusLabel")}</Label>
           <Select value={status} onValueChange={(v) => setStatus(v)}>
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Toate" />
+            <SelectTrigger className="w-full h-11">
+              <SelectValue placeholder={ts("all")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value={""}>Toate</SelectItem>
+              <SelectItem value={""}>{ts("all")}</SelectItem>
               {STATUS_OPTIONS.map((s) => (
                 <SelectItem key={s} value={s}>
                   {s}
@@ -237,126 +240,134 @@ export default function AdminOrdersTable({ initial }: { initial: AdminOrderRow[]
           </Select>
         </div>
 
-        <div>
-          <Label>Facturare</Label>
+        <div className="space-y-1.5">
+          <Label className="text-slate-500 font-semibold uppercase tracking-wider text-xs">{ts("billingLabel")}</Label>
           <Select value={facturare} onValueChange={(v) => setFacturare(v)}>
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Toate" />
+            <SelectTrigger className="w-full h-11">
+              <SelectValue placeholder={ts("all")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value={""}>Toate</SelectItem>
-              <SelectItem value="facturat">Facturate</SelectItem>
-              <SelectItem value="nefacturat">Nefacturate</SelectItem>
+              <SelectItem value={""}>{ts("all")}</SelectItem>
+              <SelectItem value="facturat">{ts("billed")}</SelectItem>
+              <SelectItem value="nefacturat">{ts("unbilled")}</SelectItem>
             </SelectContent>
           </Select>
         </div>
       </div>
 
-      <div className="flex flex-wrap items-center gap-2">
-        <span className="text-sm text-muted-foreground">Urgență:</span>
-        <button
-          type="button"
-          className={[
-            "rounded-md border px-2 py-1 text-sm",
-            urgenta === "all" ? "border-primary bg-primary text-primary-foreground" : "border-border hover:bg-muted",
-          ].join(" ")}
-          onClick={() => setUrgenta("all")}
-        >
-          Toate
-        </button>
-        <button
-          type="button"
-          className={[
-            "rounded-md border px-2 py-1 text-sm",
-            urgenta === "yes" ? "border-destructive bg-destructive text-destructive-foreground" : "border-border hover:bg-muted",
-          ].join(" ")}
-          onClick={() => setUrgenta("yes")}
-        >
-          Da
-        </button>
-        <button
-          type="button"
-          className={[
-            "rounded-md border px-2 py-1 text-sm",
-            urgenta === "no" ? "border-primary bg-primary text-primary-foreground" : "border-border hover:bg-muted",
-          ].join(" ")}
-          onClick={() => setUrgenta("no")}
-        >
-          Nu
-        </button>
-        <span className="ml-auto text-sm text-muted-foreground">{filtered.length} rezultate</span>
+      <div className="flex flex-wrap items-center gap-3 px-1">
+        <span className="text-sm font-semibold text-slate-500 uppercase tracking-wide">{ts("urgentLabel")}</span>
+        <div className="flex bg-slate-100 p-1 rounded-lg gap-1 border border-slate-200">
+          <button
+            type="button"
+            className={[
+              "rounded-md px-3 py-1.5 text-sm font-medium transition-all duration-200",
+              urgenta === "all" ? "bg-white text-slate-800 shadow-sm" : "text-slate-500 hover:text-slate-700",
+            ].join(" ")}
+            onClick={() => setUrgenta("all")}
+          >
+            {ts("all")}
+          </button>
+          <button
+            type="button"
+            className={[
+              "rounded-md px-3 py-1.5 text-sm font-medium transition-all duration-200",
+              urgenta === "yes" ? "bg-red-500 text-white shadow-sm" : "text-slate-500 hover:text-red-600",
+            ].join(" ")}
+            onClick={() => setUrgenta("yes")}
+          >
+            {ts("yes")}
+          </button>
+          <button
+            type="button"
+            className={[
+              "rounded-md px-3 py-1.5 text-sm font-medium transition-all duration-200",
+              urgenta === "no" ? "bg-white text-slate-800 shadow-sm" : "text-slate-500 hover:text-slate-700",
+            ].join(" ")}
+            onClick={() => setUrgenta("no")}
+          >
+            {ts("no")}
+          </button>
+        </div>
+        <span className="ml-auto text-sm font-medium text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
+          {ts("resultsCount", { count: filtered.length })}
+        </span>
       </div>
 
-      <div className="overflow-x-auto rounded-lg border">
+      <div className="overflow-x-auto rounded-xl border border-slate-200 shadow-sm bg-white">
         <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Doctor</TableHead>
-              <TableHead>Pacient</TableHead>
-              <TableHead>Lucrare</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Preț</TableHead>
-              <TableHead>Urgență</TableHead>
-              <TableHead>Livrare</TableHead>
+          <TableHeader className="bg-slate-50">
+            <TableRow className="hover:bg-transparent">
+              <TableHead className="font-semibold text-slate-600 py-4 px-5">{ts("thDoctor")}</TableHead>
+              <TableHead className="font-semibold text-slate-600">{ts("thPatient")}</TableHead>
+              <TableHead className="font-semibold text-slate-600">{ts("thWork")}</TableHead>
+              <TableHead className="font-semibold text-slate-600">{ts("thStatus")}</TableHead>
+              <TableHead className="font-semibold text-slate-600">{ts("thPrice")}</TableHead>
+              <TableHead className="font-semibold text-slate-600">{ts("thUrgent")}</TableHead>
+              <TableHead className="font-semibold text-slate-600">{ts("thDelivery")}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {filtered.map((r) => {
               const doc = Array.isArray(r.doctor) ? r.doctor[0] : r.doctor;
               return (
-              <TableRow key={r.id}>
-                <TableCell className="max-w-[260px]">
-                  <div className="truncate font-medium">
+              <TableRow key={r.id} className="group hover:bg-slate-50/70 transition-colors">
+                <TableCell className="max-w-[260px] py-4 px-5 align-top">
+                  <div className="truncate font-semibold text-slate-900 text-[15px]">
                     {doc?.nume_doctor ?? r.doctor_id}
                   </div>
-                  <div className="truncate text-xs text-muted-foreground">
+                  <div className="truncate text-[13px] font-medium text-slate-500 mt-0.5">
                     {doc?.nume_clinica ?? ""}
                   </div>
                 </TableCell>
-                <TableCell className="font-medium">
-                  <Link className="underline underline-offset-4" href={`/admin/comenzi/${r.id}`}>
+                <TableCell className="font-bold text-[15px] align-top py-4">
+                  <Link className="text-indigo-600 hover:text-indigo-800 transition-colors hover:underline underline-offset-4" href={`/admin/comenzi/${r.id}`}>
                     {r.nume_pacient}
                   </Link>
                 </TableCell>
-                <TableCell>
-                  <div className="font-medium">{r.tip_lucrare}</div>
-                  <div className="text-xs text-muted-foreground">
-                    {r.material ?? "-"} {r.culoare_vita ? `• ${r.culoare_vita}` : ""}
+                <TableCell className="align-top py-4">
+                  <div className="font-semibold text-slate-800 text-[15px]">{r.tip_lucrare}</div>
+                  <div className="text-[13px] font-medium text-slate-500 mt-0.5">
+                    {r.material ?? "-"} {r.culoare_vita ? <span className="px-1.5 py-0.5 bg-slate-100 rounded text-slate-600 ml-1">{r.culoare_vita}</span> : ""}
                   </div>
                 </TableCell>
-                <TableCell>
+                <TableCell className="align-top py-4">
                   <Select
                     value={r.status ?? null}
                     onValueChange={(v) => updateOrder(r.id, { status: v ?? "nou" })}
                   >
-                    <SelectTrigger className="w-[180px]">
+                    <SelectTrigger className={`w-[180px] h-9 font-semibold ${r.status === 'finalizat' || r.status === 'livrat' ? 'bg-emerald-50 border-emerald-200 text-emerald-700' : 'bg-slate-50'}`}>
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                       {STATUS_OPTIONS.map((s) => (
-                        <SelectItem key={s} value={s}>
+                        <SelectItem key={s} value={s} className="font-medium">
                           {s}
                         </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                 </TableCell>
-                <TableCell>
+                <TableCell className="align-top py-4">
                   {r.pret !== null && r.pret !== undefined ? (
-                    <span className="font-semibold text-primary">{r.pret} RON</span>
+                    <span className="font-bold text-[15px] text-slate-900 bg-slate-100 px-2 py-1 rounded inline-block">{r.pret} RON</span>
                   ) : (
-                    <span className="text-muted-foreground italic text-xs">Nefacturat</span>
+                    <span className="text-slate-400 font-medium text-[13px] bg-slate-50 px-2 py-1 rounded border border-dashed border-slate-200 inline-block">{ts("unbilledText")}</span>
                   )}
                 </TableCell>
-                <TableCell>{r.urgenta ? <Badge variant="destructive">Da</Badge> : "Nu"}</TableCell>
-                <TableCell>{r.data_livrare_estimata ?? "-"}</TableCell>
+                <TableCell className="align-top py-4">
+                  {r.urgenta ? <Badge variant="destructive" className="font-bold tracking-wide">!! {ts("yes")}</Badge> : <span className="text-slate-400 font-medium text-[14px]">{ts("no")}</span>}
+                </TableCell>
+                <TableCell className="align-top py-4">
+                  <span className="text-[15px] font-medium text-slate-700">{r.data_livrare_estimata ?? "-"}</span>
+                </TableCell>
               </TableRow>
               );
             })}
             {!filtered.length ? (
               <TableRow>
-                <TableCell colSpan={6} className="py-8 text-center text-sm text-muted-foreground">
-                  Nicio comandă găsită.
+                <TableCell colSpan={7} className="py-16 text-center text-[15px] font-medium text-slate-400">
+                  {ts("noOrdersFound")}
                 </TableCell>
               </TableRow>
             ) : null}
