@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { toast } from "sonner";
 import { createClient } from "@/lib/supabase/client";
-import { Mail, Lock, User, Eye, EyeOff, Loader2, Sparkles } from "lucide-react";
+import { Mail, Lock, User, Eye, EyeOff, Loader2, Sparkles, ArrowRight } from "lucide-react";
 
 export default function PremiumLoginPage() {
   const router = useRouter();
