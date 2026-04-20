@@ -351,7 +351,8 @@ export default function AdminOrdersTable({ initial }: { initial: AdminOrderRow[]
                 <TableCell>{r.urgenta ? <Badge variant="destructive">Da</Badge> : "Nu"}</TableCell>
                 <TableCell>{r.data_livrare_estimata ?? "-"}</TableCell>
               </TableRow>
-            ))}
+              );
+            })}
             {!filtered.length ? (
               <TableRow>
                 <TableCell colSpan={6} className="py-8 text-center text-sm text-muted-foreground">
