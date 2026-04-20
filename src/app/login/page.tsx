@@ -24,7 +24,22 @@ export default function PremiumSaaSLoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
 
-  useEffect(() => setMounted(true), []);
+  // Auth States pt preventie suprapunere daca e deja logat
+  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+
+  useEffect(() => {
+    const checkUser = async () => {
+      const supabase = createClient();
+      const { data } = await supabase.auth.getUser();
+      if (data?.user) {
+        setCurrentUser(data.user);
+      }
+      setMounted(true);
+      setIsCheckingAuth(false);
+    };
+    checkUser();
+  }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -140,143 +155,178 @@ export default function PremiumSaaSLoginPage() {
           
           <div className="w-full max-w-md mx-auto">
             
-            <div className="mb-8 md:mb-10 text-center lg:text-left">
-              <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-3 tracking-tight">
-                {t("welcomeBack")}
-              </h2>
-              <p className="text-slate-500 text-[15px] font-medium leading-relaxed">
-                {t("descLogin")}
-              </p>
-            </div>
-
-            {/* Toggle Modern */}
-            <div className="flex p-1 rounded-xl bg-slate-100/80 mb-8 shadow-inner border border-slate-200/50 relative">
-              <div 
-                className="absolute top-1 bottom-1 w-[calc(50%-4px)] bg-white rounded-lg shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-slate-200/50 transition-transform duration-400 ease-out"
-                style={{ transform: userType === "medic" ? "translateX(0)" : "translateX(100%)" }}
-              />
-              <button 
-                type="button"
-                onClick={() => setUserType("medic")}
-                className={`relative flex-1 py-2.5 text-[13px] font-bold uppercase tracking-wider rounded-lg transition-colors z-10 ${userType === "medic" ? "text-indigo-700" : "text-slate-500 hover:text-slate-700"}`}
-              >
-                {t("medic")}
-              </button>
-              <button 
-                type="button"
-                onClick={() => setUserType("laborator")}
-                className={`relative flex-1 py-2.5 text-[13px] font-bold uppercase tracking-wider rounded-lg transition-colors z-10 ${userType === "laborator" ? "text-indigo-700" : "text-slate-500 hover:text-slate-700"}`}
-              >
-                {t("lab")}
-              </button>
-            </div>
-
-            <form onSubmit={handleLogin} className="space-y-5">
-              
-              <div className="flex flex-col space-y-2 group">
-                <label htmlFor="email" className="text-[13px] font-bold tracking-wide text-slate-700">
-                  {t("email")}
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-                    <Mail className="h-5 w-5 text-slate-400 group-focus-within:text-indigo-600 transition-colors" />
-                  </div>
-                  <input
-                    type="email"
-                    id="email"
-                    required
-                    className="block w-full rounded-xl border border-slate-300 bg-white py-3 pl-11 pr-4 text-[15px] text-slate-900 font-medium outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/10 shadow-sm transition-all placeholder:text-slate-400 placeholder:font-normal"
-                    placeholder={ts("emailPlaceholder")}
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
+            {isCheckingAuth ? (
+              <div className="flex flex-col items-center justify-center space-y-4 py-20">
+                <Loader2 className="h-8 w-8 animate-spin text-indigo-600" />
+                <p className="text-slate-500 font-medium">Verificăm sesiunea...</p>
+              </div>
+            ) : currentUser ? (
+              <div className="text-center bg-slate-50 border border-slate-200 rounded-3xl p-8 xl:p-12 shadow-sm animate-in fade-in zoom-in duration-500">
+                <div className="mx-auto w-16 h-16 bg-white border-2 border-indigo-100 rounded-full flex items-center justify-center mb-6 shadow-sm">
+                  <ShieldCheck className="h-8 w-8 text-indigo-600" />
+                </div>
+                <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 mb-3 tracking-tight">
+                  Ești deja conectat!
+                </h2>
+                <p className="text-slate-500 text-[15px] font-medium leading-relaxed mb-8">
+                  Sesiunea ta pentru contul <br /> 
+                  <span className="font-bold text-slate-800">{currentUser.email}</span> <br /> 
+                  este activă.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => window.location.href = "/dashboard"}
+                  className="w-full py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-[15px] font-bold shadow-[0_4px_14px_0_rgba(79,70,229,0.25)] hover:shadow-[0_6px_20px_rgba(79,70,229,0.3)] transition-all outline-none focus:ring-4 focus:ring-indigo-600/20 flex items-center justify-center gap-2 group hover:-translate-y-[1px]"
+                >
+                  <span>Intră în cont (Dashboard)</span>
+                  <ArrowRight className="h-[18px] w-[18px] group-hover:translate-x-1 transition-transform" />
+                </button>
+                <div className="mt-6 flex justify-center">
+                  <form action="/auth/signout" method="POST">
+                    <button className="text-sm font-bold text-slate-400 hover:text-slate-700 transition-colors underline underline-offset-4 decoration-slate-200 hover:decoration-slate-400">
+                      Sau apasă aici pentru re-autentificare alt utilizator
+                    </button>
+                  </form>
                 </div>
               </div>
+            ) : (
+              <>
+                <div className="mb-8 md:mb-10 text-center lg:text-left">
+                  <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-3 tracking-tight">
+                    {t("welcomeBack")}
+                  </h2>
+                  <p className="text-slate-500 text-[15px] font-medium leading-relaxed">
+                    {t("descLogin")}
+                  </p>
+                </div>
 
-              <div className="flex flex-col space-y-2 group">
-                <label htmlFor="password" className="text-[13px] font-bold tracking-wide text-slate-700">
-                  {t("password")}
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-                    <Lock className="h-5 w-5 text-slate-400 group-focus-within:text-indigo-600 transition-colors" />
-                  </div>
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    id="password"
-                    required
-                    className="block w-full rounded-xl border border-slate-300 bg-white py-3 pl-11 pr-12 text-[15px] text-slate-900 font-medium outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/10 shadow-sm transition-all placeholder:text-slate-400 placeholder:font-normal"
-                    placeholder={ts("passPlaceholderLogin")}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                {/* Toggle Modern */}
+                <div className="flex p-1 rounded-xl bg-slate-100/80 mb-8 shadow-inner border border-slate-200/50 relative">
+                  <div 
+                    className="absolute top-1 bottom-1 w-[calc(50%-4px)] bg-white rounded-lg shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-slate-200/50 transition-transform duration-400 ease-out"
+                    style={{ transform: userType === "medic" ? "translateX(0)" : "translateX(100%)" }}
                   />
-                  <button
+                  <button 
                     type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 transition-colors cursor-pointer"
+                    onClick={() => setUserType("medic")}
+                    className={`relative flex-1 py-2.5 text-[13px] font-bold uppercase tracking-wider rounded-lg transition-colors z-10 ${userType === "medic" ? "text-indigo-700" : "text-slate-500 hover:text-slate-700"}`}
                   >
-                    {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                    {t("medic")}
+                  </button>
+                  <button 
+                    type="button"
+                    onClick={() => setUserType("laborator")}
+                    className={`relative flex-1 py-2.5 text-[13px] font-bold uppercase tracking-wider rounded-lg transition-colors z-10 ${userType === "laborator" ? "text-indigo-700" : "text-slate-500 hover:text-slate-700"}`}
+                  >
+                    {t("lab")}
                   </button>
                 </div>
-              </div>
 
-              <div className="flex items-center justify-between pt-1 pb-1">
-                <label className="flex items-center gap-2.5 cursor-pointer group">
-                  <div className="relative flex items-center justify-center w-[18px] h-[18px] border-[1.5px] border-slate-300 rounded-[4px] bg-white group-hover:border-indigo-600 transition-colors shadow-sm">
-                    <input 
-                      type="checkbox" 
-                      className="peer sr-only"
-                      checked={rememberMe}
-                      onChange={(e) => setRememberMe(e.target.checked)}
-                    />
-                    <div className="w-2.5 h-2.5 bg-indigo-600 rounded-[2px] scale-0 peer-checked:scale-100 transition-transform duration-200" />
+                <form onSubmit={handleLogin} className="space-y-5">
+                  <div className="flex flex-col space-y-2 group">
+                    <label htmlFor="email" className="text-[13px] font-bold tracking-wide text-slate-700">
+                      {t("email")}
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                        <Mail className="h-5 w-5 text-slate-400 group-focus-within:text-indigo-600 transition-colors" />
+                      </div>
+                      <input
+                        type="email"
+                        id="email"
+                        required
+                        className="block w-full rounded-xl border border-slate-300 bg-white py-3 pl-11 pr-4 text-[15px] text-slate-900 font-medium outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/10 shadow-sm transition-all placeholder:text-slate-400 placeholder:font-normal"
+                        placeholder={ts("emailPlaceholder")}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                    </div>
                   </div>
-                  <span className="text-slate-600 text-[13px] font-semibold transition-colors group-hover:text-slate-900">
-                    {t("rememberMe")}
+
+                  <div className="flex flex-col space-y-2 group">
+                    <label htmlFor="password" className="text-[13px] font-bold tracking-wide text-slate-700">
+                      {t("password")}
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                        <Lock className="h-5 w-5 text-slate-400 group-focus-within:text-indigo-600 transition-colors" />
+                      </div>
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        id="password"
+                        required
+                        className="block w-full rounded-xl border border-slate-300 bg-white py-3 pl-11 pr-12 text-[15px] text-slate-900 font-medium outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/10 shadow-sm transition-all placeholder:text-slate-400 placeholder:font-normal"
+                        placeholder={ts("passPlaceholderLogin")}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 transition-colors cursor-pointer"
+                      >
+                        {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between pt-1 pb-1">
+                    <label className="flex items-center gap-2.5 cursor-pointer group">
+                      <div className="relative flex items-center justify-center w-[18px] h-[18px] border-[1.5px] border-slate-300 rounded-[4px] bg-white group-hover:border-indigo-600 transition-colors shadow-sm">
+                        <input 
+                          type="checkbox" 
+                          className="peer sr-only"
+                          checked={rememberMe}
+                          onChange={(e) => setRememberMe(e.target.checked)}
+                        />
+                        <div className="w-2.5 h-2.5 bg-indigo-600 rounded-[2px] scale-0 peer-checked:scale-100 transition-transform duration-200" />
+                      </div>
+                      <span className="text-slate-600 text-[13px] font-semibold transition-colors group-hover:text-slate-900">
+                        {t("rememberMe")}
+                      </span>
+                    </label>
+                    
+                    <Link 
+                      href="/forgot-password" 
+                      className="text-indigo-600 hover:text-indigo-800 hover:underline underline-offset-4 text-[13px] font-bold transition-all"
+                    >
+                      {t("forgotPasswordQ")}
+                    </Link>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isLoading}
+                    className="w-full mt-4 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 active:bg-black text-white text-[15px] font-bold shadow-[0_4px_14px_0_rgba(0,0,0,0.15)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.1)] transition-all outline-none focus:ring-4 focus:ring-slate-900/20 disabled:opacity-70 disabled:shadow-none flex items-center justify-center gap-2 group hover:-translate-y-[1px]"
+                  >
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="h-5 w-5 animate-spin" />
+                        <span>{ts("processing")}</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>{t("loginBtn")}</span>
+                        <ArrowRight className="h-[18px] w-[18px] group-hover:translate-x-1 transition-transform" />
+                      </>
+                    )}
+                  </button>
+                </form>
+
+                <div className="mt-8 text-center bg-slate-50/50 p-4 rounded-xl border border-slate-100">
+                  <span className="text-[14px] text-slate-500 font-medium">
+                    {t("noAccount")}
                   </span>
-                </label>
-                
-                <Link 
-                  href="/forgot-password" 
-                  className="text-indigo-600 hover:text-indigo-800 hover:underline underline-offset-4 text-[13px] font-bold transition-all"
-                >
-                  {t("forgotPasswordQ")}
-                </Link>
-              </div>
-
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="w-full mt-4 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 active:bg-black text-white text-[15px] font-bold shadow-[0_4px_14px_0_rgba(0,0,0,0.15)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.1)] transition-all outline-none focus:ring-4 focus:ring-slate-900/20 disabled:opacity-70 disabled:shadow-none flex items-center justify-center gap-2 group hover:-translate-y-[1px]"
-              >
-                {isLoading ? (
-                  <>
-                    <Loader2 className="h-5 w-5 animate-spin" />
-                    <span>{ts("processing")}</span>
-                  </>
-                ) : (
-                  <>
-                    <span>{t("loginBtn")}</span>
-                    <ArrowRight className="h-[18px] w-[18px] group-hover:translate-x-1 transition-transform" />
-                  </>
-                )}
-              </button>
-              
-            </form>
-
-            <div className="mt-8 text-center bg-slate-50/50 p-4 rounded-xl border border-slate-100">
-              <span className="text-[14px] text-slate-500 font-medium">
-                {t("noAccount")}
-              </span>
-              {" "}
-              <Link 
-                href="/register" 
-                className="text-[14px] font-bold text-indigo-600 hover:text-indigo-800 transition-colors uppercase tracking-wide ml-1 underline decoration-indigo-200 hover:decoration-indigo-600 underline-offset-4"
-              >
-                {t("registerLink")}
-              </Link>
-            </div>
-
+                  {" "}
+                  <Link 
+                    href="/register" 
+                    className="text-[14px] font-bold text-indigo-600 hover:text-indigo-800 transition-colors uppercase tracking-wide ml-1 underline decoration-indigo-200 hover:decoration-indigo-600 underline-offset-4"
+                  >
+                    {t("registerLink")}
+                  </Link>
+                </div>
+              </>
+            )}
           </div>
         </div>
 
