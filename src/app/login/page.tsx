@@ -52,10 +52,12 @@ export default function PremiumSaaSLoginPage() {
 
         toast.success(t("welcomeBack"));
         
+        // Evităm bug-ul de soft-navigation ("router.push") din NextJS care ține 
+        // în cache navbar-ul (nu îi face re-render cu noile setări de user logged-in).
         if (profile?.rol === "admin") {
-          router.push("/admin");
+          window.location.href = "/admin";
         } else {
-          router.push("/dashboard");
+          window.location.href = "/dashboard";
         }
       }
     } catch (err) {
