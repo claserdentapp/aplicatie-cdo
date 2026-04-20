@@ -118,45 +118,53 @@ export default function PremiumSaaSRegisterPage() {
       <div className="flex flex-col lg:flex-row min-h-[calc(100vh-80px)] w-full bg-white font-sans text-slate-900">
         
         {/* --- STÂNGA: Brand & Trust (Desktop Only or Top on Mobile) --- */}
-        <div className="w-full lg:w-[45%] flex flex-col justify-between px-6 lg:px-16 xl:px-24 py-8 lg:py-20 bg-slate-50 relative overflow-hidden border-b lg:border-b-0 lg:border-r border-slate-200/60 transition-all">
+        <div className="w-full lg:w-[45%] flex flex-col justify-center items-center px-6 lg:px-12 xl:px-16 py-12 bg-slate-50 relative overflow-hidden border-b lg:border-b-0 lg:border-r border-slate-200/60 transition-all">
           
           {/* Subtle SaaS mesh gradients */}
           <div className="absolute inset-0 pointer-events-none z-0">
-            <div className="absolute top-0 left-[-20%] w-[60%] h-[60%] bg-blue-100/50 blur-[120px] rounded-full mix-blend-multiply" />
-            <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-indigo-100/50 blur-[130px] rounded-full mix-blend-multiply" />
+            <div className="absolute top-[-10%] left-[-10%] w-[80%] h-[80%] bg-blue-400/20 blur-[130px] rounded-full mix-blend-multiply" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[70%] h-[70%] bg-violet-400/20 blur-[140px] rounded-full mix-blend-multiply" />
           </div>
 
-          <div className="relative z-10 flex flex-col items-center lg:items-start text-center lg:text-left">
+          <div className="relative z-10 flex flex-col items-center w-full max-w-lg mx-auto">
             <img 
               src="/logo.png" 
               alt={ts("logoAlt")} 
-              className="h-16 sm:h-20 md:h-28 lg:h-36 xl:h-48 w-auto object-contain drop-shadow-md mb-6 lg:mb-16" 
+              className="h-20 sm:h-24 md:h-32 lg:h-40 xl:h-56 w-auto object-contain drop-shadow-xl mb-8 lg:mb-12 hover:scale-105 transition-transform duration-700 ease-out" 
             />
 
-            <div className="hidden lg:inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-slate-200 mb-8 shadow-sm">
-              <ShieldCheck className="w-4 h-4 text-indigo-600" />
-              <span className="text-xs font-bold text-slate-700 uppercase tracking-widest">{ts("secureBadge")}</span>
+            <div className="hidden lg:flex flex-col items-center text-center animate-in fade-in slide-in-from-bottom-8 duration-1000">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 backdrop-blur-md border border-white shadow-[0_4px_12px_rgba(0,0,0,0.05)] mb-8">
+                <ShieldCheck className="w-[18px] h-[18px] text-indigo-600" />
+                <span className="text-[13px] font-bold text-slate-800 uppercase tracking-[0.15em]">{ts("secureBadge")}</span>
+              </div>
+
+              <h1 className="text-4xl lg:text-5xl xl:text-[3.5rem] font-extrabold text-slate-900 leading-[1.1] mb-6 tracking-tight drop-shadow-sm">
+                {ts("regTitle1")}<br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 font-black">
+                  {ts("regTitle2")}
+                </span>
+              </h1>
+
+              <p className="text-lg xl:text-xl text-slate-600 leading-relaxed font-medium mb-8">
+                {ts("regDesc")}
+              </p>
+
+              <ul className="space-y-4 text-slate-500 font-medium text-[15px] md:text-base list-none text-left tracking-wide opacity-90 mx-auto">
+                <li className="flex items-center justify-center lg:justify-start gap-3">
+                   <div className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
+                   {ts("bullet1")}
+                </li>
+                <li className="flex items-center justify-center lg:justify-start gap-3">
+                   <div className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                   {ts("bullet2")}
+                </li>
+              </ul>
             </div>
-
-            <h1 className="hidden lg:block text-4xl lg:text-5xl xl:text-[3.5rem] font-extrabold text-slate-900 leading-[1.1] mb-6 tracking-tight drop-shadow-sm">
-              {ts("regTitle1")}<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
-                {ts("regTitle2")}
-              </span>
-            </h1>
-
-            <p className="hidden lg:block text-lg text-slate-600 leading-relaxed font-medium max-w-md mb-8">
-              {ts("regDesc")}
-            </p>
-
-            <ul className="hidden lg:block space-y-4 text-slate-600 font-medium text-sm md:text-base list-disc pl-6 leading-relaxed">
-              <li>{ts("bullet1")}</li>
-              <li>{ts("bullet2")}</li>
-            </ul>
           </div>
 
-          <div className="relative z-10 mt-12 hidden lg:block">
-            <p className="text-sm font-semibold text-slate-400">
+          <div className="absolute bottom-8 left-0 right-0 z-10 hidden lg:flex justify-center">
+            <p className="text-sm font-bold text-slate-400/80 tracking-wide uppercase">
               {ts("copyright")}
             </p>
           </div>
