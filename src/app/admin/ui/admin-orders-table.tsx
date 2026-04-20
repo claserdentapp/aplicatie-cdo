@@ -27,7 +27,7 @@ export type AdminOrderRow = {
   pret: number | null;
   data_livrare_estimata: string | null;
   doctor_id: string;
-  doctor: { nume_doctor: string; nume_clinica: string | null }[] | null;
+  doctor: { nume_doctor: string; nume_clinica: string | null }[] | { nume_doctor: string; nume_clinica: string | null } | null;
 };
 
 const STATUS_OPTIONS = ["nou", "design", "frezare", "sinterizare", "glazura", "finalizat", "livrat", "anulat"] as const;
@@ -45,7 +45,7 @@ export default function AdminOrdersTable({ initial }: { initial: AdminOrderRow[]
   const doctors = useMemo(() => {
     const map = new Map<string, { id: string; label: string }>();
     for (const r of rows) {
-      const doc = r.doctor?.[0];
+      const doc = Array.isArray(r.doctor) ? r.doctor[0] : r.doctor;
       const label = doc
         ? `${doc.nume_doctor}${doc.nume_clinica ? ` — ${doc.nume_clinica}` : ""}`
         : r.doctor_id;
@@ -64,6 +64,8 @@ export default function AdminOrdersTable({ initial }: { initial: AdminOrderRow[]
         if (!["finalizat", "livrat"].includes(r.status)) return false;
       }
 
+      const doc = Array.isArray(r.doctor) ? r.doctor[0] : r.doctor;
+
       if (doctorId && r.doctor_id !== doctorId) return false;
       if (status && r.status !== status) return false;
       if (urgenta === "yes" && !r.urgenta) return false;
@@ -77,8 +79,8 @@ export default function AdminOrdersTable({ initial }: { initial: AdminOrderRow[]
         r.material ?? "",
         r.culoare_vita ?? "",
         r.status,
-        r.doctor?.[0]?.nume_doctor ?? "",
-        r.doctor?.[0]?.nume_clinica ?? "",
+        doc?.nume_doctor ?? "",
+        doc?.nume_clinica ?? "",
       ]
         .join(" ")
         .toLowerCase();
@@ -299,14 +301,16 @@ export default function AdminOrdersTable({ initial }: { initial: AdminOrderRow[]
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filtered.map((r) => (
+            {filtered.map((r) => {
+              const doc = Array.isArray(r.doctor) ? r.doctor[0] : r.doctor;
+              return (
               <TableRow key={r.id}>
                 <TableCell className="max-w-[260px]">
                   <div className="truncate font-medium">
-                    {r.doctor?.[0]?.nume_doctor ?? r.doctor_id}
+                    {doc?.nume_doctor ?? r.doctor_id}
                   </div>
                   <div className="truncate text-xs text-muted-foreground">
-                    {r.doctor?.[0]?.nume_clinica ?? ""}
+                    {doc?.nume_clinica ?? ""}
                   </div>
                 </TableCell>
                 <TableCell className="font-medium">

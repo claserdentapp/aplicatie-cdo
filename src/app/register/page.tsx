@@ -28,6 +28,7 @@ export default function PremiumSaaSRegisterPage() {
 
   // Auth States
   const [currentUser, setCurrentUser] = useState<any>(null);
+  const [redirectPath, setRedirectPath] = useState<string>("/medic");
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
   useEffect(() => {
@@ -36,6 +37,16 @@ export default function PremiumSaaSRegisterPage() {
       const { data } = await supabase.auth.getUser();
       if (data?.user) {
         setCurrentUser(data.user);
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("rol")
+          .eq("id", data.user.id)
+          .single();
+        if (profile?.rol === "admin") {
+          setRedirectPath("/admin");
+        } else if (profile?.rol === "laborator_partener") {
+          setRedirectPath("/laborator");
+        }
       }
       setMounted(true);
       setIsCheckingAuth(false);
@@ -175,7 +186,7 @@ export default function PremiumSaaSRegisterPage() {
                 </p>
                 <button
                   type="button"
-                  onClick={() => window.location.href = "/dashboard"}
+                  onClick={() => window.location.href = redirectPath}
                   className="w-full py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-[14px] sm:text-[15px] font-bold shadow-[0_4px_14px_0_rgba(79,70,229,0.25)] hover:shadow-[0_6px_20px_rgba(79,70,229,0.3)] transition-all outline-none focus:ring-4 focus:ring-indigo-600/20 flex items-center justify-center gap-2 group hover:-translate-y-[1px]"
                 >
                   <span>{ts("enterDashboard")}</span>
