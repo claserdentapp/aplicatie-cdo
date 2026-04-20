@@ -7,20 +7,20 @@ export default function Home() {
   const t = useTranslations("Home");
 
   return (
-    <div className="relative isolate min-h-screen overflow-hidden bg-background">
+    <div className="relative isolate min-h-[calc(100vh-5rem)] xl:h-[calc(100vh-5rem)] overflow-hidden bg-background flex flex-col justify-center py-10">
       <div className="bg-hero-gradient absolute inset-0 -z-10" />
 
       {/* Hero Section */}
-      <div className="mx-auto max-w-7xl px-6 pb-24 pt-32 sm:pt-40 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8 w-full">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           <div className="max-w-2xl text-left">
             <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-6xl text-balance">
               {t("title1")} <span className="text-primary">{t("title2")}</span>
             </h1>
-            <p className="mt-6 text-lg leading-8 text-muted-foreground text-balance">
+            <p className="mt-4 text-base sm:text-lg leading-7 sm:leading-8 text-muted-foreground text-balance">
               {t("desc")}
             </p>
-            <div className="mt-10 flex items-center justify-start gap-x-6">
+            <div className="mt-8 flex items-center justify-start gap-x-6">
               <Link
                 href="/register"
                 className="group inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:bg-primary/90 hover:scale-105"
@@ -47,10 +47,10 @@ export default function Home() {
       </div>
 
       {/* Feature Section */}
-      <div className="mx-auto max-w-7xl px-6 lg:px-8 pb-32">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8 mt-12 lg:mt-16 w-full">
         <div className="mx-auto max-w-2xl lg:max-w-none">
-          <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
-            <div className="flex flex-col glass-card p-8 rounded-2xl">
+          <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-6 lg:max-w-none lg:grid-cols-3">
+            <div className="flex flex-col glass-card p-6 lg:p-8 rounded-2xl">
               <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-foreground">
                 <Activity className="h-5 w-5 flex-none text-primary" aria-hidden="true" />
                 {t("f1Title")}
@@ -61,7 +61,7 @@ export default function Home() {
                 </p>
               </dd>
             </div>
-            <div className="flex flex-col glass-card p-8 rounded-2xl">
+            <div className="flex flex-col glass-card p-6 lg:p-8 rounded-2xl">
               <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-foreground">
                 <ShieldCheck className="h-5 w-5 flex-none text-primary" aria-hidden="true" />
                 {t("f2Title")}
@@ -72,7 +72,7 @@ export default function Home() {
                 </p>
               </dd>
             </div>
-            <div className="flex flex-col glass-card p-8 rounded-2xl">
+            <div className="flex flex-col glass-card p-6 lg:p-8 rounded-2xl">
               <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-foreground">
                 <Microscope className="h-5 w-5 flex-none text-primary" aria-hidden="true" />
                 {t("f3Title")}
