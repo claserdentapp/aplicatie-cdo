@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { createClient } from "@/lib/supabase/client";
 import { Mail, Lock, User, Eye, EyeOff, Loader2, Sparkles, Building2, Phone, ArrowRight } from "lucide-react";
 
-export default function PremiumRegisterPage() {
+export default function LuxuryRegisterPage() {
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
 
@@ -54,7 +54,7 @@ export default function PremiumRegisterPage() {
       }
 
       toast.success("Cont creat cu succes! Verifică emailul sau autentifică-te.", {
-        icon: <Sparkles className="w-4 h-4 text-indigo-500" />,
+        icon: <Sparkles className="w-5 h-5 text-indigo-500" />,
       });
       
       router.push("/login");
@@ -80,21 +80,21 @@ export default function PremiumRegisterPage() {
       <style>{`
         @keyframes shake {
           0%, 100% { transform: translateX(0); }
-          20% { transform: translateX(-6px); }
-          40% { transform: translateX(6px); }
-          60% { transform: translateX(-4px); }
-          80% { transform: translateX(4px); }
+          20% { transform: translateX(-8px); }
+          40% { transform: translateX(8px); }
+          60% { transform: translateX(-6px); }
+          80% { transform: translateX(6px); }
         }
         .animate-shake {
           animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
         }
         
         @keyframes fade-in-up {
-          from { opacity: 0; transform: translateY(20px); filter: blur(4px); }
+          from { opacity: 0; transform: translateY(30px); filter: blur(8px); }
           to { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
         .animate-fade-in-up {
-          animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          animation: fade-in-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         /* Remediere fundal alb autofill in Chrome */
@@ -107,7 +107,6 @@ export default function PremiumRegisterPage() {
             transition: background-color 5000s ease-in-out 0s;
         }
 
-        /* Hide scrollbar pt desktop */
         .no-scrollbar::-webkit-scrollbar {
           display: none;
         }
@@ -117,221 +116,223 @@ export default function PremiumRegisterPage() {
         }
       `}</style>
 
-      {/* Container adaptat vizual pt layout pe alb si scroll doar unde e nevoie */}
-      <div className="min-h-[calc(100vh-80px)] bg-slate-50 text-slate-900 flex flex-col lg:flex-row overflow-hidden font-sans relative selection:bg-indigo-500/20">
+      {/* Container Full aerisit, Split Screen adevarat */}
+      <div className="flex flex-col lg:flex-row min-h-[calc(100vh-80px)] w-full bg-white font-sans">
         
-        {/* Soft Background Blobs for White Theme */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-          <div className="absolute top-0 left-[-10%] w-[50vw] h-[50vw] rounded-full bg-blue-100/50 mix-blend-multiply blur-[120px] opacity-70" />
-          <div className="absolute bottom-0 right-[-10%] w-[45vw] h-[45vw] rounded-full bg-indigo-100/50 mix-blend-multiply blur-[120px] opacity-70" />
-        </div>
+        {/* --- STÂNGA: Prezentare (Desktop) - 50% lățime (Sticky la scroll) --- */}
+        <div className="hidden lg:flex w-1/2 flex-col justify-center px-16 xl:px-28 bg-slate-50 relative overflow-hidden border-r border-slate-200/60 shadow-[inset_-20px_0_40px_rgba(0,0,0,0.015)] sticky top-0 h-[calc(100vh-80px)]">
+          {/* Fundal mesh premium */}
+          <div className="absolute inset-0 pointer-events-none z-0">
+            <div className="absolute top-[-10%] left-[-10%] w-[70%] h-[70%] bg-blue-200/40 blur-[130px] rounded-full mix-blend-multiply" />
+            <div className="absolute bottom-[0%] right-[-10%] w-[60%] h-[60%] bg-indigo-200/40 blur-[130px] rounded-full mix-blend-multiply" />
+          </div>
 
-        {/* --- STÂNGA: Prezentare (Desktop) --- */}
-        <div className="hidden lg:flex w-[45%] flex-col justify-center p-12 lg:px-24 relative z-10 sticky top-0 h-[calc(100vh-80px)]">
-          <div className="relative z-20 opacity-0 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 mb-8 shadow-sm">
-              <Sparkles className="w-4 h-4 text-indigo-600" />
-              <span className="text-xs font-semibold text-indigo-700 tracking-wide">Progres Digital Rapid</span>
+          <div className="relative z-10 w-full max-w-2xl opacity-0 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-100 border border-indigo-200 mb-10 shadow-sm">
+              <Sparkles className="w-5 h-5 text-indigo-600" />
+              <span className="text-sm font-bold text-indigo-700 uppercase tracking-widest">Platformă Enterprise</span>
             </div>
             
-            <h1 className="text-4xl xl:text-5xl font-extrabold leading-[1.15] tracking-tight mb-6 text-slate-900 drop-shadow-sm">
-              Aderă acum, <br />
+            <h1 className="text-5xl xl:text-[4rem] font-extrabold text-slate-900 leading-[1.1] mb-8 tracking-tight drop-shadow-sm">
+              Aderă acum,<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
                 fără complexități
               </span>
             </h1>
-            <p className="text-lg text-slate-600 max-w-md leading-relaxed font-normal">
+            
+            <p className="text-xl text-slate-600 leading-relaxed font-light max-w-lg mb-12">
               Crezi un cont gratuit într-un minut și intri direct în era digitală a ecosistemului dentar integrat.
             </p>
           </div>
 
-          <div className="relative z-20 mt-16 opacity-0 animate-fade-in-up flex items-center gap-6" style={{ animationDelay: '300ms' }}>
-            <p className="text-sm font-medium text-slate-400">
-              © {new Date().getFullYear()} ClaSerDent Technology.
+          <div className="relative z-10 mt-auto pt-24 opacity-0 animate-fade-in-up flex items-center gap-6" style={{ animationDelay: '300ms' }}>
+            <p className="text-sm font-bold text-slate-400 uppercase tracking-widest text-left w-full">
+              © {new Date().getFullYear()} ClaSerDent Technology. Toate drepturile rezervate.
             </p>
           </div>
         </div>
 
-        {/* --- DREAPTA: Formular Inregistrare --- */}
-        <div className="w-full lg:w-[55%] flex items-center justify-center p-6 sm:p-12 relative z-10 h-[calc(100vh-80px)] overflow-y-auto no-scrollbar">
+        {/* --- DREAPTA: Formular Inregistrare Aerisit - 50% lățime (scroaleaza nativ interfața dacă e mare) --- */}
+        <div className="w-full lg:w-1/2 bg-white flex flex-col justify-center px-8 py-16 lg:px-20 xl:px-32 relative z-10 min-h-full">
           
-          <div className={`w-full max-w-[460px] relative transition-transform duration-500 my-auto py-10 ${errorShake ? 'animate-shake' : ''}`}>
+          <div className={`w-full max-w-xl mx-auto transition-transform duration-500 opacity-0 animate-fade-in-up ${errorShake ? 'animate-shake' : ''}`} style={{ animationDelay: '200ms' }}>
             
-            <div className="bg-white p-8 sm:p-10 rounded-3xl opacity-0 animate-fade-in-up shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-200/60 relative overflow-hidden group" style={{ animationDelay: '200ms' }}>
+            <div className="mb-12 border-b border-slate-100 pb-10">
+              <h2 className="text-4xl xl:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">Creează Cont.</h2>
+              <p className="text-slate-500 text-lg xl:text-xl">
+                Completează datele esențiale pentru acces instantaneu.
+              </p>
+            </div>
+
+            {/* Formular Register -> Am scos cardul/umbrirea, Formularul foloseste spatiul nativ. */}
+            {/* Toggle Roluri - Generos și curat */}
+            <div className="flex p-2 rounded-2xl bg-slate-100/70 border border-slate-200/50 mb-12 relative shadow-inner">
+              <div 
+                className="absolute top-2 bottom-2 w-[calc(50%-8px)] bg-white rounded-xl shadow-[0_2px_12px_rgba(0,0,0,0.06)] transition-transform duration-500 cubic-bezier(0.34, 1.56, 0.64, 1) border border-slate-200/60"
+                style={{ transform: userType === "medic" ? "translateX(0)" : "translateX(100%)" }}
+              />
+              <button 
+                type="button"
+                onClick={() => setUserType("medic")}
+                className={`relative flex-1 py-4 text-base font-bold rounded-xl transition-all duration-300 z-10 ${userType === "medic" ? "text-indigo-700" : "text-slate-500 hover:text-slate-800"}`}
+              >
+                Sunt Medic
+              </button>
+              <button 
+                type="button"
+                onClick={() => setUserType("laborator_partener")}
+                className={`relative flex-1 py-4 text-base font-bold rounded-xl transition-all duration-300 z-10 ${userType === "laborator_partener" ? "text-indigo-700" : "text-slate-500 hover:text-slate-800"}`}
+              >
+                Sunt Laborator
+              </button>
+            </div>
+
+            <form onSubmit={handleRegister} className="space-y-8">
               
-              <div className="mb-8 text-center">
-                <h2 className="text-2xl font-bold text-slate-900 mb-2 tracking-tight">Crează Cont Nou</h2>
-                <p className="text-slate-500 text-[15px]">
-                  Completează datele pentru acces în platformă
-                </p>
-              </div>
-
-              {/* Toggle User Type */}
-              <div className="flex p-1.5 rounded-[1.25rem] bg-slate-100/80 border border-slate-200/50 mb-8 relative z-20 shadow-inner">
-                <div 
-                  className="absolute top-1.5 bottom-1.5 w-[calc(50%-6px)] bg-white rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.08)] transition-transform duration-500 cubic-bezier(0.34, 1.56, 0.64, 1) border border-slate-200/50"
-                  style={{ transform: userType === "medic" ? "translateX(0)" : "translateX(100%)" }}
-                />
-                <button 
-                  type="button"
-                  onClick={() => setUserType("medic")}
-                  className={`relative flex-1 py-2.5 text-[14px] font-semibold rounded-xl transition-all duration-300 z-10 ${userType === "medic" ? "text-indigo-700" : "text-slate-500 hover:text-slate-700"}`}
-                >
-                  Sunt Medic
-                </button>
-                <button 
-                  type="button"
-                  onClick={() => setUserType("laborator_partener")}
-                  className={`relative flex-1 py-2.5 text-[14px] font-semibold rounded-xl transition-all duration-300 z-10 ${userType === "laborator_partener" ? "text-indigo-700" : "text-slate-500 hover:text-slate-700"}`}
-                >
-                  Sunt Laborator
-                </button>
-              </div>
-
-              {/* Formular Register */}
-              <form onSubmit={handleRegister} className="space-y-4 relative z-20">
-                
-                {/* Nume Reprezentant */}
-                <div className="relative group rounded-2xl bg-white border border-slate-200 hover:border-slate-300 transition-all duration-300 focus-within:border-indigo-500 focus-within:ring-4 focus-within:ring-indigo-500/10 overflow-hidden shadow-sm">
-                  <div className="absolute top-1/2 -translate-y-1/2 left-5 pointer-events-none">
-                    <User className="h-5 w-5 text-slate-400 group-focus-within:text-indigo-600 group-focus-within:scale-110 transition-all duration-300" />
+              {/* Nume Complet */}
+              <div className="flex flex-col space-y-3 group">
+                <label htmlFor="numeDoctor" className="text-sm font-bold tracking-widest text-slate-500 uppercase ml-1">
+                  {userType === "medic" ? "Nume Medic" : "Nume Reprezentant"}
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                    <User className="h-6 w-6 text-slate-400 group-focus-within:text-indigo-600 transition-colors duration-300" />
                   </div>
                   <input
                     type="text"
                     id="numeDoctor"
                     required
-                    className="peer block w-full h-[60px] bg-transparent pl-14 pr-5 pt-5 pb-1 text-[15px] font-medium text-slate-900 placeholder-transparent focus:outline-none"
-                    placeholder="Nume"
+                    className="block w-full rounded-2xl border border-slate-300 bg-white shadow-sm py-5 pl-14 pr-5 text-[17px] text-slate-900 placeholder:text-slate-300 focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/10 transition-all outline-none"
+                    placeholder="Popescu Andrei"
                     value={numeDoctor}
                     onChange={(e) => setNumeDoctor(e.target.value)}
                   />
-                  <label htmlFor="numeDoctor" className="absolute left-14 top-2 text-[10px] uppercase font-bold tracking-wider text-slate-400 transition-all duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-[15px] peer-placeholder-shown:font-normal peer-placeholder-shown:normal-case peer-focus:top-2 peer-focus:-translate-y-0 peer-focus:text-[10px] peer-focus:font-bold peer-focus:uppercase peer-focus:text-indigo-600 pointer-events-none">
-                    {userType === "medic" ? "Nume Doctor" : "Nume Tehnicial / Lab"}
-                  </label>
                 </div>
+              </div>
 
-                {/* Nume Clinica */}
-                <div className="relative group rounded-2xl bg-white border border-slate-200 hover:border-slate-300 transition-all duration-300 focus-within:border-indigo-500 focus-within:ring-4 focus-within:ring-indigo-500/10 overflow-hidden shadow-sm">
-                  <div className="absolute top-1/2 -translate-y-1/2 left-5 pointer-events-none">
-                    <Building2 className="h-5 w-5 text-slate-400 group-focus-within:text-indigo-600 group-focus-within:scale-110 transition-all duration-300" />
+              {/* Nume Clinică */}
+              <div className="flex flex-col space-y-3 group">
+                <label htmlFor="numeClinica" className="text-sm font-bold tracking-widest text-slate-500 uppercase ml-1">
+                  {userType === "medic" ? "Nume Clinică (Opțional)" : "Nume Laborator"}
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                    <Building2 className="h-6 w-6 text-slate-400 group-focus-within:text-indigo-600 transition-colors duration-300" />
                   </div>
                   <input
                     type="text"
                     id="numeClinica"
-                    className="peer block w-full h-[60px] bg-transparent pl-14 pr-5 pt-5 pb-1 text-[15px] font-medium text-slate-900 placeholder-transparent focus:outline-none"
-                    placeholder="Clinică"
+                    className="block w-full rounded-2xl border border-slate-300 bg-white shadow-sm py-5 pl-14 pr-5 text-[17px] text-slate-900 placeholder:text-slate-300 focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/10 transition-all outline-none"
+                    placeholder="Denumirea juridică sau brand"
                     value={numeClinica}
                     onChange={(e) => setNumeClinica(e.target.value)}
                   />
-                  <label htmlFor="numeClinica" className="absolute left-14 top-2 text-[10px] uppercase font-bold tracking-wider text-slate-400 transition-all duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-[15px] peer-placeholder-shown:font-normal peer-placeholder-shown:normal-case peer-focus:top-2 peer-focus:-translate-y-0 peer-focus:text-[10px] peer-focus:font-bold peer-focus:uppercase peer-focus:text-indigo-600 pointer-events-none">
-                    Nume Clinică / Laborator (Opțional)
-                  </label>
                 </div>
+              </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {/* Telefon */}
-                  <div className="relative group rounded-2xl bg-white border border-slate-200 hover:border-slate-300 transition-all duration-300 focus-within:border-indigo-500 focus-within:ring-4 focus-within:ring-indigo-500/10 overflow-hidden shadow-sm">
-                    <div className="absolute top-1/2 -translate-y-1/2 left-4 pointer-events-none">
-                      <Phone className="h-5 w-5 text-slate-400 group-focus-within:text-indigo-600 group-focus-within:scale-110 transition-all duration-300" />
-                    </div>
-                    <input
-                      type="tel"
-                      id="telefon"
-                      className="peer block w-full h-[60px] bg-transparent pl-12 pr-4 pt-5 pb-1 text-[15px] font-medium text-slate-900 placeholder-transparent focus:outline-none"
-                      placeholder="Telefon"
-                      value={telefon}
-                      onChange={(e) => setTelefon(e.target.value)}
-                      required
-                    />
-                    <label htmlFor="telefon" className="absolute left-12 top-2 text-[10px] uppercase font-bold tracking-wider text-slate-400 transition-all duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-[15px] peer-placeholder-shown:font-normal peer-placeholder-shown:normal-case peer-focus:top-2 peer-focus:-translate-y-0 peer-focus:text-[10px] peer-focus:font-bold peer-focus:uppercase peer-focus:text-indigo-600 pointer-events-none">
-                      Telefon
-                    </label>
+              {/* Telefon (nu le mai înghesuiam pe 2 coloane - wide and clean) */}
+              <div className="flex flex-col space-y-3 group">
+                <label htmlFor="telefon" className="text-sm font-bold tracking-widest text-slate-500 uppercase ml-1">
+                  Telefon de Contact
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                    <Phone className="h-6 w-6 text-slate-400 group-focus-within:text-indigo-600 transition-colors duration-300" />
                   </div>
-
-                  {/* Email */}
-                  <div className="relative group rounded-2xl bg-white border border-slate-200 hover:border-slate-300 transition-all duration-300 focus-within:border-indigo-500 focus-within:ring-4 focus-within:ring-indigo-500/10 overflow-hidden shadow-sm">
-                    <div className="absolute top-1/2 -translate-y-1/2 left-4 pointer-events-none">
-                      <Mail className="h-5 w-5 text-slate-400 group-focus-within:text-indigo-600 group-focus-within:scale-110 transition-all duration-300" />
-                    </div>
-                    <input
-                      type="email"
-                      id="email"
-                      required
-                      className="peer block w-full h-[60px] bg-transparent pl-12 pr-4 pt-5 pb-1 text-[15px] font-medium text-slate-900 placeholder-transparent focus:outline-none"
-                      placeholder="Email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <label htmlFor="email" className="absolute left-12 top-2 text-[10px] uppercase font-bold tracking-wider text-slate-400 transition-all duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-[15px] peer-placeholder-shown:font-normal peer-placeholder-shown:normal-case peer-focus:top-2 peer-focus:-translate-y-0 peer-focus:text-[10px] peer-focus:font-bold peer-focus:uppercase peer-focus:text-indigo-600 pointer-events-none">
-                      Email
-                    </label>
-                  </div>
+                  <input
+                    type="tel"
+                    id="telefon"
+                    required
+                    className="block w-full rounded-2xl border border-slate-300 bg-white shadow-sm py-5 pl-14 pr-5 text-[17px] text-slate-900 placeholder:text-slate-300 focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/10 transition-all outline-none"
+                    placeholder="ex: 0712 345 678"
+                    value={telefon}
+                    onChange={(e) => setTelefon(e.target.value)}
+                  />
                 </div>
+              </div>
 
-                {/* Parolă */}
-                <div className="relative group rounded-2xl bg-white border border-slate-200 hover:border-slate-300 transition-all duration-300 focus-within:border-indigo-500 focus-within:ring-4 focus-within:ring-indigo-500/10 overflow-hidden mt-2 shadow-sm">
-                  <div className="absolute top-1/2 -translate-y-1/2 left-5 pointer-events-none">
-                    <Lock className="h-5 w-5 text-slate-400 group-focus-within:text-indigo-600 group-focus-within:scale-110 transition-all duration-300" />
+              {/* Email */}
+              <div className="flex flex-col space-y-3 group">
+                <label htmlFor="email" className="text-sm font-bold tracking-widest text-slate-500 uppercase ml-1">
+                  Adresă de Email
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                    <Mail className="h-6 w-6 text-slate-400 group-focus-within:text-indigo-600 transition-colors duration-300" />
+                  </div>
+                  <input
+                    type="email"
+                    id="email"
+                    required
+                    className="block w-full rounded-2xl border border-slate-300 bg-white shadow-sm py-5 pl-14 pr-5 text-[17px] text-slate-900 placeholder:text-slate-300 focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/10 transition-all outline-none"
+                    placeholder="adresa@domeniu.ro"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              {/* Parolă */}
+              <div className="flex flex-col space-y-3 group">
+                <label htmlFor="password" className="text-sm font-bold tracking-widest text-slate-500 uppercase ml-1">
+                  Creează Parola
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                    <Lock className="h-6 w-6 text-slate-400 group-focus-within:text-indigo-600 transition-colors duration-300" />
                   </div>
                   <input
                     type={showPassword ? "text" : "password"}
                     id="password"
                     required
-                    className="peer block w-full h-[60px] bg-transparent pl-14 pr-16 pt-5 pb-1 text-[15px] font-medium text-slate-900 placeholder-transparent focus:outline-none"
-                    placeholder="Parolă"
+                    className="block w-full rounded-2xl border border-slate-300 bg-white shadow-sm py-5 pl-14 pr-16 text-[17px] text-slate-900 placeholder:text-slate-300 focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/10 transition-all outline-none"
+                    placeholder="Minim 6 caractere"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
-                  <label
-                    htmlFor="password"
-                    className="absolute left-14 top-2 text-[10px] uppercase font-bold tracking-wider text-slate-400 transition-all duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-[15px] peer-placeholder-shown:font-normal peer-placeholder-shown:normal-case peer-focus:top-2 peer-focus:-translate-y-0 peer-focus:text-[10px] peer-focus:font-bold peer-focus:uppercase peer-focus:text-indigo-600 pointer-events-none"
-                  >
-                    Parolă (Min. 6)
-                  </label>
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors focus:outline-none p-1"
+                    className="absolute inset-y-0 right-0 pr-5 flex items-center text-slate-400 hover:text-slate-600 transition-colors outline-none focus:text-indigo-600"
                   >
-                    {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                    {showPassword ? <EyeOff className="h-6 w-6" /> : <Eye className="h-6 w-6" />}
                   </button>
                 </div>
-
-                {/* Buton Submit */}
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className="mt-6 relative w-full rounded-2xl bg-indigo-600 px-4 py-4 text-[15px] font-semibold text-white shadow-[0_4px_14px_0_rgb(79,70,229,0.39)] transition-all duration-300 hover:bg-indigo-700 hover:shadow-[0_6px_20px_rgba(79,70,229,0.23)] hover:-translate-y-[1px] active:translate-y-[1px] active:shadow-[0_2px_10px_rgba(79,70,229,0.2)] disabled:opacity-70 disabled:hover:translate-y-0 disabled:shadow-none overflow-hidden group"
-                >
-                  <div className="relative flex items-center justify-center gap-2">
-                    {isLoading ? (
-                      <>
-                        <Loader2 className="h-5 w-5 animate-spin" />
-                        <span>Se procesează...</span>
-                      </>
-                    ) : (
-                      <>
-                        <span>Crează Cont Acum</span>
-                        <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
-                      </>
-                    )}
-                  </div>
-                </button>
-                
-              </form>
-
-              {/* Link Inapoi spre Login */}
-              <div className="mt-8 text-center text-[15px] text-slate-500 relative z-20">
-                Ai deja un cont?{" "}
-                <Link 
-                  href="/login" 
-                  className="text-slate-900 hover:text-indigo-600 font-semibold transition-colors hover:underline underline-offset-4 decoration-slate-300 hover:decoration-indigo-600"
-                >
-                  Autentifică-te
-                </Link>
               </div>
 
+              {/* Buton Submit Extra Large */}
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full mt-10 py-5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white text-lg font-bold shadow-[0_4px_14px_0_rgb(79,70,229,0.39)] hover:shadow-[0_6px_20px_rgba(79,70,229,0.23)] hover:-translate-y-[2px] transition-all outline-none focus:ring-4 focus:ring-indigo-600/30 disabled:opacity-70 disabled:hover:translate-y-0 disabled:shadow-none group"
+              >
+                <div className="relative flex items-center justify-center gap-3">
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="h-6 w-6 animate-spin" />
+                      <span>Se procesează...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span className="tracking-wide">Inregistrare Cont</span>
+                      <ArrowRight className="h-6 w-6 group-hover:translate-x-1.5 transition-transform" />
+                    </>
+                  )}
+                </div>
+              </button>
+              
+            </form>
+
+            <div className="mt-14 text-center">
+              <span className="text-[17px] font-medium text-slate-500">Ai deja un cont? </span>
+              <Link 
+                href="/login" 
+                className="text-[17px] font-bold text-slate-900 hover:text-indigo-600 transition-colors underline decoration-slate-300 hover:decoration-indigo-600 underline-offset-4"
+              >
+                Autentifică-te
+              </Link>
             </div>
+
           </div>
         </div>
 
