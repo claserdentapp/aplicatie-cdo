@@ -123,5 +123,25 @@
     "saving": "Se salvează...",
     "errorUpdate": "Nu am putut actualiza profilul.",
     "successUpdate": "Profil actualizat cu succes."
+  },
+  "AuthSaaS": {
+    "secureBadge": "Securitate Garantată",
+    "processing": "Se procesează...",
+    "emailPlaceholder": "ex: nume@domeniu.ro",
+    "passPlaceholderLogin": "••••••••",
+    "namePlaceholder": "Numele tău complet",
+    "clinicPlaceholder": "Opțional",
+    "phonePlaceholder": "Număr de contact",
+    "passPlaceholderReg": "Minim 6 caractere",
+    "loginTitle1": "Performanță dentară.",
+    "loginTitle2": "Livrări fără cusur.",
+    "loginDesc": "Ecosistemul tău modern pentru comenzi, trasabilitate și comunicare între clinică și laborator. Toate instrumentele esențiale într-un singur loc.",
+    "regTitle1": "Evoluție digitală.",
+    "regTitle2": "Simplu și eficient.",
+    "regDesc": "Deschide un cont gratuit în mai puțin de un minut și începe să colaborezi la standarde premium cu ecosistemul tău dentar.",
+    "bullet1": "Digitalizează modul în care lucrezi cu laboratorul sau clinica ta.",
+    "bullet2": "Mai puține telefoane, mai mult control, rezultate mai bune pentru pacienții tăi.",
+    "copyright": "© 2026 ClaSerDent Technology. Toate drepturile rezervate.",
+    "logoAlt": "ClaSerDent Technology Logo"
   }
 }

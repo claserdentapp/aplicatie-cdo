@@ -11,6 +11,7 @@ import { useTranslations } from "next-intl";
 export default function PremiumSaaSRegisterPage() {
   const router = useRouter();
   const t = useTranslations("Auth");
+  const ts = useTranslations("AuthSaaS");
   const [mounted, setMounted] = useState(false);
 
   // Form States
@@ -91,7 +92,7 @@ export default function PremiumSaaSRegisterPage() {
       <div className="flex flex-col lg:flex-row min-h-[calc(100vh-80px)] w-full bg-white font-sans text-slate-900">
         
         {/* --- STÂNGA: Brand & Trust (Desktop Only or Top on Mobile) --- */}
-        <div className="w-full lg:w-[45%] flex flex-col justify-between px-8 lg:px-16 xl:px-24 py-12 lg:py-20 bg-slate-50 relative overflow-hidden border-r border-slate-200/60 transition-all">
+        <div className="w-full lg:w-[45%] flex flex-col justify-between px-6 lg:px-16 xl:px-24 py-8 lg:py-20 bg-slate-50 relative overflow-hidden border-b lg:border-b-0 lg:border-r border-slate-200/60 transition-all">
           
           {/* Subtle SaaS mesh gradients */}
           <div className="absolute inset-0 pointer-events-none z-0">
@@ -99,39 +100,44 @@ export default function PremiumSaaSRegisterPage() {
             <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-indigo-100/50 blur-[130px] rounded-full mix-blend-multiply" />
           </div>
 
-          <div className="relative z-10">
+          <div className="relative z-10 flex flex-col items-center lg:items-start text-center lg:text-left">
             <img 
               src="/logo.png" 
-              alt="ClaSerDent Logo" 
-              className="h-28 md:h-36 xl:h-48 w-auto object-contain drop-shadow-md mb-12 sm:mb-16" 
+              alt={ts("logoAlt")} 
+              className="h-16 sm:h-20 md:h-28 lg:h-36 xl:h-48 w-auto object-contain drop-shadow-md mb-6 lg:mb-16" 
             />
 
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-slate-200 mb-8 shadow-sm">
+            <div className="hidden lg:inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-slate-200 mb-8 shadow-sm">
               <ShieldCheck className="w-4 h-4 text-indigo-600" />
-              <span className="text-xs font-bold text-slate-700 uppercase tracking-widest">{t("accountType") || "Securitate Garantată"}</span>
+              <span className="text-xs font-bold text-slate-700 uppercase tracking-widest">{ts("secureBadge")}</span>
             </div>
 
-            <h1 className="text-4xl lg:text-5xl xl:text-[3.5rem] font-extrabold text-slate-900 leading-[1.1] mb-6 tracking-tight drop-shadow-sm">
-              Evoluție digitală.<br />
+            <h1 className="hidden lg:block text-4xl lg:text-5xl xl:text-[3.5rem] font-extrabold text-slate-900 leading-[1.1] mb-6 tracking-tight drop-shadow-sm">
+              {ts("regTitle1")}<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
-                Simplu și eficient.
+                {ts("regTitle2")}
               </span>
             </h1>
 
-            <p className="text-lg text-slate-600 leading-relaxed font-medium max-w-md">
-              Deschide un cont gratuit în mai puțin de un minut și începe să colaborezi la standarde premium cu ecosistemul tău dentar.
+            <p className="hidden lg:block text-lg text-slate-600 leading-relaxed font-medium max-w-md mb-8">
+              {ts("regDesc")}
             </p>
+
+            <ul className="hidden lg:block space-y-4 text-slate-600 font-medium text-sm md:text-base list-disc pl-6 leading-relaxed">
+              <li>{ts("bullet1")}</li>
+              <li>{ts("bullet2")}</li>
+            </ul>
           </div>
 
           <div className="relative z-10 mt-12 hidden lg:block">
             <p className="text-sm font-semibold text-slate-400">
-              © {new Date().getFullYear()} ClaSerDent Technology. Toate drepturile rezervate.
+              {ts("copyright")}
             </p>
           </div>
         </div>
 
         {/* --- DREAPTA: Formular Inregistrare Premium --- */}
-        <div className="w-full lg:w-[55%] flex flex-col justify-center px-6 py-10 lg:p-12 xl:p-20 relative z-10 bg-white min-h-full">
+        <div className="w-full lg:w-[55%] flex flex-col justify-center px-6 py-8 lg:p-12 xl:p-20 relative z-10 bg-white min-h-full shadow-[0_-10px_20px_rgba(0,0,0,0.02)] lg:shadow-none">
           
           <div className="w-full max-w-[500px] mx-auto py-4">
             
@@ -140,7 +146,7 @@ export default function PremiumSaaSRegisterPage() {
                 {t("titleRegister")}
               </h2>
               <p className="text-slate-500 text-[15px] font-medium leading-relaxed">
-                {t("descRegister") || "Completează rapid datele esențiale pentru a-ți crea spațiul de lucru."}
+                {ts("regDesc")}
               </p>
             </div>
 
@@ -183,7 +189,7 @@ export default function PremiumSaaSRegisterPage() {
                       id="numeDoctor"
                       required
                       className="block w-full rounded-xl border border-slate-300 bg-white py-2.5 pl-10 pr-3.5 text-[14px] text-slate-900 font-medium outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/10 shadow-sm transition-all placeholder:text-slate-400 placeholder:font-normal"
-                      placeholder="Numele tău"
+                      placeholder={ts("namePlaceholder")}
                       value={numeDoctor}
                       onChange={(e) => setNumeDoctor(e.target.value)}
                     />
@@ -203,7 +209,7 @@ export default function PremiumSaaSRegisterPage() {
                       type="text"
                       id="numeClinica"
                       className="block w-full rounded-xl border border-slate-300 bg-white py-2.5 pl-10 pr-3.5 text-[14px] text-slate-900 font-medium outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/10 shadow-sm transition-all placeholder:text-slate-400 placeholder:font-normal"
-                      placeholder="Opțional"
+                      placeholder={ts("clinicPlaceholder")}
                       value={numeClinica}
                       onChange={(e) => setNumeClinica(e.target.value)}
                     />
@@ -226,7 +232,7 @@ export default function PremiumSaaSRegisterPage() {
                       id="telefon"
                       required
                       className="block w-full rounded-xl border border-slate-300 bg-white py-2.5 pl-10 pr-3.5 text-[14px] text-slate-900 font-medium outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/10 shadow-sm transition-all placeholder:text-slate-400 placeholder:font-normal"
-                      placeholder="Număr de contact"
+                      placeholder={ts("phonePlaceholder")}
                       value={telefon}
                       onChange={(e) => setTelefon(e.target.value)}
                     />
@@ -247,7 +253,7 @@ export default function PremiumSaaSRegisterPage() {
                       id="email"
                       required
                       className="block w-full rounded-xl border border-slate-300 bg-white py-2.5 pl-10 pr-3.5 text-[14px] text-slate-900 font-medium outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/10 shadow-sm transition-all placeholder:text-slate-400 placeholder:font-normal"
-                      placeholder="adresa@domeniu.ro"
+                      placeholder={ts("emailPlaceholder")}
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                     />
@@ -269,7 +275,7 @@ export default function PremiumSaaSRegisterPage() {
                     id="password"
                     required
                     className="block w-full rounded-xl border border-slate-300 bg-white py-2.5 pl-10 pr-10 text-[14px] text-slate-900 font-medium outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/10 shadow-sm transition-all placeholder:text-slate-400 placeholder:font-normal"
-                    placeholder="Minim 6 caractere"
+                    placeholder={ts("passPlaceholderReg")}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
@@ -290,10 +296,13 @@ export default function PremiumSaaSRegisterPage() {
                 className="w-full mt-6 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 active:bg-black text-white text-[15px] font-bold shadow-[0_4px_14px_0_rgba(0,0,0,0.15)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.1)] transition-all outline-none focus:ring-4 focus:ring-slate-900/20 disabled:opacity-70 disabled:shadow-none flex items-center justify-center gap-2 group hover:-translate-y-[1px]"
               >
                 {isLoading ? (
-                  <Loader2 className="h-5 w-5 animate-spin" />
+                  <>
+                    <Loader2 className="h-5 w-5 animate-spin" />
+                    <span>{ts("processing")}</span>
+                  </>
                 ) : (
                   <>
-                    <span>{t("createBtn") || "Creare Cont"}</span>
+                    <span>{t("createBtn")}</span>
                     <ArrowRight className="h-[18px] w-[18px] group-hover:translate-x-1 transition-transform" />
                   </>
                 )}

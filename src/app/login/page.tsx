@@ -11,6 +11,7 @@ import { useTranslations } from "next-intl";
 export default function PremiumSaaSLoginPage() {
   const router = useRouter();
   const t = useTranslations("Auth");
+  const ts = useTranslations("AuthSaaS");
   const [mounted, setMounted] = useState(false);
 
   // States
@@ -93,7 +94,7 @@ export default function PremiumSaaSLoginPage() {
       <div className="flex flex-col lg:flex-row min-h-[calc(100vh-80px)] w-full bg-white font-sans text-slate-900">
         
         {/* --- STÂNGA: Brand & Trust (Desktop Only or Top on Mobile) --- */}
-        <div className="w-full lg:w-[45%] flex flex-col justify-between px-8 lg:px-16 xl:px-24 py-12 lg:py-20 bg-slate-50 relative overflow-hidden border-r border-slate-200/60 transition-all">
+        <div className="w-full lg:w-[45%] flex flex-col justify-between px-6 lg:px-16 xl:px-24 py-8 lg:py-20 bg-slate-50 relative overflow-hidden border-b lg:border-b-0 lg:border-r border-slate-200/60 transition-all">
           
           {/* Subtle SaaS mesh gradients */}
           <div className="absolute inset-0 pointer-events-none z-0">
@@ -101,39 +102,39 @@ export default function PremiumSaaSLoginPage() {
             <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-indigo-100/50 blur-[130px] rounded-full mix-blend-multiply" />
           </div>
 
-          <div className="relative z-10">
+          <div className="relative z-10 flex flex-col items-center lg:items-start text-center lg:text-left">
             <img 
               src="/logo.png" 
-              alt="ClaSerDent Logo" 
-              className="h-28 md:h-36 xl:h-48 w-auto object-contain drop-shadow-md mb-16" 
+              alt={ts("logoAlt")} 
+              className="h-16 sm:h-20 md:h-28 lg:h-36 xl:h-48 w-auto object-contain drop-shadow-md mb-6 lg:mb-16" 
             />
 
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-slate-200 mb-8 shadow-sm">
+            <div className="hidden lg:inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-slate-200 mb-8 shadow-sm">
               <ShieldCheck className="w-4 h-4 text-indigo-600" />
-              <span className="text-xs font-bold text-slate-700 uppercase tracking-widest">{t("accountType") || "Securitate Garantată"}</span>
+              <span className="text-xs font-bold text-slate-700 uppercase tracking-widest">{ts("secureBadge")}</span>
             </div>
 
-            <h1 className="text-4xl lg:text-5xl xl:text-[3.5rem] font-extrabold text-slate-900 leading-[1.1] mb-6 tracking-tight drop-shadow-sm">
-              Performanță dentară.<br />
+            <h1 className="hidden lg:block text-4xl lg:text-5xl xl:text-[3.5rem] font-extrabold text-slate-900 leading-[1.1] mb-6 tracking-tight drop-shadow-sm">
+              {ts("loginTitle1")}<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
-                Livrări fără cusur.
+                {ts("loginTitle2")}
               </span>
             </h1>
 
-            <p className="text-lg text-slate-600 leading-relaxed font-medium max-w-md">
-              Ecosistemul tău modern pentru comenzi, trasabilitate și comunicare între clinică și laborator. Toate instrumentele SaaS într-un singur loc.
+            <p className="hidden lg:block text-lg text-slate-600 leading-relaxed font-medium max-w-md">
+              {ts("loginDesc")}
             </p>
           </div>
 
           <div className="relative z-10 mt-12 hidden lg:block">
             <p className="text-sm font-semibold text-slate-400">
-              © {new Date().getFullYear()} ClaSerDent Technology. Toate drepturile rezervate.
+              {ts("copyright")}
             </p>
           </div>
         </div>
 
         {/* --- DREAPTA: Formular Login Premium --- */}
-        <div className="w-full lg:w-[55%] flex flex-col justify-center px-6 py-10 lg:p-16 xl:p-24 relative z-10 bg-white">
+        <div className="w-full lg:w-[55%] flex flex-col justify-center px-6 py-8 lg:p-16 xl:p-24 relative z-10 bg-white shadow-[0_-10px_20px_rgba(0,0,0,0.02)] lg:shadow-none">
           
           <div className="w-full max-w-md mx-auto">
             
@@ -142,7 +143,7 @@ export default function PremiumSaaSLoginPage() {
                 {t("welcomeBack")}
               </h2>
               <p className="text-slate-500 text-[15px] font-medium leading-relaxed">
-                {t("descLogin") || "Te rugăm să introduci datele tale pentru a accesa platforma."}
+                {t("descLogin")}
               </p>
             </div>
 
@@ -183,7 +184,7 @@ export default function PremiumSaaSLoginPage() {
                     id="email"
                     required
                     className="block w-full rounded-xl border border-slate-300 bg-white py-3 pl-11 pr-4 text-[15px] text-slate-900 font-medium outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/10 shadow-sm transition-all placeholder:text-slate-400 placeholder:font-normal"
-                    placeholder="ex: nume@domeniu.ro"
+                    placeholder={ts("emailPlaceholder")}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
@@ -203,7 +204,7 @@ export default function PremiumSaaSLoginPage() {
                     id="password"
                     required
                     className="block w-full rounded-xl border border-slate-300 bg-white py-3 pl-11 pr-12 text-[15px] text-slate-900 font-medium outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/10 shadow-sm transition-all placeholder:text-slate-400 placeholder:font-normal"
-                    placeholder="••••••••"
+                    placeholder={ts("passPlaceholderLogin")}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
@@ -229,7 +230,7 @@ export default function PremiumSaaSLoginPage() {
                     <div className="w-2.5 h-2.5 bg-indigo-600 rounded-[2px] scale-0 peer-checked:scale-100 transition-transform duration-200" />
                   </div>
                   <span className="text-slate-600 text-[13px] font-semibold transition-colors group-hover:text-slate-900">
-                    {t("rememberMe") || "Ține-mă minte"}
+                    {t("rememberMe")}
                   </span>
                 </label>
                 
@@ -237,7 +238,7 @@ export default function PremiumSaaSLoginPage() {
                   href="/forgot-password" 
                   className="text-indigo-600 hover:text-indigo-800 hover:underline underline-offset-4 text-[13px] font-bold transition-all"
                 >
-                  {t("forgotPasswordQ") || "Ai uitat parola?"}
+                  {t("forgotPasswordQ")}
                 </Link>
               </div>
 
@@ -247,10 +248,13 @@ export default function PremiumSaaSLoginPage() {
                 className="w-full mt-4 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 active:bg-black text-white text-[15px] font-bold shadow-[0_4px_14px_0_rgba(0,0,0,0.15)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.1)] transition-all outline-none focus:ring-4 focus:ring-slate-900/20 disabled:opacity-70 disabled:shadow-none flex items-center justify-center gap-2 group hover:-translate-y-[1px]"
               >
                 {isLoading ? (
-                  <Loader2 className="h-5 w-5 animate-spin" />
+                  <>
+                    <Loader2 className="h-5 w-5 animate-spin" />
+                    <span>{ts("processing")}</span>
+                  </>
                 ) : (
                   <>
-                    <span>{t("loginBtn") || "Autentificare"}</span>
+                    <span>{t("loginBtn")}</span>
                     <ArrowRight className="h-[18px] w-[18px] group-hover:translate-x-1 transition-transform" />
                   </>
                 )}
@@ -260,14 +264,14 @@ export default function PremiumSaaSLoginPage() {
 
             <div className="mt-8 text-center bg-slate-50/50 p-4 rounded-xl border border-slate-100">
               <span className="text-[14px] text-slate-500 font-medium">
-                {t("noAccount") || "Nu ai un cont?"}
+                {t("noAccount")}
               </span>
               {" "}
               <Link 
                 href="/register" 
                 className="text-[14px] font-bold text-indigo-600 hover:text-indigo-800 transition-colors uppercase tracking-wide ml-1 underline decoration-indigo-200 hover:decoration-indigo-600 underline-offset-4"
               >
-                {t("registerLink") || "Creează cont"}
+                {t("registerLink")}
               </Link>
             </div>
 

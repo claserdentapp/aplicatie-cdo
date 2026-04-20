@@ -123,5 +123,25 @@
     "saving": "Speichern...",
     "errorUpdate": "Profil konnte nicht aktualisiert werden.",
     "successUpdate": "Profil erfolgreich aktualisiert."
+  },
+  "AuthSaaS": {
+    "secureBadge": "Garantierte Sicherheit",
+    "processing": "Wird bearbeitet...",
+    "emailPlaceholder": "z.B.: name@domain.de",
+    "passPlaceholderLogin": "••••••••",
+    "namePlaceholder": "Ihr vollständiger Name",
+    "clinicPlaceholder": "Optional",
+    "phonePlaceholder": "Kontaktnummer",
+    "passPlaceholderReg": "Mindestens 6 Zeichen",
+    "loginTitle1": "Dentale Leistung.",
+    "loginTitle2": "Makellose Lieferung.",
+    "loginDesc": "Ihr modernes Ökosystem für Bestellungen, Rückverfolgbarkeit und Kommunikation zwischen Klinik und Labor. Alle wichtigen Tools an einem Ort.",
+    "regTitle1": "Digitale Evolution.",
+    "regTitle2": "Einfach und effizient.",
+    "regDesc": "Eröffnen Sie in weniger als einer Minute ein kostenloses Konto und beginnen Sie, nach Premium-Standards mit Ihrem dentalen Ökosystem zusammenzuarbeiten.",
+    "bullet1": "Digitalisieren Sie die Art und Weise, wie Sie mit Ihrem Labor oder Ihrer Klinik arbeiten.",
+    "bullet2": "Weniger Telefonanrufe, mehr Kontrolle, bessere Ergebnisse für Ihre Patienten.",
+    "copyright": "© 2026 ClaSerDent Technology. Alle Rechte vorbehalten.",
+    "logoAlt": "ClaSerDent Technology Logo"
   }
 }
