@@ -92,26 +92,25 @@ export default function LoginPage() {
       `}</style>
 
       {/* Container Principal */}
-      <div className="flex flex-col lg:flex-row min-h-[calc(100vh-80px)] w-full bg-slate-50/50 font-sans p-6 lg:p-12 xl:p-20 overflow-x-hidden">
+      <div className="flex flex-col lg:flex-row min-h-[calc(100vh-80px)] w-full bg-[#f8fbfa] font-sans">
         
-        {/* --- STÂNGA: Layout Prezentare --- */}
-        <div className="w-full lg:w-1/2 flex flex-col justify-center lg:pr-16 xl:pr-24 mb-16 lg:mb-0">
+        {/* --- STÂNGA: Prezentare (45% din spatiu) --- */}
+        <div className="w-full lg:w-[45%] flex flex-col justify-center px-8 lg:pl-16 xl:pl-24 py-16 lg:py-0">
           
-          {/* Logo / Imagine Dinte din Mockup */}
-          <div className="flex justify-center mb-16 w-full max-w-[300px] mx-auto lg:mx-0">
-            {/* Fallback svg de dinte digital daca lipseste png-ul */}
-            <svg viewBox="0 0 200 200" className="w-32 h-32 md:w-48 md:h-48 drop-shadow-sm">
-               <path d="M 60 40 C 60 10, 100 10, 100 30 C 100 10, 140 10, 140 40 C 140 80, 120 100, 120 140 C 120 180, 105 190, 100 190 C 95 190, 80 180, 80 140 C 80 100, 60 80, 60 40 Z" fill="none" stroke="#2dd4bf" strokeWidth="8" />
-               <path d="M 60 40 L 100 60 L 140 40 M 80 140 L 100 90 L 120 140" stroke="#0ea5e9" strokeWidth="4" fill="none"/>
-               <circle cx="100" cy="90" r="4" fill="#0ea5e9"/>
-            </svg>
+          {/* Logo Companie (înlocuire dinte per cerință) */}
+          <div className="flex justify-center lg:justify-start mb-12 lg:mb-16">
+            <img 
+              src="/logo.png" 
+              alt="ClaSerDent Logo" 
+              className="h-24 md:h-32 xl:h-40 object-contain drop-shadow-sm" 
+            />
           </div>
 
-          <h1 className="text-3xl md:text-4xl xl:text-5xl font-extrabold text-[#3a4d5c] leading-tight mb-10 tracking-tight">
+          <h1 className="text-3xl md:text-4xl xl:text-5xl font-black text-[#3a4d5c] leading-tight mb-10 tracking-tight text-center lg:text-left">
             Viitorul <span className="text-[#64a5c3]">colaborării dentare</span> începe aici.
           </h1>
 
-          <ul className="space-y-6 text-[#699cb4] font-bold text-lg md:text-xl list-disc pl-6 leading-relaxed">
+          <ul className="space-y-6 text-[#699cb4] font-bold text-lg md:text-xl list-disc pl-6 leading-relaxed max-w-lg mx-auto lg:mx-0">
             <li>
               Digitalizează modul în care lucrezi cu laboratorul sau clinica ta.
             </li>
@@ -121,143 +120,145 @@ export default function LoginPage() {
           </ul>
         </div>
 
-        {/* --- DREAPTA: Formular Box Albastru --- */}
-        <div className="w-full lg:w-1/2 flex flex-col justify-center">
+        {/* --- DREAPTA: Formular Gigant (55% cu margine drăguță) --- */}
+        <div className="w-full lg:w-[55%] flex lg:p-6 lg:pr-10 xl:pr-16 mb-6 lg:mb-0 relative z-10">
           
-          <div className="w-full max-w-lg mx-auto">
-            {/* Titlu Formular Exterior */}
-            <h2 className="text-2xl md:text-[28px] font-extrabold text-[#3a4d5c] mb-6 text-center lg:text-left drop-shadow-sm leading-snug">
-              Bine ai revenit! <span className="text-[#397d9e]">{t("titleLogin") || "Autentifică-te."}</span>
-            </h2>
+          <div className="w-full h-full bg-[#4585a6] lg:rounded-[2.5rem] p-8 md:p-12 xl:p-16 flex flex-col justify-center shadow-2xl border border-[#3b7391]/30 mx-auto max-w-full relative overflow-hidden">
+            
+            {/* Decorațiuni invizibile pt wow-factor in interiorul marginii */}
+            <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-white/5 blur-3xl rounded-bl-full pointer-events-none" />
 
-            {/* BOX ALBASTRU FORMULAR */}
-            <div className="bg-[#4585a6] p-6 sm:p-8 rounded-xl shadow-lg border border-[#3b7391]">
+            {/* Titlu mutat IN interior, deoarece caseta ocupa totul */}
+            <div className="mb-10 text-center lg:text-left relative z-10">
+              <h2 className="text-3xl lg:text-[40px] font-black text-white leading-[1.1] tracking-tight">
+                Bine ai revenit! <br className="hidden xl:block" />
+                <span className="text-[#bcdcec]">{t("titleLogin") || "Autentificare."}</span>
+              </h2>
+            </div>
+
+            {/* Toggle Roluri */}
+            <div className="flex p-1.5 rounded-full bg-[#bcdcec] mb-10 relative shadow-inner max-w-sm w-full mx-auto lg:mx-0 z-10">
+              <div 
+                className="absolute top-1.5 bottom-1.5 w-[calc(50%-6px)] bg-white rounded-full shadow-md transition-transform duration-500 ease-in-out"
+                style={{ transform: userType === "medic" ? "translateX(0)" : "translateX(100%)" }}
+              />
+              <button 
+                type="button"
+                onClick={() => setUserType("medic")}
+                className={`relative flex-1 py-3.5 text-xs md:text-[13px] font-black uppercase tracking-widest rounded-full transition-colors z-10 ${userType === "medic" ? "text-[#1f3747]" : "text-[#558299] hover:text-[#1d3d4d]"}`}
+              >
+                {t("medic")}
+              </button>
+              <button 
+                type="button"
+                onClick={() => setUserType("laborator")}
+                className={`relative flex-1 py-3.5 text-xs md:text-[13px] font-black uppercase tracking-widest rounded-full transition-colors z-10 ${userType === "laborator" ? "text-[#1f3747]" : "text-[#558299] hover:text-[#1d3d4d]"}`}
+              >
+                {t("lab")}
+              </button>
+            </div>
+
+            <form onSubmit={handleLogin} className="space-y-6 relative z-10">
               
-              {/* Toggle Roluri */}
-              <div className="flex p-1.5 rounded-full bg-[#bcdcec] mb-8 relative shadow-inner">
-                <div 
-                  className="absolute top-1.5 bottom-1.5 w-[calc(50%-6px)] bg-white rounded-full shadow-sm transition-transform duration-500 ease-in-out"
-                  style={{ transform: userType === "medic" ? "translateX(0)" : "translateX(100%)" }}
-                />
-                <button 
-                  type="button"
-                  onClick={() => setUserType("medic")}
-                  className={`relative flex-1 py-3 text-xs md:text-sm font-extrabold uppercase tracking-wide rounded-full transition-colors z-10 ${userType === "medic" ? "text-slate-900" : "text-[#2e5d75] hover:text-[#1d3d4d]"}`}
-                >
-                  {t("medic")}
-                </button>
-                <button 
-                  type="button"
-                  onClick={() => setUserType("laborator")}
-                  className={`relative flex-1 py-3 text-xs md:text-sm font-extrabold uppercase tracking-wide rounded-full transition-colors z-10 ${userType === "laborator" ? "text-slate-900" : "text-[#2e5d75] hover:text-[#1d3d4d]"}`}
-                >
-                  {t("lab")}
-                </button>
+              {/* Email - Full Width pe Login */}
+              <div className="flex flex-col space-y-2">
+                <label htmlFor="email" className="text-xs font-black text-white uppercase tracking-widest pl-1">
+                  {t("email")}
+                </label>
+                <div className="relative group">
+                  <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                    <Mail className="h-5 w-5 text-[#558299] group-focus-within:text-[#1b3d4f] transition-colors stroke-[2.5]" />
+                  </div>
+                  <input
+                    type="email"
+                    id="email"
+                    required
+                    className="block w-full rounded-full bg-[#bcdcec] py-4 pl-12 pr-5 text-[15px] text-[#1b3d4f] font-bold outline-none focus:ring-4 focus:ring-white/20 transition-all placeholder:text-[#8baabf]"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
               </div>
 
-              <form onSubmit={handleLogin} className="space-y-5">
-                
-                {/* Email - Full Width pe Login */}
-                <div className="flex flex-col space-y-1.5">
-                  <label htmlFor="email" className="text-[11px] font-extrabold text-white uppercase tracking-wider pl-1">
-                    {t("email")}
-                  </label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                      <Mail className="h-[18px] w-[18px] text-[#558299] stroke-[2.5]" />
-                    </div>
-                    <input
-                      type="email"
-                      id="email"
-                      required
-                      className="block w-full rounded-full bg-[#bcdcec] py-3.5 pl-11 pr-4 text-[14px] text-[#1b3d4f] font-bold outline-none focus:ring-2 focus:ring-white/30 transition-all placeholder:text-[#8baabf]"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
+              {/* Parola - Full width pe Login */}
+              <div className="flex flex-col space-y-2">
+                <label htmlFor="password" className="text-xs font-black text-white uppercase tracking-widest pl-1">
+                  {t("password")}
+                </label>
+                <div className="relative group">
+                  <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                    <Lock className="h-5 w-5 text-[#558299] group-focus-within:text-[#1b3d4f] transition-colors stroke-[2.5]" />
                   </div>
-                </div>
-
-                {/* Parola - Full width pe Login */}
-                <div className="flex flex-col space-y-1.5">
-                  <label htmlFor="password" className="text-[11px] font-extrabold text-white uppercase tracking-wider pl-1">
-                    {t("password")}
-                  </label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                      <Lock className="h-[18px] w-[18px] text-[#558299] stroke-[2.5]" />
-                    </div>
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      id="password"
-                      required
-                      className="block w-full rounded-full bg-[#bcdcec] py-3.5 pl-11 pr-12 text-[14px] text-[#1b3d4f] font-bold outline-none focus:ring-2 focus:ring-white/30 transition-all placeholder:text-[#8baabf]"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute inset-y-0 right-0 pr-4 flex items-center text-[#558299] hover:text-[#1b3d4f] transition-colors outline-none"
-                    >
-                      {showPassword ? <EyeOff className="h-[20px] w-[20px]" /> : <Eye className="h-[20px] w-[20px]" />}
-                    </button>
-                  </div>
-                </div>
-
-                {/* Utilitare Login: Remember me & Forgot Password. Lejer integrate estetic. */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between pt-2 pb-2 gap-4">
-                  <label className="flex items-center gap-2 cursor-pointer group">
-                    <div className="relative flex items-center justify-center w-5 h-5 border-[1.5px] border-[#81aabf] rounded bg-[#bcdcec] group-hover:border-white transition-colors shadow-sm">
-                      <input 
-                        type="checkbox" 
-                        className="peer sr-only"
-                        checked={rememberMe}
-                        onChange={(e) => setRememberMe(e.target.checked)}
-                      />
-                      <div className="w-2.5 h-2.5 bg-[#1b3d4f] rounded-sm scale-0 peer-checked:scale-100 transition-transform duration-300" />
-                    </div>
-                    <span className="text-white text-xs font-bold transition-colors uppercase tracking-wider">
-                      {t("rememberMe") || "Ține-mă minte"}
-                    </span>
-                  </label>
-                  
-                  <Link 
-                    href="/forgot-password" 
-                    className="text-[#bcdcec] hover:text-white hover:underline underline-offset-4 text-xs font-bold transition-all uppercase tracking-wider"
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    id="password"
+                    required
+                    className="block w-full rounded-full bg-[#bcdcec] py-4 pl-12 pr-14 text-[15px] text-[#1b3d4f] font-bold outline-none focus:ring-4 focus:ring-white/20 transition-all placeholder:text-[#8baabf]"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 pr-5 flex items-center text-[#558299] hover:text-[#1b3d4f] transition-colors outline-none cursor-pointer"
                   >
-                    {t("forgotPasswordQ") || "Ai uitat parola?"}
-                  </Link>
+                    {showPassword ? <EyeOff className="h-6 w-6" /> : <Eye className="h-6 w-6" />}
+                  </button>
                 </div>
+              </div>
 
-                {/* Buton Submit */}
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className="w-full mt-4 py-3.5 rounded-full bg-[#bcdcec] hover:bg-[#a6cbdf] active:bg-[#92bbd2] text-[#1f3747] text-[15px] font-extrabold transition-all outline-none focus:ring-2 focus:ring-white/30 disabled:opacity-70 disabled:shadow-none group shadow-sm flex items-center justify-center gap-2"
-                >
-                  {isLoading ? (
-                    <Loader2 className="h-5 w-5 animate-spin" />
-                  ) : (
-                    <>
-                      <span>{t("loginBtn") || "Autentificare cont"}</span>
-                      <ArrowRight className="h-4 w-4 stroke-[2.5] mt-[1px]" />
-                    </>
-                  )}
-                </button>
+              {/* Utilitare Login */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between pt-2 pb-2 gap-4">
+                <label className="flex items-center gap-2.5 cursor-pointer group">
+                  <div className="relative flex items-center justify-center w-5 h-5 border-2 border-[#81aabf] rounded bg-[#bcdcec] group-hover:border-white transition-colors shadow-sm">
+                    <input 
+                      type="checkbox" 
+                      className="peer sr-only"
+                      checked={rememberMe}
+                      onChange={(e) => setRememberMe(e.target.checked)}
+                    />
+                    <div className="w-2.5 h-2.5 bg-[#1b3d4f] rounded-[2px] scale-0 peer-checked:scale-100 transition-transform duration-300" />
+                  </div>
+                  <span className="text-white text-xs font-bold transition-colors uppercase tracking-widest">
+                    {t("rememberMe") || "Ține-mă minte"}
+                  </span>
+                </label>
                 
-              </form>
-
-              {/* Text Footer in interiorul cardului albastru */}
-              <div className="mt-6 text-center">
                 <Link 
-                  href="/register" 
-                  className="text-[13px] font-bold text-[#1f3747] hover:text-white transition-colors"
+                  href="/forgot-password" 
+                  className="text-[#bcdcec] hover:text-white hover:underline underline-offset-4 text-xs font-bold transition-all uppercase tracking-widest"
                 >
-                  {t("noAccount") || "Nu ai un cont?"} {t("registerLink") || "Creează cont"}
+                  {t("forgotPasswordQ") || "Ai uitat parola?"}
                 </Link>
               </div>
 
+              {/* Buton Submit */}
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full mt-6 py-4 rounded-full bg-[#bcdcec] hover:bg-[#a6cbdf] active:bg-[#92bbd2] text-[#1f3747] text-base lg:text-lg font-black transition-all outline-none focus:ring-4 focus:ring-white/30 disabled:opacity-70 disabled:shadow-none shadow-lg flex items-center justify-center gap-2 hover:-translate-y-0.5"
+              >
+                {isLoading ? (
+                  <Loader2 className="h-6 w-6 animate-spin" />
+                ) : (
+                  <>
+                    <span className="uppercase tracking-widest">{t("loginBtn") || "Autentificare"}</span>
+                    <ArrowRight className="h-5 w-5 stroke-[3] ml-1" />
+                  </>
+                )}
+              </button>
+              
+            </form>
+
+            <div className="mt-8 text-center relative z-10 pt-4 border-t border-white/10">
+              <Link 
+                href="/register" 
+                className="text-sm font-bold text-[#1f3747] hover:text-white transition-colors uppercase tracking-widest"
+              >
+                {t("noAccount") || "Nu ai un cont?"} <span className="underline decoration-[#1f3747] hover:decoration-white underline-offset-4">{t("registerLink") || "Creează cont"}</span>
+              </Link>
             </div>
+
           </div>
         </div>
 
