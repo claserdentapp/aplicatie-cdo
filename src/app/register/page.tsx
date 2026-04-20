@@ -103,7 +103,7 @@ export default function PremiumSaaSRegisterPage() {
             <img 
               src="/logo.png" 
               alt="ClaSerDent Logo" 
-              className="h-14 md:h-16 xl:h-20 object-contain drop-shadow-sm mb-12 sm:mb-16" 
+              className="h-28 md:h-36 xl:h-48 w-auto object-contain drop-shadow-md mb-12 sm:mb-16" 
             />
 
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-slate-200 mb-8 shadow-sm">
