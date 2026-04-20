@@ -187,10 +187,10 @@ export default function AdminOrdersTable({ initial }: { initial: AdminOrderRow[]
       <DashboardAnalytics orders={rows} />
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-3 max-w-[600px] h-12 items-center bg-slate-100/50 p-1 rounded-xl">
-          <TabsTrigger value="in_lucru" className="text-[14px] md:text-[15px] font-semibold data-[state=active]:shadow-sm rounded-lg">{ts("tabInProgress")}</TabsTrigger>
-          <TabsTrigger value="gata" className="text-[14px] md:text-[15px] font-semibold data-[state=active]:shadow-sm rounded-lg">{ts("tabDone")}</TabsTrigger>
-          <TabsTrigger value="toate" className="text-[14px] md:text-[15px] font-semibold data-[state=active]:shadow-sm rounded-lg">{ts("tabAll")}</TabsTrigger>
+        <TabsList className="flex flex-col sm:grid sm:grid-cols-3 w-full max-w-[600px] h-auto sm:h-12 bg-slate-100/50 p-1.5 sm:p-1 gap-1 sm:gap-0 rounded-xl">
+          <TabsTrigger value="in_lucru" className="w-full text-[14px] md:text-[15px] font-semibold data-[state=active]:shadow-sm rounded-lg py-2.5 sm:py-1">{ts("tabInProgress")}</TabsTrigger>
+          <TabsTrigger value="gata" className="w-full text-[14px] md:text-[15px] font-semibold data-[state=active]:shadow-sm rounded-lg py-2.5 sm:py-1">{ts("tabDone")}</TabsTrigger>
+          <TabsTrigger value="toate" className="w-full text-[14px] md:text-[15px] font-semibold data-[state=active]:shadow-sm rounded-lg py-2.5 sm:py-1">{ts("tabAll")}</TabsTrigger>
         </TabsList>
       </Tabs>
 
