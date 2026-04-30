@@ -13,9 +13,9 @@ export default async function AdminProfilPage() {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("id, nume_doctor, nume_clinica, telefon, rol")
+    .select("id, nume_doctor, nume_clinica, telefon, rol, cui")
     .eq("id", user.id)
-    .maybeSingle();
+    .single();
 
   if (!profile) notFound();
 

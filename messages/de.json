@@ -26,6 +26,8 @@
     "accountType": "Kontotyp",
     "medic": "Zahnarzt",
     "lab": "Partnerlabor",
+    "cuiMedic": "Klinik-Registernummer (CUI)",
+    "cuiLab": "Labor-Registernummer (CUI)",
     "doctorName": "Name des Arztes",
     "repName": "Name des Vertreters / Technikers",
     "clinicName": "Klinikname",
@@ -116,7 +118,8 @@
   "Profile": {
     "title": "Profilinformationen",
     "doctorName": "Vollständiger Name / Titel",
-    "doctorNameHint": "Z.B.: Dr. Max Mustermann",
+    "doctorNameHint": "Z. B. Dr. Max Mustermann",
+    "cui": "Firmen-Registernummer (CUI)",
     "clinicName": "Klinikname (Optional für Admin)",
     "phone": "Kontakttelefon",
     "save": "Änderungen speichern",

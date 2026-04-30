@@ -36,7 +36,7 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-hero-gradient`}
       >
         <NextIntlClientProvider messages={messages}>
           <Nav />

@@ -18,12 +18,14 @@ export default function ProfileForm({
     nume_doctor: string;
     nume_clinica: string | null;
     telefon: string | null;
+    cui: string | null;
     rol: string;
   };
 }) {
   const [numeDoctor, setNumeDoctor] = useState(initial.nume_doctor || "");
   const [numeClinica, setNumeClinica] = useState(initial.nume_clinica || "");
   const [telefon, setTelefon] = useState(initial.telefon || "");
+  const [cui, setCui] = useState(initial.cui || "");
 
   const [saving, setSaving] = useState(false);
   const t = useTranslations("Profile");
@@ -39,6 +41,7 @@ export default function ProfileForm({
         nume_doctor: numeDoctor.trim(),
         nume_clinica: numeClinica.trim() || null,
         telefon: telefon.trim() || null,
+        cui: cui.trim() || null,
       })
       .eq("id", initial.id);
 
@@ -69,6 +72,15 @@ export default function ProfileForm({
           id="numeClinica"
           value={numeClinica}
           onChange={(e) => setNumeClinica(e.target.value)}
+        />
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="cui">{t("cui") || "CUI"}</Label>
+        <Input
+          id="cui"
+          value={cui}
+          onChange={(e) => setCui(e.target.value)}
         />
       </div>
 

@@ -20,6 +20,7 @@ export default function RegisterForm() {
   const [password, setPassword] = useState("");
   const [numeDoctor, setNumeDoctor] = useState("");
   const [numeClinica, setNumeClinica] = useState("");
+  const [cui, setCui] = useState("");
   const [telefon, setTelefon] = useState("");
   const [rol, setRol] = useState<"medic" | "laborator_partener">("medic");
 
@@ -38,6 +39,7 @@ export default function RegisterForm() {
           nume_doctor: numeDoctor,
           nume_clinica: numeClinica,
           telefon,
+          cui,
           rol,
         },
       },
@@ -87,6 +89,17 @@ export default function RegisterForm() {
           id="numeClinica"
           value={numeClinica}
           onChange={(e) => setNumeClinica(e.target.value)}
+        />
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="cui">
+          {rol === "medic" ? (t("cuiMedic") || "CUI Cabinet") : (t("cuiLab") || "CUI Laborator")}
+        </Label>
+        <Input
+          id="cui"
+          value={cui}
+          onChange={(e) => setCui(e.target.value)}
+          required
         />
       </div>
       <div className="space-y-2">
