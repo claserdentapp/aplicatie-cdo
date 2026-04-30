@@ -151,6 +151,8 @@
   }
   html {
     @apply font-sans;
+    /* Increase base font size to 112.5% (1rem = 18px instead of 16px) to make the entire UI larger and easier to read */
+    font-size: 112.5%;
   }
 }
 
