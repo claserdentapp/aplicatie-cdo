@@ -174,7 +174,7 @@ export default function PremiumSaaSRegisterPage() {
 
         <div className="w-full lg:w-[55%] flex flex-col justify-center px-6 py-8 lg:p-12 xl:p-20 relative z-10 bg-white min-h-full shadow-[0_-10px_20px_rgba(0,0,0,0.02)] lg:shadow-none">
           
-          <div className="w-full max-w-[500px] mx-auto py-4">
+          <div className="w-full max-w-[650px] mx-auto py-4">
             
             {isCheckingAuth ? (
               <div className="flex flex-col items-center justify-center space-y-4 py-20">
