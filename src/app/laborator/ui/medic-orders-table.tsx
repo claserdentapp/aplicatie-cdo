@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -30,6 +31,7 @@ export default function MedicOrdersTable({
   initial: MedicOrderRow[];
 }) {
   const [rows, setRows] = useState<MedicOrderRow[]>(initial);
+  const t = useTranslations("Dashboard");
   const [activeTab, setActiveTab] = useState("in_lucru"); // "toate", "in_lucru", "gata"
 
   const sorted = useMemo(() => {
@@ -82,53 +84,53 @@ export default function MedicOrdersTable({
     <div className="space-y-6">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="grid w-full grid-cols-3 max-w-md">
-          <TabsTrigger value="in_lucru">Spre Laborator</TabsTrigger>
-          <TabsTrigger value="gata">Finalizate</TabsTrigger>
-          <TabsTrigger value="toate">Istoric Complet</TabsTrigger>
+          <TabsTrigger value="in_lucru">{t("tabInProgress")}</TabsTrigger>
+          <TabsTrigger value="gata">{t("tabDone")}</TabsTrigger>
+          <TabsTrigger value="toate">{t("tabAll")}</TabsTrigger>
         </TabsList>
       </Tabs>
 
       <div className="overflow-x-auto">
-        <Table>
+        <Table className="text-base md:text-lg">
         <TableHeader>
-          <TableRow>
-            <TableHead>Pacient</TableHead>
-            <TableHead>Lucrare</TableHead>
-            <TableHead>Material</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Cost</TableHead>
-            <TableHead>Urgență</TableHead>
-            <TableHead>Livrare est.</TableHead>
+          <TableRow className="text-sm md:text-base">
+            <TableHead>{t("thPatient")}</TableHead>
+            <TableHead>{t("thWork")}</TableHead>
+            <TableHead>{t("thMaterial")}</TableHead>
+            <TableHead>{t("thStatus")}</TableHead>
+            <TableHead>{t("thCost")}</TableHead>
+            <TableHead>{t("thUrgent")}</TableHead>
+            <TableHead>{t("thDelivery")}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {sorted.map((o) => (
-            <TableRow key={o.id}>
-              <TableCell className="font-medium">
-                <Link className="underline underline-offset-4" href={`/medic/comenzi/${o.id}`}>
+            <TableRow key={o.id} className="h-16 md:h-20 hover:bg-muted/50 transition-colors">
+              <TableCell className="font-semibold text-primary">
+                <Link className="hover:underline underline-offset-4 block py-2" href={`/laborator/comenzi/${o.id}`}>
                   {o.nume_pacient}
                 </Link>
               </TableCell>
-              <TableCell>{o.tip_lucrare}</TableCell>
+              <TableCell className="font-medium">{o.tip_lucrare}</TableCell>
               <TableCell>{o.material ?? "-"}</TableCell>
               <TableCell>
-                <Badge variant="secondary">{o.status}</Badge>
+                <Badge variant="secondary" className="text-sm md:text-base px-3 py-1">{o.status}</Badge>
               </TableCell>
               <TableCell>
                 {o.pret !== null && o.pret !== undefined ? (
-                  <span className="font-semibold">{o.pret} RON</span>
+                  <span className="font-bold">{o.pret} RON</span>
                 ) : (
-                  <span className="text-muted-foreground italic text-xs">-</span>
+                  <span className="text-muted-foreground italic text-sm">-</span>
                 )}
               </TableCell>
-              <TableCell>{o.urgenta ? <Badge variant="destructive">Da</Badge> : "Nu"}</TableCell>
-              <TableCell>{o.data_livrare_estimata ?? "-"}</TableCell>
+              <TableCell>{o.urgenta ? <Badge variant="destructive" className="text-sm px-3 py-1">{t("yes")}</Badge> : t("no")}</TableCell>
+              <TableCell className="whitespace-nowrap">{o.data_livrare_estimata ?? "-"}</TableCell>
             </TableRow>
           ))}
           {!sorted.length ? (
             <TableRow>
-              <TableCell colSpan={7} className="py-8 text-center text-sm text-muted-foreground">
-                Nu ai comenzi încă. Apasă „Comandă nouă”.
+              <TableCell colSpan={7} className="py-12 text-center text-lg text-muted-foreground">
+                {t("noOrders")}
               </TableCell>
             </TableRow>
           ) : null}

@@ -13,7 +13,7 @@ export default async function MedicProfilPage() {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("id, nume_doctor, nume_clinica, telefon, rol, cui")
+    .select("*")
     .eq("id", user.id)
     .single();
 

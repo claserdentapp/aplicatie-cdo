@@ -91,9 +91,9 @@ export default function MedicOrdersTable({
       </Tabs>
 
       <div className="overflow-x-auto">
-        <Table>
+        <Table className="text-base md:text-lg">
         <TableHeader>
-          <TableRow>
+          <TableRow className="text-sm md:text-base">
             <TableHead>{t("thPatient")}</TableHead>
             <TableHead>{t("thWork")}</TableHead>
             <TableHead>{t("thMaterial")}</TableHead>
@@ -105,31 +105,31 @@ export default function MedicOrdersTable({
         </TableHeader>
         <TableBody>
           {sorted.map((o) => (
-            <TableRow key={o.id}>
-              <TableCell className="font-medium">
-                <Link className="underline underline-offset-4" href={`/medic/comenzi/${o.id}`}>
+            <TableRow key={o.id} className="h-16 md:h-20 hover:bg-muted/50 transition-colors">
+              <TableCell className="font-semibold text-primary">
+                <Link className="hover:underline underline-offset-4 block py-2" href={`/medic/comenzi/${o.id}`}>
                   {o.nume_pacient}
                 </Link>
               </TableCell>
-              <TableCell>{o.tip_lucrare}</TableCell>
+              <TableCell className="font-medium">{o.tip_lucrare}</TableCell>
               <TableCell>{o.material ?? "-"}</TableCell>
               <TableCell>
-                <Badge variant="secondary">{o.status}</Badge>
+                <Badge variant="secondary" className="text-sm md:text-base px-3 py-1">{o.status}</Badge>
               </TableCell>
               <TableCell>
                 {o.pret !== null && o.pret !== undefined ? (
-                  <span className="font-semibold">{o.pret} RON</span>
+                  <span className="font-bold">{o.pret} RON</span>
                 ) : (
-                  <span className="text-muted-foreground italic text-xs">-</span>
+                  <span className="text-muted-foreground italic text-sm">-</span>
                 )}
               </TableCell>
-              <TableCell>{o.urgenta ? <Badge variant="destructive">{t("yes")}</Badge> : t("no")}</TableCell>
-              <TableCell>{o.data_livrare_estimata ?? "-"}</TableCell>
+              <TableCell>{o.urgenta ? <Badge variant="destructive" className="text-sm px-3 py-1">{t("yes")}</Badge> : t("no")}</TableCell>
+              <TableCell className="whitespace-nowrap">{o.data_livrare_estimata ?? "-"}</TableCell>
             </TableRow>
           ))}
           {!sorted.length ? (
             <TableRow>
-              <TableCell colSpan={7} className="py-8 text-center text-sm text-muted-foreground">
+              <TableCell colSpan={7} className="py-12 text-center text-lg text-muted-foreground">
                 {t("noOrders")}
               </TableCell>
             </TableRow>
