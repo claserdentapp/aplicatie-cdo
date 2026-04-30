@@ -83,7 +83,7 @@ export default async function MedicComandaDetaliiPage({
                 <span className="font-medium text-foreground">{order.data_livrare_estimata ?? "Nespecificat"}</span>
               </div>
             </div>
-            
+
             <div className="space-y-1 text-sm bg-muted/20 p-4 rounded-lg flex flex-col justify-center">
               <div className="text-muted-foreground mb-1 font-medium">Situație Financiară (RON)</div>
               <div>
