@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { toast } from "sonner";
 import { createClient } from "@/lib/supabase/client";
-import { Mail, Lock, User, Eye, EyeOff, Loader2, Building2, Phone, ArrowRight, ShieldCheck } from "lucide-react";
+import { Mail, Lock, User, Eye, EyeOff, Loader2, Building2, Phone, ArrowRight, ShieldCheck, Hash } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 export default function PremiumSaaSRegisterPage() {
@@ -19,6 +19,7 @@ export default function PremiumSaaSRegisterPage() {
   const [numeDoctor, setNumeDoctor] = useState("");
   const [numeClinica, setNumeClinica] = useState("");
   const [telefon, setTelefon] = useState("");
+  const [cui, setCui] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   
@@ -69,6 +70,7 @@ export default function PremiumSaaSRegisterPage() {
             nume_doctor: numeDoctor,
             nume_clinica: numeClinica,
             telefon,
+            cui,
             rol: userType,
           },
         },
@@ -308,25 +310,45 @@ export default function PremiumSaaSRegisterPage() {
                       </div>
                     </div>
 
-                    {/* Email */}
                     <div className="flex flex-col space-y-1.5 group">
-                      <label htmlFor="email" className="text-[12px] font-bold tracking-wide text-slate-700 ml-1">
-                        {t("email")}
+                      <label htmlFor="cui" className="text-[12px] font-bold tracking-wide text-slate-700 ml-1">
+                        {userType === "medic" ? (t("cuiMedic") || "CUI Cabinet") : (t("cuiLab") || "CUI Laborator")}
                       </label>
                       <div className="relative">
                         <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-                          <Mail className="h-[18px] w-[18px] text-slate-400 group-focus-within:text-indigo-600 transition-colors" />
+                          <Hash className="h-[18px] w-[18px] text-slate-400 group-focus-within:text-indigo-600 transition-colors" />
                         </div>
                         <input
-                          type="email"
-                          id="email"
+                          type="text"
+                          id="cui"
                           required
                           className="block w-full rounded-xl border border-slate-300 bg-white py-2.5 pl-10 pr-3.5 text-[14px] text-slate-900 font-medium outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/10 shadow-sm transition-all placeholder:text-slate-400 placeholder:font-normal"
-                          placeholder={ts("emailPlaceholder")}
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
+                          placeholder="Ex: RO12345678"
+                          value={cui}
+                          onChange={(e) => setCui(e.target.value)}
                         />
                       </div>
+                    </div>
+                  </div>
+
+                  {/* Email (Full Width) */}
+                  <div className="flex flex-col space-y-1.5 group">
+                    <label htmlFor="email" className="text-[12px] font-bold tracking-wide text-slate-700 ml-1">
+                      {t("email")}
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                        <Mail className="h-[18px] w-[18px] text-slate-400 group-focus-within:text-indigo-600 transition-colors" />
+                      </div>
+                      <input
+                        type="email"
+                        id="email"
+                        required
+                        className="block w-full rounded-xl border border-slate-300 bg-white py-2.5 pl-10 pr-3.5 text-[14px] text-slate-900 font-medium outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/10 shadow-sm transition-all placeholder:text-slate-400 placeholder:font-normal"
+                        placeholder={ts("emailPlaceholder")}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
                     </div>
                   </div>
 
