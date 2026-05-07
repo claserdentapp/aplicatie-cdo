@@ -40,22 +40,33 @@ export async function GET(
     const fontSize = 12;
     const color = rgb(0, 0, 0);
 
+    // Remove Romanian diacritics because standard PDF fonts (WinAnsi) don't support them
+    const safeText = (str: any) => {
+      if (!str) return '';
+      return String(str)
+        .replace(/ț/g, 't').replace(/Ț/g, 'T')
+        .replace(/ș/g, 's').replace(/Ș/g, 'S')
+        .replace(/ă/g, 'a').replace(/Ă/g, 'A')
+        .replace(/î/g, 'i').replace(/Î/g, 'I')
+        .replace(/â/g, 'a').replace(/Â/g, 'A');
+    };
+
     // X coordinates (from left edge). The right column seems to start around X=300
     const colRightX = 300;
     
     // Y coordinates (from bottom). 
     // If we assume standard proportions:
     // Doctor Name
-    page.drawText(doctorName ? String(doctorName) : '', { x: colRightX + 100, y: height - 265, size: fontSize, color });
+    page.drawText(safeText(doctorName), { x: colRightX + 100, y: height - 265, size: fontSize, color });
     
     // Pacient Name
-    page.drawText(order.nume_pacient ? String(order.nume_pacient) : '', { x: colRightX + 110, y: height - 315, size: fontSize, color });
+    page.drawText(safeText(order.nume_pacient), { x: colRightX + 110, y: height - 315, size: fontSize, color });
     
     // Culoare
-    page.drawText(order.culoare_vita ? String(order.culoare_vita) : '', { x: colRightX + 60, y: height - 365, size: fontSize, color });
+    page.drawText(safeText(order.culoare_vita), { x: colRightX + 60, y: height - 365, size: fontSize, color });
     
     // Termen de livrare
-    page.drawText(order.data_livrare_estimata ? String(order.data_livrare_estimata) : '', { x: colRightX + 110, y: height - 415, size: fontSize, color });
+    page.drawText(safeText(order.data_livrare_estimata), { x: colRightX + 110, y: height - 415, size: fontSize, color });
 
     // Material (Checkmarks)
     // "Zirconiu", "Aur", "CrCo", "Cr.Ni", "Titan"
@@ -77,7 +88,7 @@ export async function GET(
     const notesY = height - 530;
     if (order.instructiuni) {
        // A very basic text wrap could be done, or just print as is if short.
-       page.drawText(String(order.instructiuni).substring(0, 500), { 
+       page.drawText(safeText(order.instructiuni).substring(0, 500), { 
            x: 350, 
            y: notesY, 
            size: 10, 
