@@ -3,6 +3,8 @@ import { createClient } from "@/lib/supabase/server";
 import { PDFDocument, rgb } from 'pdf-lib';
 
 
+import { PDF_TEMPLATE_BASE64 } from "@/lib/pdf-template";
+
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -28,10 +30,7 @@ export async function GET(
     const doctorName = doctor?.nume_doctor ?? order.doctor_id;
 
     // Load PDF
-    const pdfUrl = new URL('/fise_de_laborator.pdf', request.url);
-    const pdfResponse = await fetch(pdfUrl);
-    if (!pdfResponse.ok) throw new Error('Could not fetch PDF template');
-    const pdfBytes = await pdfResponse.arrayBuffer();
+    const pdfBytes = Buffer.from(PDF_TEMPLATE_BASE64, 'base64');
     
     const pdfDoc = await PDFDocument.load(pdfBytes);
     const page = pdfDoc.getPages()[0];
