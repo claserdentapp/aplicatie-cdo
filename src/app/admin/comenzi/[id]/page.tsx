@@ -67,7 +67,7 @@ export default async function AdminComandaDetaliiPage({
             <p className="text-sm font-medium text-slate-400 mt-1 uppercase tracking-widest bg-slate-200/50 inline-block px-2 py-0.5 rounded">ID: {order.id}</p>
           </div>
           <div className="flex gap-3 items-center">
-            <Link href={`/admin/comenzi/${order.id}/aviz`}>
+            <Link href={`/admin/comenzi/${order.id}/aviz`} target="_blank" rel="noopener noreferrer">
               <Button variant="outline" size="sm" className="h-10 px-4 font-semibold gap-2 border-slate-300 shadow-sm hover:bg-slate-50">
                 <CopyPlus className="w-[18px] h-[18px] text-indigo-600" />
                 {ts("viewTicket")}
