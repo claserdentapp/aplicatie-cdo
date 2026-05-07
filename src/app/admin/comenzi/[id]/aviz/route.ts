@@ -67,23 +67,23 @@ export async function GET(
     page.drawText(safeText(order.nume_pacient), { x: 415, y: height - 307, size: fontSize, color });
     
     // Culoare
-    page.drawText(safeText(order.culoare_vita), { x: 360, y: height - 352, size: fontSize, color });
+    page.drawText(safeText(order.culoare_vita), { x: 390, y: height - 340, size: fontSize, color });
     
     // Termen de livrare
     page.drawText(safeText(formatDate(order.data_livrare_estimata)), { x: 415, y: height - 402, size: fontSize, color });
 
     // Material (Checkmarks)
-    const matY = height - 428;
+    const matY = height - 416; // Moved up by 12 points
     const drawCheck = (xPos: number) => {
         page.drawText('X', { x: xPos, y: matY, size: 14, color });
     }
     
     const matText = (order.material || '').toLowerCase();
-    if (matText.includes('zirconiu')) drawCheck(85);
-    else if (matText.includes('aur')) drawCheck(185);
-    else if (matText.includes('crco') || matText.includes('cr-co')) drawCheck(248);
-    else if (matText.includes('cr.ni') || matText.includes('crni')) drawCheck(328);
-    else if (matText.includes('titan')) drawCheck(420);
+    if (matText.includes('zirconiu')) drawCheck(65);
+    else if (matText.includes('aur')) drawCheck(155);
+    else if (matText.includes('crco') || matText.includes('cr-co')) drawCheck(215);
+    else if (matText.includes('cr.ni') || matText.includes('crni')) drawCheck(295);
+    else if (matText.includes('titan')) drawCheck(380);
 
     // Notite
     // Multi-line text for instructions
