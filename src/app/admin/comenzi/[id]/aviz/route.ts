@@ -26,8 +26,8 @@ export async function GET(
 
     if (error || !order) return new NextResponse('Not found', { status: 404 });
 
-    const doctor = (order as any).doctor?.[0] ?? null;
-    const doctorName = doctor?.nume_doctor ?? order.doctor_id;
+    const docObj = Array.isArray((order as any).doctor) ? (order as any).doctor[0] : (order as any).doctor;
+    const doctorName = docObj?.nume_doctor ?? order.doctor_id;
 
     // Load PDF
     const pdfDoc = await PDFDocument.load(PDF_TEMPLATE_BASE64);
@@ -35,8 +35,6 @@ export async function GET(
     const { height } = page.getSize(); // Standard A4 is height 842, width 595
 
     // Helper to draw text. (Origin 0,0 is BOTTOM-LEFT in PDF). 
-    // The image has lines where we need to draw.
-    // Approximate coordinates (can be tweaked later):
     const fontSize = 12;
     const color = rgb(0, 0, 0);
 
@@ -51,43 +49,46 @@ export async function GET(
         .replace(/â/g, 'a').replace(/Â/g, 'A');
     };
 
-    // X coordinates (from left edge). The right column seems to start around X=300
-    const colRightX = 300;
-    
-    // Y coordinates (from bottom). 
-    // If we assume standard proportions:
+    const formatDate = (dateStr: any) => {
+      if (!dateStr) return '';
+      try {
+        const d = new Date(dateStr);
+        if (isNaN(d.getTime())) return dateStr;
+        return d.toLocaleDateString('ro-RO');
+      } catch {
+        return dateStr;
+      }
+    };
+
     // Doctor Name
-    page.drawText(safeText(doctorName), { x: colRightX + 100, y: height - 265, size: fontSize, color });
+    page.drawText(safeText(doctorName), { x: 415, y: height - 265, size: fontSize, color });
     
     // Pacient Name
-    page.drawText(safeText(order.nume_pacient), { x: colRightX + 110, y: height - 315, size: fontSize, color });
+    page.drawText(safeText(order.nume_pacient), { x: 415, y: height - 307, size: fontSize, color });
     
     // Culoare
-    page.drawText(safeText(order.culoare_vita), { x: colRightX + 60, y: height - 365, size: fontSize, color });
+    page.drawText(safeText(order.culoare_vita), { x: 360, y: height - 352, size: fontSize, color });
     
     // Termen de livrare
-    page.drawText(safeText(order.data_livrare_estimata), { x: colRightX + 110, y: height - 415, size: fontSize, color });
+    page.drawText(safeText(formatDate(order.data_livrare_estimata)), { x: 415, y: height - 402, size: fontSize, color });
 
     // Material (Checkmarks)
-    // "Zirconiu", "Aur", "CrCo", "Cr.Ni", "Titan"
-    // The material section is a full width row, Y is around 380 from bottom.
-    const matY = height - 460;
+    const matY = height - 428;
     const drawCheck = (xPos: number) => {
         page.drawText('X', { x: xPos, y: matY, size: 14, color });
     }
     
     const matText = (order.material || '').toLowerCase();
     if (matText.includes('zirconiu')) drawCheck(85);
-    else if (matText.includes('aur')) drawCheck(155);
-    else if (matText.includes('crco') || matText.includes('cr-co')) drawCheck(225);
-    else if (matText.includes('cr.ni') || matText.includes('crni')) drawCheck(295);
-    else if (matText.includes('titan')) drawCheck(365);
+    else if (matText.includes('aur')) drawCheck(185);
+    else if (matText.includes('crco') || matText.includes('cr-co')) drawCheck(248);
+    else if (matText.includes('cr.ni') || matText.includes('crni')) drawCheck(328);
+    else if (matText.includes('titan')) drawCheck(420);
 
     // Notite
     // Multi-line text for instructions
-    const notesY = height - 530;
+    const notesY = height - 510;
     if (order.instructiuni) {
-       // A very basic text wrap could be done, or just print as is if short.
        page.drawText(safeText(order.instructiuni).substring(0, 500), { 
            x: 350, 
            y: notesY, 
