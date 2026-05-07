@@ -30,9 +30,7 @@ export async function GET(
     const doctorName = doctor?.nume_doctor ?? order.doctor_id;
 
     // Load PDF
-    const pdfBytes = Buffer.from(PDF_TEMPLATE_BASE64, 'base64');
-    
-    const pdfDoc = await PDFDocument.load(pdfBytes);
+    const pdfDoc = await PDFDocument.load(PDF_TEMPLATE_BASE64);
     const page = pdfDoc.getPages()[0];
     const { height } = page.getSize(); // Standard A4 is height 842, width 595
 
@@ -48,16 +46,16 @@ export async function GET(
     // Y coordinates (from bottom). 
     // If we assume standard proportions:
     // Doctor Name
-    page.drawText(doctorName, { x: colRightX + 100, y: height - 265, size: fontSize, color });
+    page.drawText(doctorName ? String(doctorName) : '', { x: colRightX + 100, y: height - 265, size: fontSize, color });
     
     // Pacient Name
-    page.drawText(order.nume_pacient || '', { x: colRightX + 110, y: height - 315, size: fontSize, color });
+    page.drawText(order.nume_pacient ? String(order.nume_pacient) : '', { x: colRightX + 110, y: height - 315, size: fontSize, color });
     
     // Culoare
-    page.drawText(order.culoare_vita || '', { x: colRightX + 60, y: height - 365, size: fontSize, color });
+    page.drawText(order.culoare_vita ? String(order.culoare_vita) : '', { x: colRightX + 60, y: height - 365, size: fontSize, color });
     
     // Termen de livrare
-    page.drawText(order.data_livrare_estimata || '', { x: colRightX + 110, y: height - 415, size: fontSize, color });
+    page.drawText(order.data_livrare_estimata ? String(order.data_livrare_estimata) : '', { x: colRightX + 110, y: height - 415, size: fontSize, color });
 
     // Material (Checkmarks)
     // "Zirconiu", "Aur", "CrCo", "Cr.Ni", "Titan"
@@ -79,7 +77,7 @@ export async function GET(
     const notesY = height - 530;
     if (order.instructiuni) {
        // A very basic text wrap could be done, or just print as is if short.
-       page.drawText(order.instructiuni.substring(0, 500), { 
+       page.drawText(String(order.instructiuni).substring(0, 500), { 
            x: 350, 
            y: notesY, 
            size: 10, 
@@ -95,12 +93,12 @@ export async function GET(
       status: 200,
       headers: {
         'Content-Type': 'application/pdf',
-        'Content-Disposition': `inline; filename="Fisa_Laborator_${order.nume_pacient}.pdf"`
+        'Content-Disposition': `inline; filename="Fisa_Laborator_${order.nume_pacient || 'Comanda'}.pdf"`
       }
     });
 
-  } catch (err) {
+  } catch (err: any) {
     console.error(err);
-    return new NextResponse('Internal Server Error', { status: 500 });
+    return new NextResponse(`Eroare de generare PDF: ${err.message}\n${err.stack}`, { status: 500 });
   }
 }
