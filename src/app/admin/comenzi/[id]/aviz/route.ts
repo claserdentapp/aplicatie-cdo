@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createClient } from "@/lib/supabase/server";
-import { PDFDocument, rgb } from 'pdf-lib';
-
+import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 
 import { PDF_TEMPLATE_BASE64 } from "@/lib/pdf-template";
 
@@ -34,9 +33,11 @@ export async function GET(
     const page = pdfDoc.getPages()[0];
     const { height } = page.getSize(); // Standard A4 is height 842, width 595
 
+    const font = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+
     // Helper to draw text. (Origin 0,0 is BOTTOM-LEFT in PDF). 
-    const fontSize = 12;
-    const color = rgb(0, 0, 0);
+    const fontSize = 11;
+    const color = rgb(0.1, 0.1, 0.1); // slight off-black for premium look
 
     // Remove Romanian diacritics because standard PDF fonts (WinAnsi) don't support them
     const safeText = (str: any) => {
@@ -61,40 +62,41 @@ export async function GET(
     };
 
     // Doctor Name
-    page.drawText(safeText(doctorName), { x: 415, y: height - 265, size: fontSize, color });
+    page.drawText(safeText(doctorName), { x: 410, y: height - 267, size: fontSize, font, color });
     
     // Pacient Name
-    page.drawText(safeText(order.nume_pacient), { x: 415, y: height - 307, size: fontSize, color });
+    page.drawText(safeText(order.nume_pacient), { x: 410, y: height - 309, size: fontSize, font, color });
     
     // Culoare
-    page.drawText(safeText(order.culoare_vita), { x: 390, y: height - 340, size: fontSize, color });
+    page.drawText(safeText(order.culoare_vita), { x: 390, y: height - 342, size: fontSize, font, color });
     
     // Termen de livrare
-    page.drawText(safeText(formatDate(order.data_livrare_estimata)), { x: 415, y: height - 402, size: fontSize, color });
+    page.drawText(safeText(formatDate(order.data_livrare_estimata)), { x: 410, y: height - 395, size: fontSize, font, color });
 
     // Material (Checkmarks)
-    const matY = height - 416; // Moved up by 12 points
+    const matY = height - 415; // Centered inside the box
     const drawCheck = (xPos: number) => {
-        page.drawText('X', { x: xPos, y: matY, size: 14, color });
+        page.drawText('X', { x: xPos, y: matY, size: 14, font, color });
     }
     
-    const matText = (order.material || '').toLowerCase();
-    if (matText.includes('zirconiu')) drawCheck(65);
-    else if (matText.includes('aur')) drawCheck(155);
-    else if (matText.includes('crco') || matText.includes('cr-co')) drawCheck(215);
-    else if (matText.includes('cr.ni') || matText.includes('crni')) drawCheck(295);
-    else if (matText.includes('titan')) drawCheck(380);
+    const matText = (order.material || '').toLowerCase().replace(/\s+/g, '');
+    if (matText.includes('zirconiu')) drawCheck(78);
+    else if (matText.includes('aur')) drawCheck(168);
+    else if (matText.includes('crco') || matText.includes('cr-co')) drawCheck(228);
+    else if (matText.includes('cr.ni') || matText.includes('crni')) drawCheck(305);
+    else if (matText.includes('titan')) drawCheck(393);
 
     // Notite
     // Multi-line text for instructions
     const notesY = height - 510;
     if (order.instructiuni) {
        page.drawText(safeText(order.instructiuni).substring(0, 500), { 
-           x: 350, 
+           x: 330, 
            y: notesY, 
            size: 10, 
+           font,
            color,
-           maxWidth: 200,
+           maxWidth: 220,
            lineHeight: 14
        });
     }
