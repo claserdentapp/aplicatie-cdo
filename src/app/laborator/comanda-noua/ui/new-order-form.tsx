@@ -216,7 +216,7 @@ export default function NewOrderForm() {
         <div className="space-y-2">
           <Label htmlFor="dataLivrare">{t("dueDate")}</Label>
           <Popover>
-            <PopoverTrigger asChild>
+            <PopoverTrigger render={
               <Button
                 id="dataLivrare"
                 variant={"outline"}
@@ -228,7 +228,7 @@ export default function NewOrderForm() {
                 <CalendarIcon className="mr-2 h-4 w-4" />
                 {dataLivrareEstimata ? format(dataLivrareEstimata, "dd/MM/yyyy") : <span>{t("dueDate")}</span>}
               </Button>
-            </PopoverTrigger>
+            } />
             <PopoverContent className="w-auto p-0">
               <Calendar
                 mode="single"
