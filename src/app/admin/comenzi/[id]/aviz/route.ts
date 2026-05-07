@@ -1,8 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createClient } from "@/lib/supabase/server";
 import { PDFDocument, rgb } from 'pdf-lib';
-import { readFileSync } from 'fs';
-import path from 'path';
+
 
 export async function GET(
   request: Request,
@@ -29,8 +28,11 @@ export async function GET(
     const doctorName = doctor?.nume_doctor ?? order.doctor_id;
 
     // Load PDF
-    const pdfPath = path.join(process.cwd(), 'public', 'fise_de_laborator.pdf');
-    const pdfBytes = readFileSync(pdfPath);
+    const pdfUrl = new URL('/fise_de_laborator.pdf', request.url);
+    const pdfResponse = await fetch(pdfUrl);
+    if (!pdfResponse.ok) throw new Error('Could not fetch PDF template');
+    const pdfBytes = await pdfResponse.arrayBuffer();
+    
     const pdfDoc = await PDFDocument.load(pdfBytes);
     const page = pdfDoc.getPages()[0];
     const { height } = page.getSize(); // Standard A4 is height 842, width 595
