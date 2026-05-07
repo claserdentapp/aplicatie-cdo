@@ -41,5 +41,13 @@ WHERE id = (SELECT id FROM auth.users WHERE email = 'adresa.ta@laboratortau.ro')
 4. Apasă **Run**. 
 5. Dă Refresh paginii web! Acum vei avea acces direct în portalul de _Admin_ cu putere absolută peste setarea prețurilor, vizualizarea pacienților din tot sistemul și emiterea avizelor!
 
+## 5. Fișă de Laborator (Printare)
+
+Aplicația generează automat o "Fișă de Laborator" curată pentru fiecare comandă. Pentru a o tipări:
+1. Accesați comanda respectivă din Dashboard-ul de Admin.
+2. Apăsați butonul **Fișă de Laborator / Tipărire** din colțul dreapta-sus.
+3. Se va deschide pagina cu design special pentru tipărire (fără meniuri sau fundaluri colorate inutile).
+4. Apăsați **Tipărește** și asigurați-vă că folosiți setările A4 Portrait din browser. Câmpurile libere (precum schița de culoare) pot fi completate ulterior cu pixul.
+
 ---
 *Pentru orice ajustare suplimentară sau integrare cu alte servicii cloud, se pot configura API routes în `src/app/api/`.*

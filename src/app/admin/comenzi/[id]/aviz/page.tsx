@@ -19,7 +19,7 @@ export default async function InvoicePage({
   const { data: order, error } = await supabase
     .from("orders")
     .select(
-      "id,created_at,nume_pacient,tip_lucrare,material,culoare_vita,status,urgenta,data_intrare,pret,doctor_id,doctor:profiles(nume_doctor,nume_clinica,telefon)",
+      "id,created_at,nume_pacient,tip_lucrare,material,culoare_vita,status,urgenta,data_intrare,data_livrare_estimata,instructiuni,pret,doctor_id,doctor:profiles(nume_doctor,nume_clinica,telefon)",
     )
     .eq("id", id)
     .maybeSingle();
@@ -38,84 +38,118 @@ export default async function InvoicePage({
   }
 
   const doctor = (order as any).doctor?.[0] ?? null;
-  const today = new Intl.DateTimeFormat("ro-RO", { dateStyle: "long" }).format(new Date());
-  const pretVal = order.pret ?? 0;
 
   return (
-    <div className="min-h-screen bg-white text-black p-8 font-sans">
-      <div className="max-w-4xl mx-auto border sm:shadow-lg p-10 bg-white">
+    <div className="min-h-screen bg-gray-100 text-black p-4 md:p-8 font-sans print:bg-white print:p-0">
+      <div className="max-w-4xl mx-auto border sm:shadow-[0_8px_30px_rgb(0,0,0,0.08)] p-8 md:p-12 bg-white print:border-none print:shadow-none">
         {/* Print controls (hidden in print) */}
         <div className="mb-8 flex justify-end print:hidden">
           <PrintButton />
         </div>
 
-        {/* Invoice Header */}
-        <div className="flex justify-between items-start border-b pb-8 mb-8">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900 tracking-tight">AVIZ DE ÎNSOȚIRE</h1>
-            <p className="text-sm text-gray-500 mt-1">Nr. referință: {order.id.split('-')[0].toUpperCase()}</p>
-            <p className="text-sm text-gray-500">Dată emiterii: {today}</p>
-          </div>
-          <div className="text-right">
-            <h2 className="text-xl font-bold text-gray-800">{process.env.NEXT_PUBLIC_LAB_NAME || "ClaSerDent Technology Lab"}</h2>
-            <p className="text-sm text-gray-600">Strada Exemplu, Nr. 10</p>
-            <p className="text-sm text-gray-600">CIF: RO12345678</p>
-            <p className="text-sm text-gray-600">contact@cdolab.ro</p>
-          </div>
-        </div>
-
-        {/* Client Info */}
-        <div className="mb-10">
-          <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Beneficiar</h3>
-          <div className="text-gray-800">
-            <p className="font-semibold text-lg">{doctor?.nume_clinica || "Clinică Parteneră"}</p>
-            <p>Medic: {doctor?.nume_doctor ?? order.doctor_id}</p>
-            <p>Telefon: {doctor?.telefon ?? "-"}</p>
+        {/* Header */}
+        <div className="text-center mb-10 pb-8 border-b-2 border-gray-900">
+          <h1 className="text-3xl font-black uppercase tracking-[0.2em] text-gray-900 mb-4">Fișă de laborator</h1>
+          <h2 className="text-xl font-bold text-gray-800">Laborator de Tehnică Dentară</h2>
+          <h3 className="text-lg font-bold text-indigo-700 mt-1">ClaSerDent Technology S.R.L.</h3>
+          
+          <div className="text-[15px] font-medium text-gray-600 mt-4 flex flex-col items-center gap-1">
+            <p><span className="font-bold text-gray-800">CUI:</span> 47130210</p>
+            <p><span className="font-bold text-gray-800">Adresă:</span> Calea Clujului Nr. 231 C, Oradea, Bihor</p>
+            <p><span className="font-bold text-gray-800">Email:</span> claserdenttechnology@gmail.com</p>
+            <p><span className="font-bold text-gray-800">Telefon:</span> 0773 783 114</p>
           </div>
         </div>
 
-        {/* Order Info */}
-        <div className="mb-10 w-full overflow-hidden border rounded-lg border-gray-200">
-          <table className="w-full text-left text-sm">
-            <thead className="bg-gray-50 border-b">
-              <tr>
-                <th className="px-4 py-3 font-semibold text-gray-700">Pacient</th>
-                <th className="px-4 py-3 font-semibold text-gray-700">Tip Lucrare</th>
-                <th className="px-4 py-3 font-semibold text-gray-700">Material & Culoare</th>
-                <th className="px-4 py-3 font-semibold text-gray-700">Dată Preluare</th>
-                <th className="px-4 py-3 text-right font-semibold text-gray-700">Preț (RON)</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              <tr>
-                <td className="px-4 py-4 font-medium text-gray-900">{order.nume_pacient}</td>
-                <td className="px-4 py-4 text-gray-700">
-                   {order.tip_lucrare} 
-                   {order.urgenta ? <span className="text-red-600 font-bold ml-1">(Urgență)</span> : ""}
-                </td>
-                <td className="px-4 py-4 text-gray-700">
-                   {order.material || "-"} {order.culoare_vita ? ` / ${order.culoare_vita}` : ""}
-                </td>
-                <td className="px-4 py-4 text-gray-700">{order.data_intrare}</td>
-                <td className="px-4 py-4 text-right font-medium text-gray-900">
-                   {pretVal ? pretVal.toFixed(2) : "-"}
-                </td>
-              </tr>
-            </tbody>
-            <tfoot className="bg-gray-50 border-t">
-              <tr>
-                <td colSpan={4} className="px-4 py-4 text-right font-bold text-gray-900">Total de plată:</td>
-                <td className="px-4 py-4 text-right font-bold text-gray-900 text-lg">
-                  {pretVal ? `${pretVal.toFixed(2)} RON` : "Nefacturat"}
-                </td>
-              </tr>
-            </tfoot>
-          </table>
+        {/* Info Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8 mb-10 text-[16px]">
+          <div className="flex flex-col border-b border-gray-300 pb-2">
+            <span className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Dl./Dna. Doctor:</span>
+            <span className="font-bold text-xl text-gray-900">{doctor?.nume_doctor ?? order.doctor_id}</span>
+            {doctor?.nume_clinica && <span className="text-sm font-semibold text-gray-600 mt-1">{doctor.nume_clinica}</span>}
+          </div>
+          <div className="flex flex-col border-b border-gray-300 pb-2">
+            <span className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Pacient Dl./Dna:</span>
+            <span className="font-bold text-xl text-gray-900">{order.nume_pacient}</span>
+          </div>
+
+          <div className="flex flex-col border-b border-gray-300 pb-2">
+            <span className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Felul lucrării:</span>
+            <span className="font-bold text-lg text-gray-800">
+              {order.tip_lucrare} 
+              {order.urgenta ? <span className="text-red-600 ml-2 text-sm uppercase tracking-widest font-black bg-red-50 px-2 py-0.5 rounded">(URGENȚĂ)</span> : ""}
+            </span>
+          </div>
+
+          <div className="flex flex-row items-end border-b border-gray-300 pb-2">
+             <div className="flex-1">
+               <span className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Culoare:</span>
+               <span className="font-bold text-lg text-gray-900">{order.culoare_vita || "................"}</span>
+             </div>
+             <div className="flex-1 border-l border-gray-300 pl-5">
+               <span className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">La colet:</span>
+               <span className="font-bold text-lg text-gray-300">........................</span>
+             </div>
+          </div>
+
+          <div className="flex flex-col border-b border-gray-300 pb-2">
+            <span className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Forma dinților:</span>
+            <span className="font-bold text-base text-gray-300 mt-1">....................................................................</span>
+          </div>
+          
+          <div className="flex items-end border-b border-gray-300 pb-2">
+            <div className="flex-1">
+              <span className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Data Intrare:</span>
+              <span className="font-bold text-lg text-gray-900">{order.data_intrare}</span>
+            </div>
+            <div className="flex-1 border-l border-gray-300 pl-5">
+              <span className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Termen de livrare:</span>
+              <span className="font-bold text-lg text-gray-900">{order.data_livrare_estimata || "........................"}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Materials list */}
+        <div className="mb-10 p-6 bg-[#f8fafc] border border-slate-200 rounded-xl print:bg-white print:border-gray-300">
+           <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-5">Material solicitat:</h4>
+           <div className="flex flex-wrap gap-x-8 gap-y-4 text-base font-semibold">
+             {["Zirconiu", "Emax", "Aur", "CrCo", "Cr.Ni", "Titan", "Metal-Ceramică", "Acrilic"].map(mat => {
+                const orderMaterial = (order.material || "").toLowerCase();
+                const currentMat = mat.toLowerCase();
+                const isSelected = orderMaterial === currentMat || orderMaterial.includes(currentMat);
+                
+                return (
+                  <label key={mat} className="flex items-center gap-3 cursor-pointer">
+                    <div className={`w-6 h-6 border-2 rounded flex items-center justify-center print:border-gray-400 ${isSelected ? 'border-indigo-600 bg-indigo-50 print:bg-gray-100' : 'border-gray-300 bg-white'}`}>
+                      {isSelected && <div className="w-3.5 h-3.5 bg-indigo-600 rounded-sm print:bg-black" />}
+                    </div>
+                    <span className={isSelected ? 'text-indigo-900 font-bold print:text-black' : 'text-gray-700'}>{mat}</span>
+                  </label>
+                )
+             })}
+           </div>
+        </div>
+
+        {/* Notes and Sketch */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-16">
+          <div className="flex flex-col">
+            <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Notițe / Instrucțiuni Specifice:</h4>
+            <div className="min-h-[220px] border border-gray-300 p-5 rounded-xl bg-[#fffbeb] print:bg-white text-gray-800 whitespace-pre-wrap text-[15px] leading-relaxed shadow-inner">
+              {order.instructiuni || <span className="text-gray-300 leading-[2.5rem]">........................................................................................................................................................................................................................................................................................................................................................................................................................</span>}
+            </div>
+          </div>
+          <div className="flex flex-col">
+            <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Schița pentru culoare:</h4>
+            <div className="min-h-[220px] border border-gray-300 p-4 rounded-xl bg-white relative flex items-center justify-center print:border-dashed">
+                <span className="text-gray-100 text-[100px] opacity-40 select-none print:opacity-20">🦷</span>
+            </div>
+          </div>
         </div>
 
         {/* Footer */}
-        <div className="mt-16 pt-8 border-t text-sm text-gray-500 text-center">
-          <p>Acest aviz ține loc de bon de plată / livrare pentru lucrarea protetică. Document emis generat automat prin portalul digital {process.env.NEXT_PUBLIC_LAB_NAME || "ClaSerDent Technology Lab"}.</p>
+        <div className="mt-auto pt-8 border-t-2 border-gray-900 text-[11px] font-bold text-gray-500 text-center uppercase tracking-widest leading-loose">
+          <p>Această fișă de laborator este o comandă și se va executa conform condițiilor noastre de confecționare, livrare și plată.</p>
+          <p>De asemenea, ea reprezintă și confirmarea comenzii și afară de aceasta nu există o altă confirmare.</p>
         </div>
       </div>
     </div>
