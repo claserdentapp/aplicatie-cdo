@@ -90,7 +90,7 @@ export async function GET(
 
     const modifiedPdfBytes = await pdfDoc.save();
 
-    return new NextResponse(modifiedPdfBytes, {
+    return new NextResponse(Buffer.from(modifiedPdfBytes), {
       status: 200,
       headers: {
         'Content-Type': 'application/pdf',
