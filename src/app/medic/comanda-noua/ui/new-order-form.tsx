@@ -168,8 +168,12 @@ export default function NewOrderForm() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="Zirconiu">{t("matZirconia")}</SelectItem>
-              <SelectItem value="Emax">{t("matEmax")}</SelectItem>
               <SelectItem value="Metal-Ceramică">{t("matMetalCeramic")}</SelectItem>
+              <SelectItem value="Emax">{t("matEmax")}</SelectItem>
+              <SelectItem value="Titan">{t("matTitan")}</SelectItem>
+              <SelectItem value="Aur">{t("matGold")}</SelectItem>
+              <SelectItem value="CrCo">{t("matCrCo")}</SelectItem>
+              <SelectItem value="Cr. Ni">{t("matCrNi")}</SelectItem>
             </SelectContent>
           </Select>
         </div>

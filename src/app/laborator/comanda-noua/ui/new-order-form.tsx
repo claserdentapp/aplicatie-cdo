@@ -182,9 +182,13 @@ export default function NewOrderForm() {
               <SelectValue placeholder={t("materialPlaceholder")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="Zirconiu">Zirconiu</SelectItem>
-              <SelectItem value="Emax">Emax</SelectItem>
-              <SelectItem value="Metal-Ceramică">Metal-Ceramică</SelectItem>
+              <SelectItem value="Zirconiu">{t("matZirconia")}</SelectItem>
+              <SelectItem value="Metal-Ceramică">{t("matMetalCeramic")}</SelectItem>
+              <SelectItem value="Emax">{t("matEmax")}</SelectItem>
+              <SelectItem value="Titan">{t("matTitan")}</SelectItem>
+              <SelectItem value="Aur">{t("matGold")}</SelectItem>
+              <SelectItem value="CrCo">{t("matCrCo")}</SelectItem>
+              <SelectItem value="Cr. Ni">{t("matCrNi")}</SelectItem>
             </SelectContent>
           </Select>
         </div>
