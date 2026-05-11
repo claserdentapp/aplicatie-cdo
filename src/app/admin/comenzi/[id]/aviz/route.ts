@@ -33,7 +33,7 @@ export async function GET(
     const page = pdfDoc.getPages()[0];
     const { height } = page.getSize(); // Standard A4 is height 842, width 595
 
-    const font = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+    const font = await pdfDoc.embedFont(StandardFonts.TimesRomanBold);
 
     // Helper to draw text. (Origin 0,0 is BOTTOM-LEFT in PDF). 
     const fontSize = 11;
@@ -80,11 +80,17 @@ export async function GET(
     }
     
     const matText = (order.material || '').toLowerCase().replace(/\s+/g, '');
-    if (matText.includes('zirconiu')) drawCheck(78);
-    else if (matText.includes('aur')) drawCheck(168);
-    else if (matText.includes('crco') || matText.includes('cr-co')) drawCheck(228);
-    else if (matText.includes('cr.ni') || matText.includes('crni')) drawCheck(305);
-    else if (matText.includes('titan')) drawCheck(393);
+    let matchedMaterial = false;
+    if (matText.includes('zirconiu')) { drawCheck(78); matchedMaterial = true; }
+    else if (matText.includes('aur')) { drawCheck(168); matchedMaterial = true; }
+    else if (matText.includes('crco') || matText.includes('cr-co')) { drawCheck(228); matchedMaterial = true; }
+    else if (matText.includes('cr.ni') || matText.includes('crni')) { drawCheck(305); matchedMaterial = true; }
+    else if (matText.includes('titan')) { drawCheck(393); matchedMaterial = true; }
+
+    if (!matchedMaterial && order.material) {
+        // Draw the text manually if it's not one of the pre-defined checkboxes (e.g. Emax, Metal-Ceramică)
+        page.drawText(safeText(order.material), { x: 450, y: matY, size: fontSize, font, color });
+    }
 
     // Notite
     // Multi-line text for instructions

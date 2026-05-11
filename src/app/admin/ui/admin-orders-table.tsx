@@ -117,27 +117,45 @@ export default function AdminOrdersTable({ initial }: { initial: AdminOrderRow[]
         if (id) {
           refetchOne(id).catch(() => {});
           try {
-            toast.info("Comandă nouă primită!", { duration: 8000, position: "top-center" });
+            toast.custom((toastId) => (
+              <div className="flex flex-col gap-2 p-5 bg-indigo-600 text-white rounded-2xl shadow-2xl border-4 border-indigo-400 w-[340px] animate-in zoom-in-95 duration-300">
+                <div className="flex items-center gap-3">
+                  <div className="bg-white/20 p-2.5 rounded-full text-xl animate-pulse">🔔</div>
+                  <h3 className="text-xl font-black uppercase tracking-wide">Comandă Nouă!</h3>
+                </div>
+                <p className="text-indigo-100 font-medium text-base mt-1">O nouă comandă a fost plasată în sistem. Pagina s-a actualizat automat.</p>
+                <button onClick={() => toast.dismiss(toastId)} className="mt-3 bg-white text-indigo-700 font-bold py-2.5 rounded-xl hover:bg-indigo-50 transition-colors shadow-sm">Închide notificarea</button>
+              </div>
+            ), { duration: 15000, position: "top-center" });
             
-            // Play a synthetic beep (Web Audio API) instead of relying on an external file
+            // Play a loud synthetic beep
             const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
             if (ctx.state === "suspended") {
-              ctx.resume().catch(() => {}); // Try resuming, browser might block if no interaction occurred
+              ctx.resume().catch(() => {}); 
             }
-            const osc = ctx.createOscillator();
+            const osc1 = ctx.createOscillator();
+            const osc2 = ctx.createOscillator();
             const gain = ctx.createGain();
-            osc.connect(gain);
+            
+            osc1.connect(gain);
+            osc2.connect(gain);
             gain.connect(ctx.destination);
             
-            osc.frequency.value = 600; // Frequency in Hz
-            osc.type = "sine";
-            // Envelope
-            gain.gain.setValueAtTime(0, ctx.currentTime);
-            gain.gain.linearRampToValueAtTime(0.5, ctx.currentTime + 0.1);
-            gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
+            osc1.frequency.value = 880; // A5
+            osc2.frequency.value = 885; // Slight detune for thicker sound
+            osc1.type = "square";
+            osc2.type = "square";
             
-            osc.start(ctx.currentTime);
-            osc.stop(ctx.currentTime + 0.5);
+            // Envelope for a loud, piercing 2-second alert
+            gain.gain.setValueAtTime(0, ctx.currentTime);
+            gain.gain.linearRampToValueAtTime(0.8, ctx.currentTime + 0.05);
+            gain.gain.setValueAtTime(0.8, ctx.currentTime + 0.5);
+            gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 1.5);
+            
+            osc1.start(ctx.currentTime);
+            osc2.start(ctx.currentTime);
+            osc1.stop(ctx.currentTime + 1.5);
+            osc2.stop(ctx.currentTime + 1.5);
           } catch (err) {
             console.warn("Audio Context playback failed: ", err);
           }

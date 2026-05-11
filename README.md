@@ -2,11 +2,20 @@
 
 Acesta este ghidul oficial pentru instalarea aplicației de management B2B pentru laboratoare de tehnică dentară, folosind stiva tehnologică modernă (Next.js 14 + Supabase).
 
+## 🚀 Funcționalități Cheie
+
+- **Portal B2B Medic & Laborator**: Două interfețe separate bazate pe roluri, unde medicii pot crea comenzi de lucrări dentare (inclusiv selecție dinți și adăugare de poze/fișiere STL), iar laboratoarele le pot gestiona și prețui.
+- **Sincronizare Live (Realtime)**: Paginile de comenzi se actualizează automat (auto-refresh) pe toate PC-urile din laborator de îndată ce un medic plasează o comandă nouă. Nu mai este nevoie de "F5".
+- **Notificări Web Push pe iOS & Desktop**: Sistem de alerte ultra-securizat pentru a primi o notificare instantă la comenzi noi (funcționează direct pe iPhone 15+ dacă aplicația e salvată pe *Home Screen*). Când primești o comandă, PC-ul va emite și un sunet de alarmă pentru o vizibilitate sporită.
+- **Fișă de Laborator Generată Automat (PDF)**: Cu un singur click poți printa o fișă PDF completată automat, cu font profesional (Times New Roman Bold), în care "X"-ul se va plasa fix în căsuța de Zirconiu/Aur/CrCo corespunzătoare. Materialele lipsă din grila fixă vor fi scrise automat ca text.
+- **Design Premium**: Aspect modern de tip SaaS, scalabil și prietenos pe mobil (PWA).
+- **Atașamente Securizate**: Fișierele 3D (STL/OBJ) și pozele pacienților sunt salvate într-un mediu complet izolat cu RLS.
+
 ## 1. Setup Bază de Date (Supabase)
 
 1. Creați un proiect nou în [Supabase](https://supabase.com).
 2. Intrați în panoul **SQL Editor** din Supabase.
-3. Copiați întregul cod din fișierul `supabase/schema.sql` (inclus în repository) și rulați-l (Run). Acesta va crea toate tabelele necesare (`profiles`, `orders`, `notifications` etc) alături de cele mai sigure reguli de tip RLS (Row Level Security).
+3. Copiați întregul cod din fișierul `supabase/schema.sql` și rulați-l (Run). Acesta va crea toate tabelele necesare (`profiles`, `orders`, `notifications`, `push_subscriptions` etc) alături de cele mai sigure reguli de tip RLS (Row Level Security) și funcții RPC.
 
 ## 2. Crearea Sistemului de Fișiere (Storage)
 
@@ -22,6 +31,8 @@ Pentru a permite medicilor și laboratorului să încarce fotografii sau scanăr
 2. La pasul de configurare environment vă recomandăm să creați un fișier de tip "Environment Variables". Introduceți câmpurile:
    - `NEXT_PUBLIC_SUPABASE_URL` -> *(luat din Supabase -> Project Settings -> API)*
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY` -> *(luat din Supabase -> Project Settings -> API)*
+   - `NEXT_PUBLIC_VAPID_PUBLIC_KEY` -> *(cheia ta publică generată pentru Push Notifications)*
+   - `VAPID_PRIVATE_KEY` -> *(cheia ta secretă pentru Web Push)*
    - `NEXT_PUBLIC_LAB_NAME` -> *(opțional - doar dacă aplicația a fost convertită să-ți reflecte propriul brand dinamic)*
 3. Apăsați **Deploy**.
 
@@ -46,8 +57,7 @@ WHERE id = (SELECT id FROM auth.users WHERE email = 'adresa.ta@laboratortau.ro')
 Aplicația generează automat o "Fișă de Laborator" curată pentru fiecare comandă. Pentru a o tipări:
 1. Accesați comanda respectivă din Dashboard-ul de Admin.
 2. Apăsați butonul **Fișă de Laborator / Tipărire** din colțul dreapta-sus.
-3. Se va deschide pagina cu design special pentru tipărire (fără meniuri sau fundaluri colorate inutile).
-4. Apăsați **Tipărește** și asigurați-vă că folosiți setările A4 Portrait din browser. Câmpurile libere (precum schița de culoare) pot fi completate ulterior cu pixul.
+3. Se va deschide documentul PDF pre-completat, centrat și ajustat profesional, direct pregătit pentru tipărire (format A4 Portrait).
 
 ---
 *Pentru orice ajustare suplimentară sau integrare cu alte servicii cloud, se pot configura API routes în `src/app/api/`.*

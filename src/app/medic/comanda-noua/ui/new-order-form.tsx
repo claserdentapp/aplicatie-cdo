@@ -124,6 +124,18 @@ export default function NewOrderForm() {
         if (fileRowErr) throw fileRowErr;
       }
 
+      // Trigger push notification to admins
+      fetch("/api/web-push/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: t("newOrderNotificationTitle") || "Comandă Nouă",
+          message: t("newOrderNotificationBody", { patient: numePacient }) || `Comandă nouă pentru pacientul: ${numePacient}`,
+          url: `/admin/comenzi/${orderId}`,
+          targetRole: "admin"
+        }),
+      }).catch(err => console.error("Failed to trigger push notification", err));
+
       toast.success(t("success"));
       router.replace("/medic");
       router.refresh();

@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/sonner";
 import Nav from "@/components/layout/nav";
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
+import PushSubscriptionManager from "@/components/layout/push-subscription-manager";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -20,6 +21,7 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   title: `${process.env.NEXT_PUBLIC_LAB_NAME || "ClaSerDent Technology Lab"} | Portal`,
   description: "Aplicație B2B dedicată laboratoarelor de tehnică dentară",
+  manifest: "/manifest.json",
 };
 
 export default async function RootLayout({
@@ -42,6 +44,7 @@ export default async function RootLayout({
           <Nav />
           <main className="flex-1 w-full">{children}</main>
           <Toaster richColors closeButton />
+          <PushSubscriptionManager />
         </NextIntlClientProvider>
       </body>
     </html>

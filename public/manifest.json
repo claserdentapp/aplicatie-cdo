@@ -1,0 +1,16 @@
+{
+  "name": "ClaserDent App",
+  "short_name": "ClaserDent",
+  "description": "Aplicație CRM pentru Laborator Dentar",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "192x192",
+      "type": "image/x-icon"
+    }
+  ]
+}
