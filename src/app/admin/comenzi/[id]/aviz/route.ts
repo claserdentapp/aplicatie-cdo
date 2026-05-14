@@ -4,6 +4,8 @@ import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 
 import { PDF_TEMPLATE_BASE64 } from "@/lib/pdf-template";
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -77,16 +79,16 @@ export async function GET(
     const matText = (order.tip_lucrare || '').toLowerCase().replace(/\s+/g, '');
     let matchedMaterial = false;
 
-    // Y coordinates pentru cele 3 randuri (inaltime perfecta confirmata)
-    const row1Y = height - 323; 
-    const row2Y = height - 343; 
-    const row3Y = height - 363; 
+    // Y coordinates (Coborate exact cu 1 rand / 20 unitati conform feedback-ului vizual)
+    const row1Y = height - 343; 
+    const row2Y = height - 363; 
+    const row3Y = height - 383; 
 
-    // X coordinates (ajustate la milimetru pentru a fi in centrul fiecarei casute [ ])
-    const col1X = 100;
-    const col2X = 162;
-    const col3X = 232;
-    const col4X = 292;
+    // X coordinates (Mutate spre dreapta pentru a intra in casute, nu pe text)
+    const col1X = 110;
+    const col2X = 175;
+    const col3X = 240;
+    const col4X = 305;
 
     const drawCheck = (xPos: number, yPos: number) => {
         page.drawText('X', { x: xPos, y: yPos, size: 14, font, color });
@@ -111,7 +113,7 @@ export async function GET(
 
     if (!matchedMaterial && order.tip_lucrare) {
         // Dacă e un tip de lucrare manual care nu e în listă, îl printăm sub tabel
-        page.drawText(safeText(order.tip_lucrare), { x: 40, y: height - 392, size: fontSize, font, color });
+        page.drawText(safeText(order.tip_lucrare), { x: 40, y: height - 412, size: fontSize, font, color });
     }
 
     // Notite
