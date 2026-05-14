@@ -62,31 +62,31 @@ export async function GET(
     };
 
     // Doctor Name
-    page.drawText(safeText(doctorName), { x: 420, y: height - 257, size: fontSize, font, color });
+    page.drawText(safeText(doctorName), { x: 420, y: height - 254, size: fontSize, font, color });
     
-    // Pacient Name (Considerat okay)
-    page.drawText(safeText(order.nume_pacient), { x: 420, y: height - 297, size: fontSize, font, color });
+    // Pacient Name 
+    page.drawText(safeText(order.nume_pacient), { x: 420, y: height - 294, size: fontSize, font, color });
     
-    // Culoare (Centrat perfect intre linia de sus si cea de jos)
-    page.drawText(safeText(order.culoare_vita), { x: 375, y: height - 320, size: fontSize, font, color });
+    // Culoare
+    page.drawText(safeText(order.culoare_vita), { x: 375, y: height - 315, size: fontSize, font, color });
     
-    // Termen de livrare (Considerat okay)
+    // Termen de livrare
     page.drawText(safeText(formatDate(order.data_livrare_estimata)), { x: 420, y: height - 357, size: fontSize, font, color });
 
     // Tip Lucrare (Checkmarks)
     const matText = (order.tip_lucrare || '').toLowerCase().replace(/\s+/g, '');
     let matchedMaterial = false;
 
-    // Y coordinates (Considerate perfect centrate vertical din ultima runda)
+    // Y coordinates pentru cele 3 randuri (inaltime perfecta confirmata)
     const row1Y = height - 323; 
     const row2Y = height - 343; 
     const row3Y = height - 363; 
 
-    // X coordinates (Mutate cu 3 unitati la stanga pentru a nu mai depasi marginea dreapta a casutei)
-    const col1X = 92;
-    const col2X = 157;
-    const col3X = 222;
-    const col4X = 287;
+    // X coordinates (ajustate la milimetru pentru a fi in centrul fiecarei casute [ ])
+    const col1X = 100;
+    const col2X = 162;
+    const col3X = 232;
+    const col4X = 292;
 
     const drawCheck = (xPos: number, yPos: number) => {
         page.drawText('X', { x: xPos, y: yPos, size: 14, font, color });
