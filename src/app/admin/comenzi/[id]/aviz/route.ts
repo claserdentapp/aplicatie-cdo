@@ -62,36 +62,56 @@ export async function GET(
     };
 
     // Doctor Name
-    page.drawText(safeText(doctorName), { x: 410, y: height - 267, size: fontSize, font, color });
+    page.drawText(safeText(doctorName), { x: 395, y: height - 252, size: fontSize, font, color });
     
     // Pacient Name
-    page.drawText(safeText(order.nume_pacient), { x: 410, y: height - 309, size: fontSize, font, color });
+    page.drawText(safeText(order.nume_pacient), { x: 395, y: height - 289, size: fontSize, font, color });
     
     // Culoare
-    page.drawText(safeText(order.culoare_vita), { x: 390, y: height - 342, size: fontSize, font, color });
+    page.drawText(safeText(order.culoare_vita), { x: 360, y: height - 342, size: fontSize, font, color });
     
     // Termen de livrare
-    page.drawText(safeText(formatDate(order.data_livrare_estimata)), { x: 410, y: height - 395, size: fontSize, font, color });
+    page.drawText(safeText(formatDate(order.data_livrare_estimata)), { x: 395, y: height - 395, size: fontSize, font, color });
 
-    // Material (Checkmarks)
-    const matY = height - 415; // Centered inside the box
-    const drawCheck = (xPos: number) => {
-        page.drawText('X', { x: xPos, y: matY, size: 14, font, color });
-    }
-    
+    // Tip Lucrare (Checkmarks)
     const matText = (order.tip_lucrare || '').toLowerCase().replace(/\s+/g, '');
     let matchedMaterial = false;
-    // Păstrăm coordonatele vechi în caz că PDF-ul vechi e încă folosit parțial,
-    // dar cel mai probabil va trebui să ajustezi coordonatele X și Y pentru noul șablon.
-    if (matText.includes('zirconiu')) { drawCheck(78); matchedMaterial = true; }
-    else if (matText.includes('aur')) { drawCheck(168); matchedMaterial = true; }
-    else if (matText.includes('crco') || matText.includes('cr-co')) { drawCheck(228); matchedMaterial = true; }
-    else if (matText.includes('cr.ni') || matText.includes('crni')) { drawCheck(305); matchedMaterial = true; }
-    else if (matText.includes('titan')) { drawCheck(393); matchedMaterial = true; }
+
+    // Y coordinates pentru cele 3 randuri
+    const row1Y = height - 355; 
+    const row2Y = height - 376; 
+    const row3Y = height - 397; 
+
+    // X coordinates pentru cele 4 coloane de checkbox-uri
+    const col1X = 112;
+    const col2X = 180;
+    const col3X = 248;
+    const col4X = 308;
+
+    const drawCheck = (xPos: number, yPos: number) => {
+        page.drawText('X', { x: xPos, y: yPos, size: 14, font, color });
+    }
+
+    // Rândul 1 (MC Basic, MC Pers, Zr + e.max)
+    if (matText.includes('mcbasic')) { drawCheck(col2X, row1Y); matchedMaterial = true; }
+    else if (matText.includes('mcpers')) { drawCheck(col3X, row1Y); matchedMaterial = true; }
+    else if (matText.includes('zr.+e.max') || matText.includes('zremax')) { drawCheck(col4X, row1Y); matchedMaterial = true; }
+    
+    // Rândul 2 (Monolitici, PMMA, Fateta dent, Scheletata)
+    else if (matText.includes('monolitici')) { drawCheck(col1X, row2Y); matchedMaterial = true; }
+    else if (matText.includes('pmma')) { drawCheck(col2X, row2Y); matchedMaterial = true; }
+    else if (matText.includes('fateta')) { drawCheck(col3X, row2Y); matchedMaterial = true; }
+    else if (matText.includes('scheletata')) { drawCheck(col4X, row2Y); matchedMaterial = true; }
+    
+    // Rândul 3 (DCR Zr, DCR CrCo, Onlay/Inlay, All On X)
+    else if (matText.includes('dcrzr')) { drawCheck(col1X, row3Y); matchedMaterial = true; }
+    else if (matText.includes('dcrcrco')) { drawCheck(col2X, row3Y); matchedMaterial = true; }
+    else if (matText.includes('onlay') || matText.includes('inlay')) { drawCheck(col3X, row3Y); matchedMaterial = true; }
+    else if (matText.includes('allonx')) { drawCheck(col4X, row3Y); matchedMaterial = true; }
 
     if (!matchedMaterial && order.tip_lucrare) {
-        // Draw the text manually if it's not one of the pre-defined checkboxes
-        page.drawText(safeText(order.tip_lucrare), { x: 450, y: matY, size: fontSize, font, color });
+        // Dacă e un tip de lucrare manual care nu e în listă, îl printăm sub tabel
+        page.drawText(safeText(order.tip_lucrare), { x: 50, y: height - 425, size: fontSize, font, color });
     }
 
     // Notite
