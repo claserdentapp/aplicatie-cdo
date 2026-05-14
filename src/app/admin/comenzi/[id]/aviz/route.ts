@@ -62,31 +62,31 @@ export async function GET(
     };
 
     // Doctor Name
-    page.drawText(safeText(doctorName), { x: 420, y: height - 267, size: fontSize, font, color });
+    page.drawText(safeText(doctorName), { x: 420, y: height - 257, size: fontSize, font, color });
     
-    // Pacient Name
+    // Pacient Name (Considerat okay)
     page.drawText(safeText(order.nume_pacient), { x: 420, y: height - 297, size: fontSize, font, color });
     
-    // Culoare
-    page.drawText(safeText(order.culoare_vita), { x: 375, y: height - 327, size: fontSize, font, color });
+    // Culoare (Ajustat în sus pentru a intra în căsuță)
+    page.drawText(safeText(order.culoare_vita), { x: 375, y: height - 312, size: fontSize, font, color });
     
-    // Termen de livrare
-    page.drawText(safeText(formatDate(order.data_livrare_estimata)), { x: 420, y: height - 367, size: fontSize, font, color });
+    // Termen de livrare (Ajustat puțin mai sus conform cerinței)
+    page.drawText(safeText(formatDate(order.data_livrare_estimata)), { x: 420, y: height - 357, size: fontSize, font, color });
 
     // Tip Lucrare (Checkmarks)
     const matText = (order.tip_lucrare || '').toLowerCase().replace(/\s+/g, '');
     let matchedMaterial = false;
 
-    // Y coordinates pentru cele 3 randuri
-    const row1Y = height - 327; // Aliniat cu Culoare
-    const row2Y = height - 347; 
-    const row3Y = height - 367; // Aliniat cu Termen livrare
+    // Y coordinates (ridicate cu 4 unități pentru a fi centrate perfect vertical)
+    const row1Y = height - 323; 
+    const row2Y = height - 343; 
+    const row3Y = height - 363; 
 
-    // X coordinates pentru cele 4 coloane de checkbox-uri
-    const col1X = 90;
-    const col2X = 155;
-    const col3X = 220;
-    const col4X = 285;
+    // X coordinates (mutate cu 5 unități la dreapta pentru a fi centrate orizontal)
+    const col1X = 95;
+    const col2X = 160;
+    const col3X = 225;
+    const col4X = 290;
 
     const drawCheck = (xPos: number, yPos: number) => {
         page.drawText('X', { x: xPos, y: yPos, size: 14, font, color });
