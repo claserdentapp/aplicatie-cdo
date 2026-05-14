@@ -62,31 +62,31 @@ export async function GET(
     };
 
     // Doctor Name
-    page.drawText(safeText(doctorName), { x: 395, y: height - 252, size: fontSize, font, color });
+    page.drawText(safeText(doctorName), { x: 420, y: height - 229, size: fontSize, font, color });
     
     // Pacient Name
-    page.drawText(safeText(order.nume_pacient), { x: 395, y: height - 289, size: fontSize, font, color });
+    page.drawText(safeText(order.nume_pacient), { x: 420, y: height - 267, size: fontSize, font, color });
     
     // Culoare
-    page.drawText(safeText(order.culoare_vita), { x: 360, y: height - 342, size: fontSize, font, color });
+    page.drawText(safeText(order.culoare_vita), { x: 375, y: height - 300, size: fontSize, font, color });
     
     // Termen de livrare
-    page.drawText(safeText(formatDate(order.data_livrare_estimata)), { x: 395, y: height - 395, size: fontSize, font, color });
+    page.drawText(safeText(formatDate(order.data_livrare_estimata)), { x: 420, y: height - 332, size: fontSize, font, color });
 
     // Tip Lucrare (Checkmarks)
     const matText = (order.tip_lucrare || '').toLowerCase().replace(/\s+/g, '');
     let matchedMaterial = false;
 
-    // Y coordinates pentru cele 3 randuri
-    const row1Y = height - 355; 
-    const row2Y = height - 376; 
-    const row3Y = height - 397; 
+    // Y coordinates pentru cele 3 randuri extrase exact din PDF
+    const row1Y = height - 319; 
+    const row2Y = height - 339; 
+    const row3Y = height - 359; 
 
     // X coordinates pentru cele 4 coloane de checkbox-uri
-    const col1X = 112;
-    const col2X = 180;
-    const col3X = 248;
-    const col4X = 308;
+    const col1X = 90;
+    const col2X = 155;
+    const col3X = 220;
+    const col4X = 285;
 
     const drawCheck = (xPos: number, yPos: number) => {
         page.drawText('X', { x: xPos, y: yPos, size: 14, font, color });
@@ -111,7 +111,7 @@ export async function GET(
 
     if (!matchedMaterial && order.tip_lucrare) {
         // Dacă e un tip de lucrare manual care nu e în listă, îl printăm sub tabel
-        page.drawText(safeText(order.tip_lucrare), { x: 50, y: height - 425, size: fontSize, font, color });
+        page.drawText(safeText(order.tip_lucrare), { x: 40, y: height - 377, size: fontSize, font, color });
     }
 
     // Notite
