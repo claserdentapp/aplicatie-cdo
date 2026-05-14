@@ -33,7 +33,7 @@ export async function GET(
     const page = pdfDoc.getPages()[0];
     const { height } = page.getSize(); // Standard A4 is height 842, width 595
 
-    const font = await pdfDoc.embedFont(StandardFonts.TimesRomanBold);
+    const font = await pdfDoc.embedFont(StandardFonts.TimesRoman);
 
     // Helper to draw text. (Origin 0,0 is BOTTOM-LEFT in PDF). 
     const fontSize = 11;
@@ -79,17 +79,19 @@ export async function GET(
         page.drawText('X', { x: xPos, y: matY, size: 14, font, color });
     }
     
-    const matText = (order.material || '').toLowerCase().replace(/\s+/g, '');
+    const matText = (order.tip_lucrare || '').toLowerCase().replace(/\s+/g, '');
     let matchedMaterial = false;
+    // Păstrăm coordonatele vechi în caz că PDF-ul vechi e încă folosit parțial,
+    // dar cel mai probabil va trebui să ajustezi coordonatele X și Y pentru noul șablon.
     if (matText.includes('zirconiu')) { drawCheck(78); matchedMaterial = true; }
     else if (matText.includes('aur')) { drawCheck(168); matchedMaterial = true; }
     else if (matText.includes('crco') || matText.includes('cr-co')) { drawCheck(228); matchedMaterial = true; }
     else if (matText.includes('cr.ni') || matText.includes('crni')) { drawCheck(305); matchedMaterial = true; }
     else if (matText.includes('titan')) { drawCheck(393); matchedMaterial = true; }
 
-    if (!matchedMaterial && order.material) {
-        // Draw the text manually if it's not one of the pre-defined checkboxes (e.g. Emax, Metal-Ceramică)
-        page.drawText(safeText(order.material), { x: 450, y: matY, size: fontSize, font, color });
+    if (!matchedMaterial && order.tip_lucrare) {
+        // Draw the text manually if it's not one of the pre-defined checkboxes
+        page.drawText(safeText(order.tip_lucrare), { x: 450, y: matY, size: fontSize, font, color });
     }
 
     // Notite

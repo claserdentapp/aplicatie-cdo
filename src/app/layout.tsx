@@ -22,6 +22,10 @@ export const metadata: Metadata = {
   title: `${process.env.NEXT_PUBLIC_LAB_NAME || "ClaSerDent Technology Lab"} | Portal`,
   description: "Aplicație B2B dedicată laboratoarelor de tehnică dentară",
   manifest: "/manifest.json",
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default async function RootLayout({

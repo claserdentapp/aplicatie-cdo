@@ -78,7 +78,6 @@ export default function AdminOrdersTable({ initial }: { initial: AdminOrderRow[]
       const hay = [
         r.nume_pacient,
         r.tip_lucrare,
-        r.material ?? "",
         r.culoare_vita ?? "",
         r.status,
         doc?.nume_doctor ?? "",
@@ -346,7 +345,7 @@ export default function AdminOrdersTable({ initial }: { initial: AdminOrderRow[]
                 <TableCell className="align-top py-4">
                   <div className="font-semibold text-slate-800 text-[15px]">{r.tip_lucrare}</div>
                   <div className="text-[13px] font-medium text-slate-500 mt-0.5">
-                    {r.material ?? "-"} {r.culoare_vita ? <span className="px-1.5 py-0.5 bg-slate-100 rounded text-slate-600 ml-1">{r.culoare_vita}</span> : ""}
+                    {r.culoare_vita ? <span className="px-1.5 py-0.5 bg-slate-100 rounded text-slate-600">{r.culoare_vita}</span> : ""}
                   </div>
                 </TableCell>
                 <TableCell className="align-top py-4">

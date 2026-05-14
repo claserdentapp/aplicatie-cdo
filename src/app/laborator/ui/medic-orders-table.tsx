@@ -96,7 +96,6 @@ export default function MedicOrdersTable({
           <TableRow className="text-sm md:text-base">
             <TableHead>{t("thPatient")}</TableHead>
             <TableHead>{t("thWork")}</TableHead>
-            <TableHead>{t("thMaterial")}</TableHead>
             <TableHead>{t("thStatus")}</TableHead>
             <TableHead>{t("thCost")}</TableHead>
             <TableHead>{t("thUrgent")}</TableHead>
@@ -112,7 +111,6 @@ export default function MedicOrdersTable({
                 </Link>
               </TableCell>
               <TableCell className="font-medium">{o.tip_lucrare}</TableCell>
-              <TableCell>{o.material ?? "-"}</TableCell>
               <TableCell>
                 <Badge variant="secondary" className="text-sm md:text-base px-3 py-1">{o.status}</Badge>
               </TableCell>
@@ -129,7 +127,7 @@ export default function MedicOrdersTable({
           ))}
           {!sorted.length ? (
             <TableRow>
-              <TableCell colSpan={7} className="py-12 text-center text-lg text-muted-foreground">
+              <TableCell colSpan={6} className="py-12 text-center text-lg text-muted-foreground">
                 {t("noOrders")}
               </TableCell>
             </TableRow>

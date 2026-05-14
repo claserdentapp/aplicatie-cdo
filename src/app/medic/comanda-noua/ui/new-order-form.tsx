@@ -40,7 +40,7 @@ export default function NewOrderForm() {
 
   const [numePacient, setNumePacient] = useState("");
   const [tipLucrare, setTipLucrare] = useState("");
-  const [material, setMaterial] = useState<string | undefined>(undefined);
+  // Material a fost inlocuit complet de tipLucrare conform noilor cerinte
   const [culoareVita, setCuloareVita] = useState("");
   const [urgenta, setUrgenta] = useState(false);
   const [instructiuni, setInstructiuni] = useState("");
@@ -89,7 +89,7 @@ export default function NewOrderForm() {
           doctor_id: user.id,
           nume_pacient: numePacient.trim(),
           tip_lucrare: tipLucrare.trim(),
-          material: material ?? null,
+          material: null,
           culoare_vita: culoareVita.trim() || null,
           urgenta,
           instructiuni: instructiuniFinale.trim() || null,
@@ -106,13 +106,20 @@ export default function NewOrderForm() {
         toast.message(t("uploadingFiles"), { description: `${files.length} ${t("files")}` });
       }
 
+      let uploadErrors = 0;
       for (const item of files) {
-        const path = `${orderId}/${crypto.randomUUID()}-${item.file.name}`;
+        const safeName = item.file.name.replace(/[^a-zA-Z0-9.\-_]/g, "_");
+        const path = `${orderId}/${crypto.randomUUID()}-${safeName}`;
         const { error: uploadErr } = await supabase.storage.from(BUCKET).upload(path, item.file, {
           upsert: false,
           contentType: item.file.type || undefined,
         });
-        if (uploadErr) throw uploadErr;
+        
+        if (uploadErr) {
+          console.error("Upload error for file:", item.file.name, uploadErr);
+          uploadErrors++;
+          continue; // Skip database row if upload fails, but don't crash the whole process
+        }
 
         // Bucket is private; we store the storage path and generate signed URLs later when listing.
         const { error: fileRowErr } = await supabase.from("order_files").insert({
@@ -121,7 +128,10 @@ export default function NewOrderForm() {
           file_path: path,
           file_type: item.type,
         });
-        if (fileRowErr) throw fileRowErr;
+        if (fileRowErr) {
+          console.error("Database insert error for file row:", fileRowErr);
+          uploadErrors++;
+        }
       }
 
       // Trigger push notification to admins
@@ -136,7 +146,11 @@ export default function NewOrderForm() {
         }),
       }).catch(err => console.error("Failed to trigger push notification", err));
 
-      toast.success(t("success"));
+      if (uploadErrors > 0) {
+        toast.warning(`Comanda a fost trimisă, dar ${uploadErrors} fișier(e) nu au putut fi încărcate.`);
+      } else {
+        toast.success(t("success"));
+      }
       router.replace("/medic");
       router.refresh();
     } catch (err: unknown) {
@@ -161,31 +175,26 @@ export default function NewOrderForm() {
         </div>
         <div className="space-y-2">
           <Label htmlFor="tipLucrare">{t("workType")}</Label>
-          <Input
-            id="tipLucrare"
-            placeholder={t("workTypePlaceholder")}
-            value={tipLucrare}
-            onChange={(e) => setTipLucrare(e.target.value)}
-            required
-          />
-        </div>
-        <div className="space-y-2">
-          <Label>{t("material")}</Label>
           <Select
-            value={material ?? null}
-            onValueChange={(v) => setMaterial(v ?? undefined)}
+            value={tipLucrare}
+            onValueChange={setTipLucrare}
+            required
           >
-            <SelectTrigger>
-              <SelectValue placeholder={t("materialPlaceholder")} />
+            <SelectTrigger id="tipLucrare" className={cn("w-full", !tipLucrare && "text-muted-foreground")}>
+              <SelectValue placeholder={t("workTypePlaceholder")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="Zirconiu">{t("matZirconia")}</SelectItem>
-              <SelectItem value="Metal-Ceramică">{t("matMetalCeramic")}</SelectItem>
-              <SelectItem value="Emax">{t("matEmax")}</SelectItem>
-              <SelectItem value="Titan">{t("matTitan")}</SelectItem>
-              <SelectItem value="Aur">{t("matGold")}</SelectItem>
-              <SelectItem value="CrCo">{t("matCrCo")}</SelectItem>
-              <SelectItem value="Cr. Ni">{t("matCrNi")}</SelectItem>
+              <SelectItem value="MC Basic">MC Basic</SelectItem>
+              <SelectItem value="MC Pers.">MC Pers.</SelectItem>
+              <SelectItem value="Zr. + e.max">Zr. + e.max</SelectItem>
+              <SelectItem value="Monolitici">Monolitici</SelectItem>
+              <SelectItem value="PMMA">PMMA</SelectItem>
+              <SelectItem value="Fateta dent.">Fateta dent.</SelectItem>
+              <SelectItem value="Scheletata">Scheletata</SelectItem>
+              <SelectItem value="DCR Zr">DCR Zr</SelectItem>
+              <SelectItem value="DCR CrCo">DCR CrCo</SelectItem>
+              <SelectItem value="Onlay/Inlay">Onlay/Inlay</SelectItem>
+              <SelectItem value="All On X">All On X</SelectItem>
             </SelectContent>
           </Select>
         </div>

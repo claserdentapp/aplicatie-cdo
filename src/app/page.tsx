@@ -3,6 +3,8 @@ import Image from "next/image";
 import { ArrowRight, Activity, ShieldCheck, Microscope } from "lucide-react";
 import { useTranslations } from "next-intl";
 
+import { HeroCarousel } from "@/components/ui/hero-carousel";
+
 export default function Home() {
   const t = useTranslations("Home");
 
@@ -33,15 +35,8 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <div className="relative mx-auto w-full max-w-lg lg:max-w-none transform transition-transform hover:scale-105 duration-700">
-            <Image
-              src="/hero-image.png"
-              alt="Dental Lab Platform"
-              width={800}
-              height={600}
-              className="w-full object-contain drop-shadow-2xl"
-              priority
-            />
+          <div className="relative mx-auto w-full max-w-lg lg:max-w-none transform transition-transform hover:scale-[1.02] duration-700">
+            <HeroCarousel />
           </div>
         </div>
       </div>
